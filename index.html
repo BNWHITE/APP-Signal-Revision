@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP Signal — Révisions Examen | ISEP 2025-2026</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- ========== NAV ========== -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="#" class="logo">📡 APP Signal</a>
+            <div class="nav-links">
+                <a href="#bloc1">Puissance</a>
+                <a href="#bloc2">Échantillonnage</a>
+                <a href="#bloc3">dB & dBm</a>
+                <a href="#bloc4">Corrélation</a>
+                <a href="#bloc5">Fourier & TFD</a>
+                <a href="#bloc6">Quantification</a>
+                <a href="#bloc7">Filtres</a>
+                <a href="#cheatsheet">Cheatsheet</a>
+            </div>
+            <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <span class="badge">ISEP 2025-2026 — Groupe G2B</span>
+            <h1>APP Signal<br><span class="gradient-text">Révision Complète</span></h1>
+            <p class="hero-sub">Toutes les questions des tests & quizz, résolues pas à pas avec mémos et astuces.<br>Examen QCM — Lundi 20 Avril 2026.</p>
+            <div class="hero-stats">
+                <div class="stat"><span class="stat-num">7</span><span class="stat-label">Blocs thématiques</span></div>
+                <div class="stat"><span class="stat-num">60+</span><span class="stat-label">Questions résolues</span></div>
+                <div class="stat"><span class="stat-num">20+</span><span class="stat-label">Mémos & astuces</span></div>
+            </div>
+            <a href="#bloc1" class="cta-btn">Commencer la révision →</a>
+        </div>
+    </header>
+
+    <main>
+
+    <!-- ============================================================ -->
+    <!--                    BLOC 1 : PUISSANCE                        -->
+    <!-- ============================================================ -->
+    <section id="bloc1" class="bloc">
+        <div class="bloc-header">
+            <span class="bloc-number">01</span>
+            <h2>Puissance, Moyenne & Valeur Efficace</h2>
+            <p class="bloc-desc">Les 3 grandeurs fondamentales d'un signal. C'est la base de tout.</p>
+        </div>
+
+        <div class="formulas-card">
+            <h3>📐 Formules pour $x(t) = A_0 + A\cos(2\pi f_0 t + \phi)$</h3>
+            <div class="formula-grid">
+                <div class="formula-item">
+                    <span class="formula-label">Valeur moyenne</span>
+                    <div class="formula-math">$$\bar{x} = A_0$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Puissance</span>
+                    <div class="formula-math">$$P = A_0^2 + \frac{A^2}{2}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Valeur efficace (RMS)</span>
+                    <div class="formula-math">$$X_{eff} = \sqrt{P} = \sqrt{A_0^2 + \frac{A^2}{2}}$$</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cours-card">
+            <h3>📖 Comprendre d'abord</h3>
+            <p>Imagine un signal comme une <strong>onde dans l'eau</strong>. Il oscille autour d'un niveau moyen.</p>
+            <ul>
+                <li><strong>La valeur moyenne $\bar{x}$</strong> = le <em>niveau de l'eau au repos</em>. Si tu as un offset (composante continue $A_0$), l'eau est « plus haute » en permanence. Les oscillations (cosinus) s'annulent sur une période → seul $A_0$ reste.</li>
+                <li><strong>La puissance $P$</strong> = l'<em>énergie moyenne</em> que transporte le signal. C'est la moyenne de $x^2(t)$. Plus l'amplitude est grande, plus le signal « pousse fort ». Pour un sinus pur : $P = A^2/2$ (le $1/2$ vient de la moyenne de $\cos^2$).</li>
+                <li><strong>La valeur efficace $X_{eff}$</strong> = $\sqrt{P}$. C'est la tension qu'il faudrait en <em>continu</em> pour produire la même puissance. Comme brancher une pile qui ferait le même travail que l'oscillation.</li>
+            </ul>
+            <div class="analogy">🎯 Analogie : un radiateur branché sur le secteur 230V. Le 230V c'est la valeur efficace ! L'amplitude crête est en fait $230\sqrt{2} \approx 325$V. La valeur efficace est ce qui compte pour la puissance dissipée.</div>
+            <div class="key-insight"><strong>Règle d'or :</strong> ni la fréquence $f_0$, ni le déphasage $\phi$ n'affectent la puissance ou la valeur efficace. Seuls $A_0$ et $A$ comptent.</div>
+            <div class="warning-box"><strong>Piège créneau :</strong> pour un signal qui alterne entre plusieurs niveaux, on fait la <em>moyenne pondérée des carrés</em> : $P = r_1 V_1^2 + r_2 V_2^2$ avec $r_i$ = fraction du temps passée au niveau $V_i$.</div>
+        </div>
+
+        <div class="memo-card">
+            <div class="memo-icon">🧠</div>
+            <div class="memo-content">
+                <strong>Mémo "le cosinus est paresseux"</strong> : la moyenne d'un cosinus pur sur une période entière = 0. Seule la composante continue $A_0$ survit.<br><br>
+                <strong>Mémo "divise par racine 2"</strong> : valeur efficace d'un sinus pur = $A/\sqrt{2}$. Le déphasage $\phi$ et la fréquence $f_0$ ne changent RIEN !<br><br>
+                <strong>Signal créneau</strong> : $P = \sum_i r_i \times V_i^2$ où $r_i$ = rapport cyclique du niveau $i$.
+            </div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q2</span>
+                <h4>Valeur efficace de $x(t) = 2{,}5\sin(2\pi \cdot 13\text{k} \cdot t + \frac{3\pi}{5})$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>Pas de composante continue ($A_0 = 0$), donc :</p>
+                    $$X_{eff} = \frac{A}{\sqrt{2}} = \frac{2{,}5}{\sqrt{2}} = \frac{2{,}5}{1{,}414} \approx 1{,}77\text{ V}$$
+                    <div class="answer-box">✅ Réponse : <strong>1,77 V</strong></div>
+                    <div class="piege">⚠️ Piège : il faut donner l'unité ! C'est des <strong>Volts</strong>, pas des Watts.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q3</span>
+                <h4>Valeur moyenne de $x(t) = -2{,}3 + 1{,}2\cos(2\pi \cdot 22\text{k} \cdot t - \frac{3\pi}{2})$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>La partie cosinus a une moyenne nulle. Seul $A_0$ reste :</p>
+                    $$\bar{x} = A_0 = -2{,}3 \text{ V}$$
+                    <div class="answer-box">✅ Réponse : <strong>−2,3 V</strong></div>
+                    <div class="piege">⚠️ Piège : l'unité est V (Volt), PAS W !</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 : créneau -->
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q1</span>
+                <h4>Puissance d'un créneau +2V / −1V avec rapport cyclique 2/5</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>Le signal vaut +2 V pendant 2/5 et −1 V pendant 3/5 :</p>
+                    $$P = \frac{2}{5} \times 2^2 + \frac{3}{5} \times (-1)^2 = 1{,}6 + 0{,}6 = 2{,}2\text{ W}$$
+                    <div class="answer-box">✅ Réponse : <strong>2,2 W</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quizz V/F -->
+        <div class="vf-card">
+            <h3>✅❌ Vrai / Faux</h3>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    La puissance d'un signal sinusoïdal ne dépend que de son amplitude $A$ et est égale à $A^2/2$
+                </div>
+                <div class="vf-answer vrai">VRAI — Un classique absolu. $P = A^2/2$, indépendant de $f_0$ et $\phi$.</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    Un signal à valeur moyenne nulle a forcément une valeur efficace nulle.
+                </div>
+                <div class="vf-answer faux">FAUX — Contre-exemple : un sinus pur a une moyenne de 0 mais $X_{eff} = A/\sqrt{2} \neq 0$.</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    Une énergie est homogène à une puissance divisée par une durée.
+                </div>
+                <div class="vf-answer faux">FAUX — C'est l'inverse ! $P = E / T$ (la puissance = énergie / durée).</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!--                BLOC 2 : ÉCHANTILLONNAGE                      -->
+    <!-- ============================================================ -->
+    <section id="bloc2" class="bloc">
+        <div class="bloc-header">
+            <span class="bloc-number">02</span>
+            <h2>Échantillonnage & Shannon</h2>
+            <p class="bloc-desc">Transformer un signal continu en discret. La règle d'or : $F_e > 2f_{max}$.</p>
+        </div>
+
+        <div class="formulas-card">
+            <h3>📐 Formules clés</h3>
+            <div class="formula-grid">
+                <div class="formula-item">
+                    <span class="formula-label">Échantillon $n$</span>
+                    <div class="formula-math">$$x(nT) = x\!\left(\frac{n}{F_e}\right)$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Shannon</span>
+                    <div class="formula-math">$$F_e > 2 f_{max}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Aliasing</span>
+                    <div class="formula-math">$$f_{alias} = F_e - f_0$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Échantillons / période</span>
+                    <div class="formula-math">$$N_{per} = \frac{F_e}{f_0}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Durée signal</span>
+                    <div class="formula-math">$$\text{Durée} = \frac{N}{F_e}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Fenêtre glissante $K$</span>
+                    <div class="formula-math">$$K = \frac{F_e \times \text{durée} - 1}{2}$$</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cours-card">
+            <h3>📖 Comprendre d'abord</h3>
+            <p>Imagine que tu <strong>filmes un ventilateur</strong> qui tourne. Si ta caméra prend assez de photos par seconde (haute cadence), tu vois les pales tourner normalement. Mais si la cadence est trop basse, les pales semblent tourner <em>à l'envers</em> ou <em>au ralenti</em> — c'est <strong>l'aliasing</strong> !</p>
+            <ul>
+                <li><strong>Échantillonner</strong> = prendre des "photos" du signal à intervalles réguliers $T = 1/F_e$. Chaque photo = un échantillon $x(nT)$.</li>
+                <li><strong>Shannon</strong> dit : pour capturer fidèlement un signal, il faut prendre <strong>au moins 2 photos par période</strong>. D'où $F_e > 2f_{max}$.</li>
+                <li><strong>Si tu triches</strong> ($F_e$ trop basse) : la fréquence $f_0$ se "replie" en $f_{alias} = F_e - f_0$. Tu crois voir une basse fréquence, mais c'est un fantôme de la haute !</li>
+                <li><strong>$n = 0$ pour le 1er échantillon</strong>. Donc le 1025ème = $n = 1024$. Piège classique !</li>
+            </ul>
+            <div class="analogy">🎯 Analogie : dans un film, les roues de voiture semblent tourner à l'envers quand la vitesse de rotation dépasse la moitié du framerate. C'est exactement le même phénomène !</div>
+            <div class="key-insight"><strong>Nuance critique :</strong> « Numériser » ≠ « Échantillonner ». La numérisation = échantillonnage + quantification (arrondir les valeurs). L'échantillonnage seul est réversible si Shannon est OK.</div>
+        </div>
+
+        <div class="memo-card">
+            <div class="memo-icon">🧠</div>
+            <div class="memo-content">
+                <strong>Piège n°1</strong> : "le 1er échantillon est à $n=0$" → le $k$-ième correspond à $n = k-1$.<br><br>
+                <strong>Mémo "double ou aliasing"</strong> : si $F_e < 2f_0$, les hautes fréquences "rebondissent" à $f_{alias} = F_e - f_0$.<br><br>
+                <strong>Numérisation ≠ Échantillonnage seul</strong> : la numérisation = échantillonnage + quantification.
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q4</span>
+                <h4>1025ème échantillon de $0{,}2\cos(2\pi \cdot 3{,}2\text{M} \cdot t)$, $F_e = 1{,}5\,\text{GHz}$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>$n = 1024$ (1er = n°0). On calcule l'argument :</p>
+                    $$2\pi f_0 nT = 2\pi \times \frac{3{,}2 \times 10^6 \times 1024}{1{,}5 \times 10^9} = 2\pi \times 2{,}1845$$
+                    <p>On garde la partie fractionnaire : $0{,}1845$</p>
+                    $$x = 0{,}2\cos(2\pi \times 0{,}1845) = 0{,}2\cos(66{,}4°) \approx 0{,}08$$
+                    <div class="answer-box">✅ Réponse : <strong>0,08</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q5</span>
+                <h4>Échantillons par période : $f_0 = 880\,\text{Hz}$, $F_e = 16\,\text{kHz}$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$N = \frac{F_e}{f_0} = \frac{16000}{880} = 18{,}18 \approx 18$$
+                    <div class="answer-box">✅ Réponse : <strong>18</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q6</span>
+                <h4>Durée fichier wav : 3 969 106 valeurs, $F_e = 44{,}1\,\text{kHz}$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$\text{Durée} = \frac{3\,969\,106}{44\,100} = 90\text{ s}$$
+                    <div class="answer-box">✅ Réponse : <strong>90 s</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q7</span>
+                <h4>Valeur de $K$ : fenêtre 0,35 s, $F_e = 50\,\text{kHz}$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$2K + 1 = F_e \times 0{,}35 = 17500 \implies K = \frac{17499}{2} = 8749$$
+                    <div class="answer-box">✅ Réponse : <strong>8749</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 3 — Q5</span>
+                <h4>Repliement : $f_0 = 4000\,\text{Hz}$, $F_e = 5000\,\text{Hz}$, signal reconstruit ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>$f_0 = 4000 > F_e/2 = 2500$ → Shannon violé → <strong>aliasing</strong> !</p>
+                    $$f_1 = F_e - f_0 = 5000 - 4000 = 1000\text{ Hz}$$
+                    <div class="answer-box">✅ VRAI — Le signal reconstruit est à 1000 Hz</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 3</span>
+                <h4>$f_0 = 8000\,\text{Hz}$, $T = 0{,}1\,\text{ms}$ → reconstruction ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>$F_e = 1/T = 10\,000\,\text{Hz}$. $f_0 = 8000 > F_e/2 = 5000$ → aliasing !</p>
+                    $$f_r = F_e - f_0 = 10000 - 8000 = 2000\text{ Hz}$$
+                    <div class="answer-box">✅ Réponse : <strong>2000 Hz</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 3</span>
+                <h4>Relu à $F'_e = 4000\,\text{Hz}$ (original $F_e = 8000$), $f_0 = 880\,\text{Hz}$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>$f_0 = 880 < F'_e/2 = 2000$ → pas de repliement → le signal est intact.</p>
+                    <div class="answer-box">✅ Réponse : <strong>$f_1 = 880$ Hz</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- V/F sampling -->
+        <div class="vf-card">
+            <h3>✅❌ Vrai / Faux — Échantillonnage</h3>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    Numériser = prélever des échantillons à intervalles réguliers $T = 1/F_e$.
+                </div>
+                <div class="vf-answer faux">FAUX — Numériser = échantillonnage + <strong>quantification</strong>. Ce que vous décrivez n'est que l'échantillonnage.</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    L'échantillonnage ne perd pas d'information si Shannon est respecté.
+                </div>
+                <div class="vf-answer vrai">VRAI — On peut reconstruire parfaitement le signal analogique si $F_e > 2f_{max}$.</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    La reconstruction parfaite utilise un filtre passe-bas idéal de fréquence de coupure $1/T$.
+                </div>
+                <div class="vf-answer faux">FAUX — C'est $F_e/2 = 1/(2T)$, pas $1/T$.</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    Il faut 7 bits pour coder 128 niveaux de quantification.
+                </div>
+                <div class="vf-answer vrai">VRAI — $2^7 = 128$.</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    Supprimer un bit diminue le pas de quantification d'un facteur 2.
+                </div>
+                <div class="vf-answer faux">FAUX — Ça <strong>double</strong> le pas (2× moins de niveaux → pas 2× plus grand).</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    Le bruit de quantification a une puissance $q^2/6$.
+                </div>
+                <div class="vf-answer faux">FAUX — C'est $q^2/12$ !</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!--                    BLOC 3 : dB et dBm                        -->
+    <!-- ============================================================ -->
+    <section id="bloc3" class="bloc">
+        <div class="bloc-header">
+            <span class="bloc-number">03</span>
+            <h2>dB & dBm — Conversions</h2>
+            <p class="bloc-desc">Les décibels sont partout. Un seul outil : la calculatrice et $10\log_{10}$.</p>
+        </div>
+
+        <div class="formulas-card">
+            <h3>📐 Les conversions</h3>
+            <div class="formula-grid">
+                <div class="formula-item">
+                    <span class="formula-label">Watts → dBm</span>
+                    <div class="formula-math">$$P_{dBm} = 10\log_{10}(P_W \times 1000)$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">dBm → Watts</span>
+                    <div class="formula-math">$$P_W = 10^{P_{dBm}/10} \times 10^{-3}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Câble (atténuation)</span>
+                    <div class="formula-math">$$P_{out} = P_{in} - \alpha \times L$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Gain système</span>
+                    <div class="formula-math">$$P_s = P_e + G_{dB}$$</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cours-card">
+            <h3>📖 Comprendre d'abord</h3>
+            <p>Les décibels, c'est juste une <strong>façon d'écrire les multiplications comme des additions</strong>. Au lieu de dire « le signal est 1000× plus fort », on dit « +30 dB ». C'est plus compact et plus pratique pour chaîner les gains/pertes.</p>
+            <ul>
+                <li><strong>dB = rapport (sans unité)</strong>. C'est toujours « combien de fois plus/moins ». Un gain de +6 dB = ×4 en puissance. Un gain de −10 dB = ÷10.</li>
+                <li><strong>dBm = puissance absolue</strong>, référencée à 1 mW. Donc 0 dBm = 1 mW exactement. C'est comme dire « la température est 20°C » (référencé à un point fixe).</li>
+                <li><strong>Additionner en dB = multiplier en linéaire</strong>. Si un ampli fait +20 dB et un câble perd −3 dB, le total = +17 dB. En linéaire : ×100 puis ÷2 = ×50.</li>
+            </ul>
+            <div class="analogy">🎯 Analogie : les dB sont comme les <strong>étages d'un immeuble</strong>. Tu montes de 3 étages (gain +3 dB = ×2), tu descends de 10 (atténuation −10 dB = ÷10). Pour savoir à quel étage tu es (ta puissance absolue), tu as besoin d'un <strong>point de référence</strong> = le rez-de-chaussée = 0 dBm = 1 mW.</div>
+            <div class="key-insight"><strong>Les 3 nombres magiques :</strong> +3 dB = ×2, +10 dB = ×10, +20 dB = ×100. Avec ça tu peux tout décomposer ! Ex : +23 dB = +20+3 = ×100×2 = ×200.</div>
+        </div>
+
+        <div class="memo-card">
+            <div class="memo-icon">🧠</div>
+            <div class="memo-content">
+                <strong>+3 dB = ×2</strong> en puissance. <strong>+10 dB = ×10</strong>. <strong>+20 dB = ×100</strong>.<br><br>
+                <strong>0 dBm = 1 mW</strong>. C'est la référence !<br><br>
+                <strong>dB = sans unité</strong> (rapport). <strong>dBm = puissance absolue</strong> (référencé à 1 mW).<br><br>
+                <strong>Piège classique</strong> : gain et atténuation s'expriment en <strong>dB</strong>, pas en dBm !
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q10</span>
+                <h4>$P = 0{,}7\,\text{W}$ → en dBm ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$P_{dBm} = 10\log_{10}(0{,}7 \times 1000) = 10\log_{10}(700) = 10 \times 2{,}845 = 28{,}45$$
+                    <div class="answer-box">✅ Réponse : <strong>28,45 dBm</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q11</span>
+                <h4>$P = -14\,\text{dBm}$ → en µW ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$P = 10^{-14/10} \times 10^{-3} = 10^{-1{,}4} \times 10^{-3} = 0{,}0398 \times 10^{-3}\text{ W} = 39{,}8\,\mu\text{W}$$
+                    <div class="answer-box">✅ Réponse : <strong>39,8 µW</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q9</span>
+                <h4>Câble 12 m, atténuation 0,19 dB/m, $P_a = -31\,\text{dBm}$ → puissance au TV en µW ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>Atténuation totale : $12 \times 0{,}19 = 2{,}28\,\text{dB}$</p>
+                    $$P_{TV} = -31 - 2{,}28 = -33{,}28\,\text{dBm}$$
+                    $$P = 10^{-33{,}28/10} \times 10^{-3} = 4{,}7 \times 10^{-7}\text{ W} = 0{,}47\,\mu\text{W}$$
+                    <div class="answer-box">✅ Réponse : <strong>0,47 µW</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q8</span>
+                <h4>Seuil de détection : bruit $7 \times 10^{-4}\,\text{W}$, SNR = 20 dB → A en dBm ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>On convertit le bruit en dBm : $P_{bruit} = 10\log_{10}(0{,}7) = -1{,}55\,\text{dBm}$</p>
+                    <p>Le signal utile est 20 dB plus haut : $-1{,}55 + 20 = 18{,}45\,\text{dBm}$</p>
+                    <p>On place le seuil entre bruit et signal, vers +10 dB du bruit :</p>
+                    $$A = -1{,}55 + 10 \approx 8{,}5\,\text{dBm}$$
+                    <div class="answer-box">✅ Réponse : <strong>8,5 dBm</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vf-card">
+            <h3>✅❌ Vrai / Faux — dB & dBm</h3>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    $P_s = P_e + G$ (en dBm/dB) — VRAI ou FAUX ?
+                </div>
+                <div class="vf-answer vrai">VRAI — Addition en log = multiplication en linéaire.</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    Un gain s'exprime en dBm.
+                </div>
+                <div class="vf-answer faux">FAUX — En <strong>dB</strong>. Le dBm est une puissance absolue, le dB est un rapport (sans unité).</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    On détecte un signal vocal en comparant sa valeur moyenne à 0.
+                </div>
+                <div class="vf-answer faux">FAUX — Un signal vocal a une moyenne nulle ! Il faut analyser la <strong>puissance</strong>.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!--                   BLOC 4 : CORRÉLATION                       -->
+    <!-- ============================================================ -->
+    <section id="bloc4" class="bloc">
+        <div class="bloc-header">
+            <span class="bloc-number">04</span>
+            <h2>Autocorrélation & Intercorrélation</h2>
+            <p class="bloc-desc">Mesurer la ressemblance entre signaux ou trouver la période.</p>
+        </div>
+
+        <div class="formulas-card">
+            <h3>📐 Formules</h3>
+            <div class="formula-grid">
+                <div class="formula-item">
+                    <span class="formula-label">Autocorrélation (discrète)</span>
+                    <div class="formula-math">$$C_{xx}(kT) = \sum_n x_n \cdot x_{n+k}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Intercorrélation</span>
+                    <div class="formula-math">$$C_{xy}(kT) = \sum_n x_n \cdot y_{n+k}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Max autocorr (sinusoïde)</span>
+                    <div class="formula-math">$$k = \frac{F_e}{f_0}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Max intercorr (déphasage $\theta$)</span>
+                    <div class="formula-math">$$k = \frac{2\pi - \theta}{2\pi} \times \frac{F_e}{f_0}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Max valeur normalisée</span>
+                    <div class="formula-math">$$C_{xy,max} = \frac{A_x \cdot A_y}{2}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">$C_{xy}(0)$ normalisée</span>
+                    <div class="formula-math">$$= \frac{A_x A_y}{2}\cos(\theta_y - \theta_x)$$</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cours-card">
+            <h3>📖 Comprendre d'abord</h3>
+            <p>La corrélation mesure <strong>à quel point deux signaux se ressemblent</strong>. C'est comme un détecteur de sosies pour les signaux.</p>
+            <ul>
+                <li><strong>Autocorrélation $C_{xx}(\tau)$</strong> = tu compares le signal <em>avec lui-même décalé de $\tau$</em>. Si le signal est périodique, il se ressemble parfaitement après chaque période → pic à $k = F_e/f_0$. C'est comme ça qu'on <strong>détecte la fréquence d'un signal</strong> (ex : BPM cardiaque !).</li>
+                <li><strong>Intercorrélation $C_{xy}(\tau)$</strong> = tu compares deux signaux différents. Le maximum est atteint quand ils sont <em>parfaitement superposés</em> (en phase). Applications : <strong>radar</strong> (mesurer le décalage = distance), <strong>sonar</strong>, GPS.</li>
+                <li><strong>Calcul pratique (discret)</strong> : tu décales un signal de $k$ cases, tu multiplies case par case, tu additionnes. Les cases hors limites = 0.</li>
+            </ul>
+            <div class="analogy">🎯 Analogie : imagine que tu as un <strong>tampon encreur</strong> (signal $x$) et tu le fais glisser sur un papier (signal $y$). La corrélation = l'encre qui se superpose. Quand les deux motifs coïncident → maximum d'encre ! C'est le max de corrélation.</div>
+            <div class="key-insight"><strong>Physiquement :</strong> la position $k$ du maximum te donne le <strong>retard temporel</strong> entre les deux signaux : $\Delta t = k \times T = k/F_e$.</div>
+        </div>
+
+        <div class="memo-card">
+            <div class="memo-icon">🧠</div>
+            <div class="memo-content">
+                <strong>Méthode "décaler et sommer"</strong> : pour calculer $C_{xx}(2T)$ avec $x=[1,4,-1,2]$, tu décales $x$ de 2 cases vers la gauche, tu multiplies case par case, tu additionnes. Les cases hors limite = 0.<br><br>
+                <strong>Physique</strong> : l'intercorrélation est max quand les deux signaux sont <strong>parfaitement superposés</strong> (en phase).
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q12</span>
+                <h4>$C_{xx}(2T)$ pour $x = [1, 4, -1, 2]$ (sans normalisation)</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>On décale de 2 et on multiplie :</p>
+                    <table class="calc-table">
+                        <tr><th>$n$</th><th>$x_n$</th><th>$x_{n+2}$</th><th>Produit</th></tr>
+                        <tr><td>0</td><td>1</td><td>−1</td><td>−1</td></tr>
+                        <tr><td>1</td><td>4</td><td>2</td><td>8</td></tr>
+                    </table>
+                    $$C_{xx}(2T) = -1 + 8 = 7$$
+                    <div class="answer-box">✅ Réponse : <strong>7</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q13</span>
+                <h4>Max autocorrélation sinusoïde : $f_0 = 2500\,\text{Hz}$, $F_e = 100\,\text{kHz}$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$k = \frac{F_e}{f_0} = \frac{100000}{2500} = 40$$
+                    <div class="answer-box">✅ Réponse : <strong>$k = 40$</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q14</span>
+                <h4>$C_{xy}(-T)$ : $x=[1,5,7,2]$ et $y=[0,-1,-5,-7,-2]$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>$C_{xy}(-T) = \sum_n x_n \cdot y_{n-1}$</p>
+                    <table class="calc-table">
+                        <tr><th>$n$</th><th>$x_n$</th><th>$y_{n-1}$</th><th>Produit</th></tr>
+                        <tr><td>0</td><td>1</td><td>$y_{-1}=0$</td><td>0</td></tr>
+                        <tr><td>1</td><td>5</td><td>$y_0=0$</td><td>0</td></tr>
+                        <tr><td>2</td><td>7</td><td>$y_1=-1$</td><td>−7</td></tr>
+                        <tr><td>3</td><td>2</td><td>$y_2=-5$</td><td>−10</td></tr>
+                    </table>
+                    $$C_{xy}(-T) = 0 + 0 - 7 - 10 = -17$$
+                    <div class="answer-box">✅ Réponse : <strong>−17</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q15</span>
+                <h4>Max intercorrélation : $f_0=250\,\text{Hz}$, $\theta=\pi/4$, $F_e=16\,\text{kHz}$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>Max quand le décalage compense le déphasage. 1er max positif :</p>
+                    $$k = \frac{2\pi - \theta}{2\pi} \times \frac{F_e}{f_0} = \frac{2\pi - \pi/4}{2\pi} \times \frac{16000}{250} = \frac{7}{8} \times 64 = 56$$
+                    <div class="answer-box">✅ Réponse : <strong>$k = 56$</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q16</span>
+                <h4>Max corrélation normalisée : $A_x=2{,}5$, $A_y=5{,}3$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$C_{xy,max} = \frac{A_x \cdot A_y}{2} = \frac{2{,}5 \times 5{,}3}{2} = 6{,}625$$
+                    <div class="answer-box">✅ Réponse : <strong>6,625</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 1 — Q17</span>
+                <h4>$C_{xy}(0T)$ : $A_x=2$, $A_y=5$, $\theta=-\pi/6$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$C_{xy}(0) = \frac{A_x A_y}{2}\cos(\theta) = \frac{2 \times 5}{2}\cos\!\left(-\frac{\pi}{6}\right) = 5 \times \frac{\sqrt{3}}{2} = 4{,}33$$
+                    <div class="answer-box">✅ Réponse : <strong>4,33</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vf-card">
+            <h3>✅❌ Vrai / Faux — Corrélation</h3>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    L'intercorrélation permet de mesurer le décalage temporel entre deux signaux de même nature.
+                </div>
+                <div class="vf-answer vrai">VRAI — C'est exactement son rôle (ex : radar, sonar).</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    Les maxima de $|C_{xx}(\tau)|$ d'un signal sinusoïdal de fréquence $f_0$ sont de période $1/(2f_0)$.
+                </div>
+                <div class="vf-answer vrai">VRAI — L'autocorrélation est aussi sinusoïdale, ses maxima (en valeur absolue) sont à $1/(2f_0)$.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!--                   BLOC 5 : FOURIER & TFD                     -->
+    <!-- ============================================================ -->
+    <section id="bloc5" class="bloc">
+        <div class="bloc-header">
+            <span class="bloc-number">05</span>
+            <h2>Transformée de Fourier & TFD</h2>
+            <p class="bloc-desc">Passer du temps aux fréquences. Comprendre les spectres.</p>
+        </div>
+
+        <div class="formulas-card">
+            <h3>📐 Formules TFD</h3>
+            <div class="formula-grid">
+                <div class="formula-item">
+                    <span class="formula-label">DFT</span>
+                    <div class="formula-math">$$X_k = \sum_{n=0}^{N-1} x_n \cdot e^{-j2\pi kn/N}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Fréquence du pic $k$</span>
+                    <div class="formula-math">$$f = k \times \frac{F_e}{N}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Pas fréquentiel</span>
+                    <div class="formula-math">$$\Delta f = \frac{F_e}{N}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Zero-padding (résolution)</span>
+                    <div class="formula-math">$$N_{total} \geq \frac{F_e}{\Delta f_{voulu}}$$</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cours-card">
+            <h3>📖 Comprendre d'abord</h3>
+            <p>Fourier c'est l'idée que <strong>tout signal peut être décomposé en somme de sinusoïdes</strong>. C'est comme un prisme qui sépare la lumière blanche en couleurs : chaque fréquence = une « couleur » du signal.</p>
+            <ul>
+                <li><strong>Domaine temporel</strong> : tu vois le signal bouger au fil du temps ($x(t)$). <strong>Domaine fréquentiel</strong> : tu vois quelles fréquences composent le signal ($X(f)$). Ce sont <em>deux faces de la même pièce</em>.</li>
+                <li><strong>TFD (DFT)</strong> : version numérique de Fourier. Tu donnes $N$ échantillons, tu obtiens $N$ coefficients complexes $X_k$. L'indice $k$ correspond à la fréquence $f = k \times F_e/N$.</li>
+                <li><strong>$|X_k|$</strong> = amplitude à cette fréquence. <strong>$|X_k|^2$</strong> = puissance (DSP). Le spectre d'un signal réel est <em>symétrique</em> → on ne regarde que $[0, F_e/2]$.</li>
+                <li><strong>Un cosinus</strong> pur → 2 raies (à $+f_0$ et $-f_0$). Un <strong>exponentielle complexe</strong> $e^{j2\pi f_0 t}$ → 1 seule raie à $+f_0$.</li>
+            </ul>
+            <div class="analogy">🎯 Analogie : un <strong>accord de musique</strong> (Do-Mi-Sol). À l'oreille, tu entends un seul son. Mais un analyseur spectral montre 3 pics : les 3 notes séparées. Fourier = l'oreille absolue du mathématicien.</div>
+            <div class="key-insight"><strong>Zero-padding :</strong> ajouter des zéros à la fin du signal = augmenter $N$ = diminuer le pas $\Delta f = F_e/N$. C'est comme « zoomer » sur le spectre. Ça n'ajoute pas d'info mais ça interpole entre les points.</div>
+            <div class="warning-box"><strong>Signal porte :</strong> une porte de durée $\tau$ → spectre = sinus cardinal. Les zéros sont espacés de $1/\tau$. Plus la porte est courte, plus le spectre est étalé (principe d'incertitude temps-fréquence).</div>
+        </div>
+
+        <div class="memo-card">
+            <div class="memo-icon">🧠</div>
+            <div class="memo-content">
+                <strong>Spectre signal réel</strong> : symétrique autour de 0, périodique de $F_e$. On n'interprète que $[0, F_e/2]$.<br><br>
+                <strong>$\cos$ → 2 raies</strong> en $\pm f_0$. <strong>$e^{j2\pi f_0 t}$ → 1 raie</strong> en $+f_0$ seul.<br><br>
+                <strong>Signal périodique non sinusoïdal</strong> (créneau…) → raies à $f_0, 2f_0, 3f_0\ldots$<br><br>
+                <strong>$|X_k|$</strong> = spectre d'amplitude. <strong>$|X_k|^2$</strong> = DSP (puissance). Pas $X_k$ brut !<br><br>
+                <strong>Porte de durée $\tau$</strong> → spectre = sinus cardinal, zéros à $f = k/\tau$.
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 2</span>
+                <h4>Pic à $k=845$, $N=2048$, $F_e=36\,\text{kHz}$ → fréquence ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$f = 845 \times \frac{36000}{2048} = 845 \times 17{,}578 \approx 14{,}85\,\text{kHz}$$
+                    <div class="answer-box">✅ Réponse : <strong>14,85 kHz</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 2</span>
+                <h4>Zero-padding pour résolution ≤ 2 Hz : $F_e=16\,\text{kHz}$, $N_0=1000$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$N_{total} \geq \frac{F_e}{\Delta f} = \frac{16000}{2} = 8000$$
+                    $$\text{Zéros à ajouter} = 8000 - 1000 = 7000$$
+                    <div class="answer-box">✅ Réponse : <strong>7000</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 2</span>
+                <h4>Calculer $X_2$ pour $x = [1, 5, -1, 2]$, $N=4$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>Pour $k=2$ : $e^{-j2\pi \cdot 2n/4} = e^{-j\pi n} = (-1)^n$</p>
+                    $$X_2 = 1 \times (+1) + 5 \times (-1) + (-1) \times (+1) + 2 \times (-1) = 1 - 5 - 1 - 2 = -7$$
+                    <div class="answer-box">✅ Réponse : <strong>$X_2 = -7$</strong></div>
+                    <div class="piege">💡 Astuce : pour $k = N/2$, on alterne juste $+,-,+,-$ sur les échantillons.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 2</span>
+                <h4>Signal porte $\tau=20\,\mu\text{s}$, $F_e=1\,\text{MHz}$, $N=1000$ → $|X_k|$ à $f=29\,\text{kHz}$ ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>$N_\tau = \tau \times F_e = 20$. Indice $k = 29000 \times 1000 / 10^6 = 29$</p>
+                    $$|X_k| = \left|\frac{\sin(\pi k N_\tau/N)}{\sin(\pi k/N)}\right| = \left|\frac{\sin(0{,}58\pi)}{\sin(0{,}029\pi)}\right| = \frac{0{,}969}{0{,}091} \approx 10{,}66$$
+                    <div class="answer-box">✅ Réponse : <strong>≈ 10,66</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 2</span>
+                <h4>Signal porte → valeur de $\tau$ à partir du spectre (zéros espacés de ~625 Hz)</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>Les zéros du sinus cardinal sont à $f = k/\tau$. L'espacement = $1/\tau$.</p>
+                    $$\tau = \frac{1}{625} = 0{,}0016\text{ s} = 1{,}6\text{ ms}$$
+                    <div class="answer-box">✅ Réponse : <strong>$\tau = 1{,}6$ ms</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 2</span>
+                <h4>Associer signaux ↔ spectres (A, B, C, D)</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <table class="calc-table">
+                        <tr><th>Spectre</th><th>Signature</th><th>Signal</th></tr>
+                        <tr><td>1 : raies $\pm f_0$</td><td>2 raies symétriques</td><td><strong>A</strong> : $A\cos(2\pi f_0 t)$</td></tr>
+                        <tr><td>2 : raie $+f_0$ seul</td><td>1 seule raie</td><td><strong>D</strong> : $e^{j2\pi f_0 t}$</td></tr>
+                        <tr><td>3 : raies $f_0, 2f_0, 3f_0\ldots$</td><td>Harmoniques</td><td><strong>C</strong> : périodique non sinus</td></tr>
+                        <tr><td>4 : raie en $f=0$ (Dirac)</td><td>DC seul</td><td><strong>B</strong> : $x(t) = A$</td></tr>
+                    </table>
+                    <div class="answer-box">✅ Réponse : <strong>c. 1A 2D 3C 4B</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 2</span>
+                <h4>Spectre $|X(f)|$ : 2 raies en $\pm f_0$ → expression de $x(t)$ ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>Deux raies symétriques = un cosinus (formule d'Euler).</p>
+                    $$x(t) = A\cos(2\pi \times 100 \cdot t)$$
+                    <div class="answer-box">✅ Réponse : <strong>$A\cos(2\pi \cdot 100t)$</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 3</span>
+                <h4>Spectre échantillonné → trouver $F_e$ et $f_1$ (cosinus)</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>Le spectre d'un signal échantillonné est <strong>périodique de $F_e$</strong>. On repère les raies : $\ldots, -1500, -500, +500, +1500, \ldots$</p>
+                    <p>Espacement entre groupes identiques = $F_e = 2000\,\text{Hz}$. Raie physique = $f_1 = 500\,\text{Hz}$.</p>
+                    <div class="answer-box">✅ Réponse : <strong>d. $F_e = 2000$ Hz, $f_1 = 500$ Hz</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 3</span>
+                <h4>Reconstruction : $f_1=40\,\text{kHz}$, $f_2=70\,\text{kHz}$, $T=0{,}01\,\text{ms}$ → filtre $f_c = 1/(2T)$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>$F_e = 1/T = 100\,\text{kHz}$, $f_c = F_e/2 = 50\,\text{kHz}$</p>
+                    <ul>
+                        <li>$f_1 = 40\,\text{kHz} < 50$ → <strong>passe</strong></li>
+                        <li>$f_2 = 70\,\text{kHz} > 50$ → <strong>aliasing</strong> : $f_{r2} = 100 - 70 = 30\,\text{kHz}$</li>
+                    </ul>
+                    <div class="answer-box">✅ Réponse : <strong>a. $f_{r1} = 30$ kHz, $f_{r2} = 40$ kHz</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vf-card">
+            <h3>✅❌ Vrai / Faux — TFD</h3>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    La TFD d'un signal discret donne des coefficients discrets complexes.
+                </div>
+                <div class="vf-answer faux">FAUX — La <em>Transformée de Fourier</em> d'un signal discret (TFTD) est <strong>continue</strong> en fréquence. C'est la <em>DFT</em> (calculée sur N points) qui donne N coeff discrets.</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    Le module de la TFD d'un signal réel est symétrique et interprété sur $[0, F_e[$
+                </div>
+                <div class="vf-answer faux">FAUX — Symétrique et périodique de $F_e$, oui. Mais on l'interprète sur $[0, F_e/2]$, pas $[0, F_e[$.</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    Échantillonnage fréquentiel : $kF_e/N$, pas $kF_e/(N-1)$.
+                </div>
+                <div class="vf-answer vrai">VRAI — $f_k = k \cdot F_e/N$ pour $k = 0, 1, \ldots, N-1$.</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    $X_k$ représente directement la répartition de puissance.
+                </div>
+                <div class="vf-answer faux">FAUX — C'est $|X_k|$ (le module) qui estime la DSP, pas $X_k$ brut (qui est complexe).</div>
+            </div>
+            <div class="vf-item">
+                <div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">
+                    Le zero-padding améliore la résolution fréquentielle de la TFD.
+                </div>
+                <div class="vf-answer vrai">VRAI — Plus de points = pas $\Delta f$ plus petit, sans changer le spectre.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!--                 BLOC 6 : QUANTIFICATION                      -->
+    <!-- ============================================================ -->
+    <section id="bloc6" class="bloc">
+        <div class="bloc-header">
+            <span class="bloc-number">06</span>
+            <h2>Quantification & Numérisation</h2>
+            <p class="bloc-desc">Bits, niveaux, SNR, débit. Chaque bit = +6 dB.</p>
+        </div>
+
+        <div class="formulas-card">
+            <h3>📐 Formules</h3>
+            <div class="formula-grid">
+                <div class="formula-item">
+                    <span class="formula-label">Niveaux</span>
+                    <div class="formula-math">$$N = 2^b$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Pas de quantification</span>
+                    <div class="formula-math">$$q = \frac{2A}{2^b}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Bruit de quantification</span>
+                    <div class="formula-math">$$P_{bruit} = \frac{q^2}{12}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">SNR approximatif</span>
+                    <div class="formula-math">$$\text{SNR} \approx 6{,}02b + 1{,}76\,\text{dB}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Débit binaire</span>
+                    <div class="formula-math">$$D = F_e \times b \text{ (bits/s)}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Capacité stockage</span>
+                    <div class="formula-math">$$C = F_e \times b \times \text{canaux} \times \text{durée} / 8$$</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cours-card">
+            <h3>📖 Comprendre d'abord</h3>
+            <p>Après l'échantillonnage, les valeurs sont encore « exactes ». La <strong>quantification</strong> les arrondit à des niveaux fixes. C'est là qu'on perd de l'info — irréversiblement.</p>
+            <ul>
+                <li><strong>$b$ bits → $2^b$ niveaux</strong>. Avec 8 bits : 256 niveaux. Avec 16 bits : 65 536 niveaux. Plus de bits = plus de précision.</li>
+                <li><strong>Le pas $q$</strong> = l'écart entre deux niveaux consécutifs : $q = \frac{\text{plage totale}}{2^b}$. Plus $q$ est petit, plus c'est précis.</li>
+                <li><strong>Bruit de quantification</strong> = l'erreur d'arrondi. On le modélise comme un bruit uniforme de puissance $q^2/12$. C'est <em>incompressible</em> pour un nombre de bits donné.</li>
+                <li><strong>SNR $\approx 6b$ dB</strong> : chaque bit supplémentaire gagne ~6 dB de rapport signal/bruit. C'est énorme ! Passer de 8 à 16 bits = +48 dB de qualité.</li>
+            </ul>
+            <div class="analogy">🎯 Analogie : imagine un escalier (signal quantifié) vs une rampe lisse (signal analogique). Avec peu de marches (peu de bits), l'escalier est grossier et tu trébuches (bruit élevé). Avec beaucoup de marches (16 bits), c'est presque lisse.</div>
+            <div class="key-insight"><strong>Astuce exam :</strong> amplifier le signal avant numérisation pour qu'il utilise toute la plage de l'ADC = comme si tu avais +1 bit gratuit (×2 = +6 dB).</div>
+        </div>
+
+        <div class="memo-card">
+            <div class="memo-icon">🧠</div>
+            <div class="memo-content">
+                <strong>+1 bit = +6 dB de SNR</strong>. Donc pour gagner 18 dB → +3 bits.<br><br>
+                <strong>Amplifier d'un facteur 2</strong> avant numérisation = utiliser pleinement l'ADC = gagner 6 dB.<br><br>
+                <strong>Sous-échantillonnage par $k$</strong> : il faut filtrer passe-bas à $f_c = F_e/(2k)$ AVANT.
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 3</span>
+                <h4>Débit : $F_e = 20\,\text{kHz}$, $b=16$ bits</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$D = 20000 \times 16 = 320\,000\text{ bits/s} = 320\text{ kbits/s}$$
+                    <div class="answer-box">✅ VRAI</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 3</span>
+                <h4>Capacité : mono, 16 kHz, 10 bits, 27 minutes</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$C = \frac{16000 \times 10 \times 1 \times 1620}{8} = \frac{2{,}592 \times 10^8}{8} = 32{,}4 \times 10^6\text{ octets} = 32400\text{ ko}$$
+                    <div class="answer-box">✅ Réponse : <strong>32 400 ko</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 3</span>
+                <h4>Stéréo, $T=62{,}5\,\mu\text{s}$, 1h, 180 Mo → bits $b$ ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>$F_e = 1/T = 16\,\text{kHz}$, 2 canaux, $180 \times 10^6 \times 8 = 1{,}44 \times 10^9$ bits dispo.</p>
+                    $$b = \frac{1{,}44 \times 10^9}{16000 \times 2 \times 3600} = \frac{1{,}44 \times 10^9}{1{,}152 \times 10^8} \approx 12{,}5 \rightarrow b = 12$$
+                    <div class="answer-box">✅ Réponse : <strong>12 bits</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 3</span>
+                <h4>Optimisation : $B=9{,}5\,\text{kHz}$, SNR=30 dB, $F_e=100\,\text{kHz}$, $b=16$ → $(k,b)$ optimal ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p><strong>Shannon</strong> : $F_e/k > 2 \times 9{,}5 = 19\,\text{kHz}$ → $k < 100/19 \approx 5{,}26$ → $k_{max} = 5$</p>
+                    <p><strong>SNR</strong> : $6b > 30$ → $b > 5$ → minimum $b = 6$. Mais on prend de la marge.</p>
+                    <div class="answer-box">✅ Réponse : <strong>b. $k=5$, $b=8$</strong> (SNR = 48 dB > 30 ✓)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!--                     BLOC 7 : FILTRES                         -->
+    <!-- ============================================================ -->
+    <section id="bloc7" class="bloc">
+        <div class="bloc-header">
+            <span class="bloc-number">07</span>
+            <h2>Filtres Numériques FIR</h2>
+            <p class="bloc-desc">Modeler le spectre. Atténuer les parasites. Isoler les fréquences utiles.</p>
+        </div>
+
+        <div class="formulas-card">
+            <h3>📐 Formules</h3>
+            <div class="formula-grid">
+                <div class="formula-item">
+                    <span class="formula-label">Convolution</span>
+                    <div class="formula-math">$$y(n) = \sum_{i=0}^{N} h_i \cdot x(n-i)$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Fonction de transfert</span>
+                    <div class="formula-math">$$H(f) = \sum_{i=0}^{N} h_i \cdot e^{-j2\pi f i T}$$</div>
+                </div>
+                <div class="formula-item">
+                    <span class="formula-label">Anti-repliement (décim. ×k)</span>
+                    <div class="formula-math">$$f_c = \frac{F_e}{2k}$$</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cours-card">
+            <h3>📖 Comprendre d'abord</h3>
+            <p>Un filtre numérique = un <strong>algorithme qui modifie le spectre</strong> d'un signal. Il laisse passer certaines fréquences et bloque les autres.</p>
+            <ul>
+                <li><strong>FIR (Finite Impulse Response)</strong> : la sortie $y(n)$ est une <em>somme pondérée des entrées passées et présentes</em>. Les poids = les coefficients $h_i$ = la réponse impulsionnelle.</li>
+                <li><strong>Convolution</strong> : $y(n) = h_0 x(n) + h_1 x(n-1) + h_2 x(n-2) + \ldots$ C'est une « moyenne pondérée glissante » du signal.</li>
+                <li><strong>$H(f)$</strong> = la « carte d'identité » du filtre en fréquence. $|H(f)| \approx 1$ = cette fréquence passe. $|H(f)| \approx 0$ = bloquée.</li>
+                <li><strong>Pour identifier le type</strong> : calcule $|H(0)|$ (fréquence zéro = DC) et $|H(F_e/2)|$ (fréquence max). Si DC passe et max bloqué → passe-bas. L'inverse → passe-haut.</li>
+            </ul>
+            <div class="analogy">🎯 Analogie : un filtre audio sur Spotify. Le « bass boost » = passe-bas (il laisse les graves et coupe les aigus). L'« equalizer treble » = passe-haut. Le filtre numérique FIR fait pareil, mais avec des maths.</div>
+            <div class="key-insight"><strong>Décimation :</strong> si tu veux garder 1 échantillon sur $k$ (sous-échantillonner), il faut d'abord filtrer passe-bas à $f_c = F_e/(2k)$ pour éviter le repliement. Sinon c'est comme réduire le framerate du ventilateur sans protéger Shannon.</div>
+            <div class="warning-box"><strong>Réponse impulsionnelle ≠ $h_0$ seul !</strong> C'est <em>toute la séquence</em> $[h_0, h_1, \ldots, h_N]$. Et si les coefficients sont symétriques, le filtre a une phase linéaire (pas de distorsion de forme).</div>
+        </div>
+
+        <div class="memo-card">
+            <div class="memo-icon">🧠</div>
+            <div class="memo-content">
+                <strong>Ordre élevé</strong> → bande de transition étroite, atténuation plus grande (se rapproche de l'idéal).<br><br>
+                <strong>Réponse impulsionnelle</strong> = les coefficients $h_i$ eux-mêmes (pas juste $h_0$ !).<br><br>
+                <strong>Filtre symétrique</strong> : regrouper $h_0$ et $h_N$, etc. → apparition de <strong>cosinus</strong>.<br><br>
+                <strong>Identifier le type</strong> : évaluer $|H(0)|$ et $|H(F_e/2)|$ :<br>
+                — <strong>Passe-bas</strong> : gain max à $f=0$, min à $F_e/2$<br>
+                — <strong>Passe-haut</strong> : gain min à $f=0$, max à $F_e/2$<br>
+                — <strong>Coupe-bande</strong> : creux profond à une fréquence, gain ≈1 ailleurs
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 4</span>
+                <h4>$f_c$ anti-repliement : décimation ×5, $T=22\,\mu\text{s}$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$F_e = 1/T = 45{,}45\,\text{kHz}, \quad f_c = \frac{F_e}{2k} = \frac{45{,}45}{10} = 4{,}545\,\text{kHz}$$
+                    <div class="answer-box">✅ Réponse : <strong>4,545 kHz</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 4</span>
+                <h4>$y(5)$ pour $y(n) = 0{,}2\sum_{k=0}^4 x(n-k)$, $x=[1,1,1,0,0,\ldots]$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    $$y(5) = 0{,}2[x(5) + x(4) + x(3) + x(2) + x(1)] = 0{,}2[0+0+0+1+1] = 0{,}4$$
+                    <div class="answer-box">✅ Réponse : <strong>0,4</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 4</span>
+                <h4>$|H(1000)|$ pour $y_n = 0{,}1x_n + 0{,}8x_{n-1} + 0{,}1x_{n-2}$, $F_e=5\,\text{kHz}$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>$fT = 1000/5000 = 0{,}2$, donc $2\pi fT = 72°$</p>
+                    <p>Partie réelle : $0{,}1 + 0{,}8\cos 72° + 0{,}1\cos 144° = 0{,}266$</p>
+                    <p>Partie imaginaire : $-0{,}8\sin 72° - 0{,}1\sin 144° = -0{,}820$</p>
+                    $$|H| = \sqrt{0{,}266^2 + 0{,}820^2} = \sqrt{0{,}743} \approx 0{,}86$$
+                    <div class="answer-box">✅ Réponse : <strong>≈ 0,86</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 4</span>
+                <h4>Type de filtre : $y(n) = x(n) - 2x(n-1) + x(n-2)$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>$|H(0)| = |1 - 2 + 1| = 0$ → bloque le DC. $|H(F_e/2)| = |1+2+1| = 4$ → gain max.</p>
+                    <div class="answer-box">✅ Réponse : <strong>d. Passe-haut</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 4</span>
+                <h4>Graphe avec creux à ~500 Hz ($F_e = 1$ kHz) → type ?</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>Gain ≈ 0 dB partout sauf creux profond vers $F_e/2 = 500\,\text{Hz}$. C'est un <strong>coupe-bande (notch)</strong>.</p>
+                    <div class="answer-box">✅ Réponse : <strong>b. Coupe-bande / bandstop</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 4</span>
+                <h4>$|H(f)|$ pour $y(n) = -0{,}1x_n + 0{,}27x_{n-1} + 0{,}27x_{n-2} - 0{,}1x_{n-3}$</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>Coefficients antisymétriques par paires : $h_0 = -0{,}1$, $h_3 = -0{,}1$ et $h_1 = 0{,}27$, $h_2 = 0{,}27$.</p>
+                    <p>En regroupant et factorisant par $e^{-j3\pi fT/2}$ :</p>
+                    $$|H(f)| = |-0{,}2\cos(3\pi fT) + 0{,}54\cos(\pi fT)|$$
+                    <div class="answer-box">✅ Réponse : <strong>b.</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 4</span>
+                <h4>Gabarit filtre — détection note LA5 (1760 Hz), SNR = 30 dB</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>LA5 ± 2% : [1724, 1796] Hz. SOL# max : $1661 \times 1{,}02 = 1695$. Sib min : $1865 \times 0{,}98 = 1828$.</p>
+                    <div class="answer-box">✅ Réponse : <strong>d. Passe-bande, fstop=[1695, 1827], fpass=[1724, 1796], Amin=−30 dB</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
+                <span class="q-tag">Test 4</span>
+                <h4>Tuner radio : $F_I = 50$ MHz, bande ±800 kHz, distorsion &lt;1%, SNR = 30 dB</h4>
+                <span class="q-toggle">▼</span>
+            </div>
+            <div class="q-body">
+                <div class="q-solution">
+                    <p>Shannon sur 89 MHz → $F_e > 178$ MHz → $F_e = 200$ MHz.</p>
+                    <p>Bande utile : [49,2 ; 50,8] MHz. Rejet porteuses voisines à ±2 MHz → [49 ; 51] MHz bords.</p>
+                    <div class="answer-box">✅ Réponse : <strong>b. $F_e=200$ MHz, BP [49,2 ; 50,8], stops [49 ; 51], −30 dB</strong></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!--                      CHEATSHEET                              -->
+    <!-- ============================================================ -->
+    <section id="cheatsheet" class="bloc cheatsheet-section">
+        <div class="bloc-header">
+            <span class="bloc-number">📋</span>
+            <h2>Fiche Mémo Ultra-Rapide</h2>
+            <p class="bloc-desc">À relire la veille de l'examen. Tout tient ici.</p>
+        </div>
+
+        <div class="cheatsheet-grid">
+            <div class="cheat-card">
+                <h4>⚡ Signal</h4>
+                <code>P_sinus = A²/2</code><br>
+                <code>Xeff = A/√2</code><br>
+                <code>Moyenne = A₀</code><br>
+                <code>Créneau: P = Σ rᵢ×Vᵢ²</code>
+            </div>
+            <div class="cheat-card">
+                <h4>📡 Échantillonnage</h4>
+                <code>Fe > 2·fmax (Shannon)</code><br>
+                <code>f_alias = Fe - f₀</code><br>
+                <code>N_per = Fe/f₀</code><br>
+                <code>Durée = N/Fe</code><br>
+                <code>1er éch → n=0</code>
+            </div>
+            <div class="cheat-card">
+                <h4>🔊 dB / dBm</h4>
+                <code>P_dBm = 10·log₁₀(P_mW)</code><br>
+                <code>0 dBm = 1 mW</code><br>
+                <code>+3 dB = ×2, +10 dB = ×10</code><br>
+                <code>Câble: Pout = Pin - α·L</code>
+            </div>
+            <div class="cheat-card">
+                <h4>🔗 Corrélation</h4>
+                <code>Autocorr max: k = Fe/f₀</code><br>
+                <code>Intercorr max: k = (2π-θ)/2π × Fe/f₀</code><br>
+                <code>Cxy_max = Ax·Ay/2</code><br>
+                <code>Cxy(0) = AxAy/2·cos(θ)</code>
+            </div>
+            <div class="cheat-card">
+                <h4>🌊 TFD</h4>
+                <code>f_pic = k·Fe/N</code><br>
+                <code>Δf = Fe/N</code><br>
+                <code>Zéros porte: f = k/τ</code><br>
+                <code>cos → 2 raies ±f₀</code><br>
+                <code>exp → 1 raie +f₀</code>
+            </div>
+            <div class="cheat-card">
+                <h4>🔢 Quantification</h4>
+                <code>N = 2^b niveaux</code><br>
+                <code>Bruit = q²/12</code><br>
+                <code>SNR ≈ 6·b dB</code><br>
+                <code>+1 bit = +6 dB</code><br>
+                <code>Débit = Fe × b</code>
+            </div>
+            <div class="cheat-card">
+                <h4>🎛️ Filtres FIR</h4>
+                <code>H(f) = Σ hᵢ·e^{-j2πfiT}</code><br>
+                <code>Décim ×k → fc = Fe/(2k)</code><br>
+                <code>PB: H(0)≈1, H(Fe/2)≈0</code><br>
+                <code>PH: H(0)≈0, H(Fe/2)≈1</code>
+            </div>
+            <div class="cheat-card">
+                <h4>🎯 Gabarit filtre</h4>
+                <code>Amin ≥ SNR (en dB)</code><br>
+                <code>Fpass = bande utile ± tolérance</code><br>
+                <code>Fstop = voisins ± tolérance</code><br>
+                <code>Ordre ↑ → transition ↓</code>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <footer>
+        <p>🎯 APP Signal — ISEP 2025-2026 — Groupe G2B</p>
+        <p>Bonne chance pour l'examen du 20 avril ! 💪</p>
+    </footer>
+
+    <script>
+        // Progress bar
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement;
+            const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+            document.getElementById('progressBar').style.width = pct + '%';
+        });
+    </script>
+
+</body>
+</html>
