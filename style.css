@@ -115,6 +115,14 @@ main{max-width:860px;margin:0 auto;padding:0 24px 80px}
 .q-solution{padding:0 18px 18px;border-top:1px solid var(--border);padding-top:14px}
 .q-solution p{color:var(--text2);margin-bottom:8px;line-height:1.7;font-size:.9rem}
 .answer-box{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:var(--radius-sm);padding:11px 14px;font-weight:700;margin-top:12px;color:#047857;font-size:.9rem}
+.method-card{background:linear-gradient(135deg,#f0f4ff,#e8f0fe);border:1px solid #c7d2fe;border-radius:12px;padding:1.2rem 1.4rem;margin:.8rem 0}
+.method-card h4{color:#4338ca;margin:0 0 .6rem;font-size:1rem}
+.method-card .method-item{margin:.6rem 0;padding:.6rem .8rem;background:#fff;border-radius:8px;border-left:3px solid #6366f1}
+.method-card .method-item strong{color:#4338ca}
+.method-card .method-item .mnemonic{display:inline-block;background:#fef3c7;border:1px solid #fcd34d;color:#92400e;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem;margin:2px 0}
+.method-card .method-item .dim-check{display:inline-block;background:#ecfdf5;border:1px solid #6ee7b7;color:#065f46;padding:2px 8px;border-radius:6px;font-weight:600;font-size:.85rem;margin:2px 0}
+.method-card .method-item .exam-reflex{display:inline-block;background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;padding:2px 8px;border-radius:6px;font-weight:600;font-size:.85rem;margin:2px 0}
+.method-card .method-item .physics{display:inline-block;background:#f3e8ff;border:1px solid #c4b5fd;color:#5b21b6;padding:2px 8px;border-radius:6px;font-weight:600;font-size:.85rem;margin:2px 0}
 .piege{background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-sm);padding:9px 13px;margin-top:8px;font-size:.82rem;color:#991b1b}
 
 /* V/F */

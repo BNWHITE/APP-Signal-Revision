@@ -136,6 +136,36 @@
             <figcaption>Signal créneau : P = r₁·V₁² + r₂·V₂². Le rapport cyclique pondère chaque niveau.</figcaption>
         </div>
 
+        <!-- MÉTHODES DE PROF -->
+        <div class="section-label">🧠 Méthodes de Prof</div>
+        <div class="method-card">
+            <h4>Réflexes d'examen — Puissance & Efficace</h4>
+            <div class="method-item">
+                <span class="mnemonic">🔤 Mnémo « PAC »</span><br>
+                <strong>P</strong>uissance = <strong>A</strong>₀² + <strong>A</strong>²/2 → « <strong>P</strong>apa <strong>A</strong>chète 2 <strong>C</strong>hocolats » (le 2 est au dénominateur). Le carré de la constante + la moitié du carré de l'amplitude.
+            </div>
+            <div class="method-item">
+                <span class="dim-check">📏 Vérification dimensionnelle</span><br>
+                $x(t)$ est en Volts → $P = \bar{x^2}$ est en V². La puissance physique en W = V²/R. En traitement du signal, on normalise $R=1\,\Omega$, donc V² ≡ W. <strong>Mais l'unité de la moyenne et de $X_{eff}$ reste V !</strong>
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Réflexe exam</span><br>
+                Tu vois un signal type $A_0 + A\cos(\ldots)$ ? <strong>Barre tout ce qui est dans le $\cos$</strong> (la fréquence, la phase). Il ne te reste que $A_0$ et $A$. Applique $P = A_0^2 + A^2/2$. Fini. 10 secondes max.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Réflexe créneau</span><br>
+                <strong>Étape 1</strong> : dessine le créneau. <strong>Étape 2</strong> : identifie les niveaux $V_1, V_2$ et les rapports $r_1, r_2$ (attention : $r_1 + r_2 = 1$). <strong>Étape 3</strong> : $P = r_1 V_1^2 + r_2 V_2^2$. <strong>Piège classique</strong> : le signe de $V_2$ n'a pas d'importance car on met au carré ! $(-1)^2 = 1$.
+            </div>
+            <div class="method-item">
+                <span class="physics">🔬 Physique profonde</span><br>
+                Pourquoi $A^2/2$ et pas $A^2$ ? Parce que $\overline{\cos^2(\omega t)} = 1/2$ sur une période. Démonstration en 1 ligne : $\cos^2 = (1 + \cos 2\omega t)/2$. La moyenne du $\cos 2\omega t$ = 0, il reste $1/2$. Cette identité trigo revient <strong>partout</strong> en physique (optique, électronique, télécom).
+            </div>
+            <div class="method-item">
+                <span class="mnemonic">🔤 Mnémo « EDF »</span><br>
+                EDF donne $230$V efficace. Amplitude crête = $230\sqrt{2} \approx 325$V. Si on te donne l'amplitude, divise par $\sqrt{2}$ pour l'efficace. Si on te donne l'efficace, multiplie par $\sqrt{2}$ pour la crête. <strong>$\sqrt{2} \approx 1{,}414$</strong> — à savoir par cœur.
+            </div>
+        </div>
+
         <!-- FORMULES -->
         <div class="section-label">📐 Formules</div>
         <div class="formulas-card">
@@ -276,6 +306,31 @@
                 <text x="200" y="14" fill="#ef4444" font-size="11" font-weight="700">✗ Fe < 2·fmax → ALIASING ! Fantôme basse fréquence</text>
             </svg>
             <figcaption>Aliasing : Fe trop basse. Le signal haute fréquence (bleu) est perçu comme basse fréquence (rouge pointillé). f_alias = Fe − f₀.</figcaption>
+        </div>
+
+        <div class="section-label">🧠 Méthodes de Prof</div>
+        <div class="method-card">
+            <h4>Réflexes d'examen — Échantillonnage</h4>
+            <div class="method-item">
+                <span class="mnemonic">🔤 Mnémo « Shannon = Deux fois »</span><br>
+                Entends « Shannon » → écris <strong>$F_e > 2f_{max}$</strong> immédiatement. Le 2 est <strong>strict</strong> : $F_e = 2f_{max}$ ne suffit PAS (le signal serait échantillonné aux zéros du cosinus).
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Piège n=0</span><br>
+                On numérote les échantillons à partir de $n=0$, pas $n=1$. Donc $N$ échantillons → indices $0$ à $N-1$. <strong>Le dernier échantillon est $x((N-1)T_e)$</strong>, pas $x(NT_e)$.
+            </div>
+            <div class="method-item">
+                <span class="dim-check">📏 Vérif dimensionnelle</span><br>
+                $F_e$ en Hz, $f_0$ en Hz → $N_{per} = F_e/f_0$ est sans dimension ✓. Durée = $N/F_e$ → échantillons / (éch/s) = secondes ✓. Toujours vérifier que le résultat a la bonne unité.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Aliasing : la formule miroir</span><br>
+                Si $f_0 > F_e/2$ → la fréquence perçue est $f_{alias} = |F_e - f_0|$. Méthode : replie la fréquence comme un <strong>miroir à $F_e/2$</strong>. Exemple : $f_0=900$Hz, $F_e=1000$Hz → alias = $|1000-900|=100$Hz.
+            </div>
+            <div class="method-item">
+                <span class="physics">🔬 Intuition physique</span><br>
+                Pourquoi faut-il $>2f_{max}$ ? Imagine un cosinus : il faut au minimum capturer un max ET un min par période pour reconstruire le signal. 2 points = le strict minimum théorique.
+            </div>
         </div>
 
         <div class="section-label">📐 Formules</div>
@@ -448,6 +503,31 @@
             <figcaption>Échelle dBm : chaque +3 dB = ×2 en puissance, +10 dB = ×10. Les additions en dB = multiplications en linéaire.</figcaption>
         </div>
 
+        <div class="section-label">🧠 Méthodes de Prof</div>
+        <div class="method-card">
+            <h4>Réflexes d'examen — dB & dBm</h4>
+            <div class="method-item">
+                <span class="mnemonic">🔤 Mnémo « 3-10-20 »</span><br>
+                <strong>+3 dB = ×2</strong>, <strong>+10 dB = ×10</strong>, <strong>+20 dB = ×100</strong>. C'est TOUT ce qu'il faut retenir. Tout le reste se déduit : +13 dB = +10+3 = ×10×2 = ×20. −3 dB = ÷2. −10 dB = ÷10.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 dBm ≠ dB !</span><br>
+                <strong>dBm = puissance absolue</strong> (référence 1 mW). <strong>dB = rapport</strong> (gain ou atténuation). On <strong>additionne</strong> des dB entre eux. On n'additionne JAMAIS des dBm entre eux ! On fait : $P_{sortie,dBm} = P_{entrée,dBm} + G_{dB}$.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Calcul mental rapide</span><br>
+                0 dBm = 1 mW. 30 dBm = 1 W (car +30 = +10+10+10 = ×1000). −30 dBm = 1 µW. <strong>Astuce chaîne câble</strong> : écris la chaîne horizontalement, note chaque gain/perte, additionne. Ex : 20 dBm → câble −3 dB → ampli +10 dB = 27 dBm.
+            </div>
+            <div class="method-item">
+                <span class="dim-check">📏 Vérif unités</span><br>
+                $10\log_{10}(P/P_{ref})$ → l'argument du $\log$ doit être <strong>sans unité</strong> (un rapport). Si tu mets des Watts en haut et mW en bas sans convertir, ton résultat sera faux de 30 dB.
+            </div>
+            <div class="method-item">
+                <span class="physics">🔬 Pourquoi le log ?</span><br>
+                Le log transforme les <strong>multiplications en additions</strong>. En télécom, un signal traverse 15 composants en série : sans dB il faut multiplier 15 facteurs. En dB, on additionne 15 nombres. C'est pour ça que les ingénieurs adorent les dB.
+            </div>
+        </div>
+
         <div class="section-label">📐 Formules</div>
         <div class="formulas-card">
             <div class="formula-grid">
@@ -571,6 +651,31 @@
                 <text x="330" y="85" fill="#8890a8" font-size="10">Additionne</text>
             </svg>
             <figcaption>Calcul de C_xx(2T) : on décale le signal de 2, on multiplie case par case, on somme. Les zones hors limites = 0.</figcaption>
+        </div>
+
+        <div class="section-label">🧠 Méthodes de Prof</div>
+        <div class="method-card">
+            <h4>Réflexes d'examen — Corrélation</h4>
+            <div class="method-item">
+                <span class="mnemonic">🔤 Méthode du tableau</span><br>
+                Dessine un tableau : ligne 1 = $x_n$, ligne 2 = $x_{n+k}$ (décalée de $k$). Multiplie colonne par colonne. Somme. C'est $C_{xx}(kT)$. <strong>Pas de division</strong> (c'est une corrélation, pas une moyenne).
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Signe de k</span><br>
+                Convention : $C_{xy}(kT) = \sum x_n \cdot y_{n+k}$. Si $k>0$, on décale $y$ vers la <strong>gauche</strong> (ou $x$ vers la droite). Attention à ne pas inverser ! Un signe de $k$ erroné = toute la copie fausse.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Vérif du maximum</span><br>
+                Pour deux sinusoïdes de même fréquence : $C_{xy,max} = A_x A_y / 2$. Si tu trouves un nombre plus grand que ça → erreur de calcul garantie. C'est un <strong>check rapide</strong> qui sauve des points.
+            </div>
+            <div class="method-item">
+                <span class="dim-check">📏 Autocorrélation à k=0</span><br>
+                $C_{xx}(0) = \sum x_n^2 = $ énergie du signal. C'est toujours le <strong>maximum</strong> de l'autocorrélation. Si ta courbe $C_{xx}(k)$ a un pic ailleurs qu'en $k=0$ → tu t'es trompé.
+            </div>
+            <div class="method-item">
+                <span class="physics">🔬 Pourquoi la corrélation ?</span><br>
+                La corrélation mesure la <strong>ressemblance</strong> entre deux signaux. Le GPS, le radar, le WiFi : tous utilisent la corrélation pour retrouver un signal noyé dans le bruit. Le pic de corrélation = « je t'ai trouvé ! ».
+            </div>
         </div>
 
         <div class="section-label">📐 Formules</div>
@@ -734,6 +839,31 @@
                 <text x="300" y="152" fill="#5a6080" font-size="10" text-anchor="middle">0</text>
             </svg>
             <figcaption>Signal porte → spectre en sinus cardinal. Zéros espacés de 1/τ. Plus la porte est courte, plus le spectre est large.</figcaption>
+        </div>
+
+        <div class="section-label">🧠 Méthodes de Prof</div>
+        <div class="method-card">
+            <h4>Réflexes d'examen — Fourier & TFD</h4>
+            <div class="method-item">
+                <span class="mnemonic">🔤 Mnémo « k = N/2 → alternance »</span><br>
+                À $k = N/2$ (fréquence de Nyquist), $e^{-j2\pi kn/N} = e^{-j\pi n} = (-1)^n$. Donc $X_{N/2} = \sum x_n (-1)^n = x_0 - x_1 + x_2 - x_3 + \ldots$ C'est le « <strong>+−+−</strong> ». Si on te demande $X_{N/2}$, c'est 10 secondes.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 cos → 2 raies, exp → 1 raie</span><br>
+                $\cos(2\pi f_0 t)$ a <strong>2 pics</strong> symétriques à $\pm f_0$ d'amplitude $A/2$. $e^{j2\pi f_0 t}$ a <strong>1 seul pic</strong> à $+f_0$ d'amplitude $A$. Confusion classique en exam — retiens : « <strong>cos = paire = 2 pics</strong> ».
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Porte → sinc : les zéros</span><br>
+                Le spectre d'une porte de durée $\tau$ est un sinus cardinal avec des <strong>zéros à $n/\tau$</strong> ($n$ entier non nul). Plus $\tau$ est petit, plus les zéros sont espacés → spectre large. C'est la <strong>dualité temps-fréquence</strong>.
+            </div>
+            <div class="method-item">
+                <span class="dim-check">📏 Vérif : $f = k \cdot F_e/N$</span><br>
+                $k$ sans dimension, $F_e$ en Hz, $N$ sans dimension → $f$ en Hz ✓. Et $\Delta f = F_e/N$ : si $F_e = 1000$ Hz et $N = 100$ → $\Delta f = 10$ Hz. Le zero-padding augmente $N$ → diminue $\Delta f$ → meilleure résolution visuelle (mais pas plus d'info).
+            </div>
+            <div class="method-item">
+                <span class="physics">🔬 Intuition : le spectre est un « vote »</span><br>
+                Chaque $X_k$ demande à chaque échantillon : « ressembles-tu à une sinusoïde de fréquence $k\Delta f$ ? ». La DFT fait voter tous les échantillons. Un grand $|X_k|$ = consensus fort = cette fréquence est bien présente.
+            </div>
         </div>
 
         <div class="section-label">📐 Formules</div>
@@ -909,6 +1039,31 @@
             <figcaption>Quantification : le signal continu (bleu) est arrondi aux niveaux discrets (rouge). L'écart q = le pas de quantification.</figcaption>
         </div>
 
+        <div class="section-label">🧠 Méthodes de Prof</div>
+        <div class="method-card">
+            <h4>Réflexes d'examen — Quantification & CAN</h4>
+            <div class="method-item">
+                <span class="mnemonic">🔤 Mnémo « 6 dB par bit »</span><br>
+                SNR $\approx 6b$ dB. Donc 8 bits → ~48 dB, 16 bits → ~96 dB, 24 bits → ~144 dB. <strong>Calcul mental instantané</strong>. En exam, si on te demande « combien de bits pour un SNR de 60 dB ? » → $60/6 = 10$ bits.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Piège : $q^2/12$ pas $q^2/6$ !</span><br>
+                La puissance du bruit de quantification est $q^2/12$, pas $q^2/6$. Le 12 vient de la variance d'une loi uniforme sur $[-q/2, +q/2]$ : $\text{Var} = (q)^2/12$. Erreur ultra-classique en exam.
+            </div>
+            <div class="method-item">
+                <span class="dim-check">📏 Vérif capacité stockage</span><br>
+                $C = F_e \times b \times ch \times T / 8$. Vérifie : Hz × bits × canaux × s = bits. Divise par 8 → octets. Divise par $10^6$ → Mo. <strong>1 min de CD</strong> : $44100 \times 16 \times 2 \times 60 / 8 \approx 10{,}6$ Mo. Si tu trouves 10 Go → tu t'es trompé d'un facteur 1000.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Plage vs Amplitude</span><br>
+                Si le signal va de $-A$ à $+A$, la plage = $2A$. Donc $q = 2A/2^b$, pas $A/2^b$. L'erreur sur le facteur 2 dans la plage est un piège récurrent.
+            </div>
+            <div class="method-item">
+                <span class="physics">🔬 Pourquoi 12 ?</span><br>
+                L'erreur de quantification est modélisée comme un bruit uniforme sur $[-q/2, q/2]$. La variance d'une uniforme sur $[a,b]$ est $(b-a)^2/12$. Ici $b-a = q$, donc variance = $q^2/12$. Ce 12 revient aussi en probabilités et en mécanique statistique.
+            </div>
+        </div>
+
         <div class="section-label">📐 Formules</div>
         <div class="formulas-card">
             <div class="formula-grid">
@@ -1024,6 +1179,31 @@
                 <text x="495" y="155" fill="#8890a8" font-size="8">f₀</text>
             </svg>
             <figcaption>Les 3 types de filtres courants. Passe-bas : laisse les basses fréquences. Passe-haut : l'inverse. Coupe-bande : supprime une fréquence précise.</figcaption>
+        </div>
+
+        <div class="section-label">🧠 Méthodes de Prof</div>
+        <div class="method-card">
+            <h4>Réflexes d'examen — Filtres FIR</h4>
+            <div class="method-item">
+                <span class="mnemonic">🔤 Test rapide H(0) et H(Fe/2)</span><br>
+                <strong>H(0)</strong> = somme de tous les $h_i$. <strong>H(Fe/2)</strong> = $h_0 - h_1 + h_2 - h_3 + \ldots$ (alternance de signes). Si H(0)=1 et H(Fe/2)=0 → passe-bas. Si H(0)=0 et H(Fe/2)=1 → passe-haut. Test en 5 secondes.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Écrire la convolution</span><br>
+                $y(n) = \sum_i h_i \cdot x(n-i)$. <strong>Méthode</strong> : retourne $h$ (miroir), fais-le glisser sous $x$, multiplie terme à terme, somme. La longueur de $y$ = $\text{len}(x) + \text{len}(h) - 1$.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Anti-repliement AVANT décimation</span><br>
+                Si on décime par $k$ (garde 1 échantillon sur $k$), la nouvelle $F_e' = F_e/k$. Il FAUT filtrer passe-bas à $f_c = F_e/(2k)$ <strong>AVANT</strong> de décimer, sinon aliasing. L'ordre est crucial : <strong>filtre d'abord, décime ensuite</strong>.
+            </div>
+            <div class="method-item">
+                <span class="dim-check">📏 Vérif convolution</span><br>
+                Si $x$ a $N$ points et $h$ a $M$ points → $y$ a $N+M-1$ points. Si tu trouves un autre nombre, recompte. Aussi : la somme de $y$ = (somme de $x$) × (somme de $h$). Check rapide.
+            </div>
+            <div class="method-item">
+                <span class="physics">🔬 FIR vs IIR en 1 phrase</span><br>
+                <strong>FIR</strong> = réponse impulsionnelle <strong>finie</strong> (nombre fixe de coefficients, toujours stable). <strong>IIR</strong> = réponse <strong>infinie</strong> (rétroaction, peut être instable). En exam de ce cours, on ne fait que du FIR.
+            </div>
         </div>
 
         <div class="section-label">📐 Formules</div>
