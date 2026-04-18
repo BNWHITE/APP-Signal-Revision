@@ -885,15 +885,16 @@
 
             <h4 style="margin-top:1.2em;color:var(--c5)">⑥ Calcul direct d'un coefficient $X_k$</h4>
             <ul>
-                <li>Formule : $X_k = \sum_{n=0}^{N-1} x_n \cdot e^{-j\frac{2\pi}{N}kn}$</li>
-                <li><strong>Cas $k = 0$</strong> : $X_0 = \sum x_n$ (somme brute de tous les échantillons).</li>
-                <li><strong>Cas $k = N/2$</strong> : $e^{-j\pi n} = (-1)^n$ → $X_{N/2} = x_0 - x_1 + x_2 - x_3 + \ldots$ (alternance $+,-,+,-$).</li>
+                <li>Formule : $X_k = \frac{1}{N}\sum_{n=0}^{N-1} x_n \cdot e^{-j\frac{2\pi}{N}kn}$</li>
+                <li>⚠️ <strong>Convention avec $1/N$</strong> — c'est celle utilisée dans notre cours. Certains livres mettent le $1/N$ sur la DFT inverse : toujours vérifier.</li>
+                <li><strong>Cas $k = 0$</strong> : $X_0 = \frac{1}{N}\sum x_n$ (moyenne des échantillons = composante continue).</li>
+                <li><strong>Cas $k = N/2$</strong> : $e^{-j\pi n} = (-1)^n$ → $X_{N/2} = \frac{1}{N}(x_0 - x_1 + x_2 - x_3 + \ldots)$ (alternance $+,-,+,-$ puis ÷N).</li>
             </ul>
-            <div class="key-insight"><strong>Astuce exam :</strong> on ne te demandera jamais un $X_k$ quelconque (trop long). On te demande $X_0$ (somme) ou $X_{N/2}$ (alternance). Apprends ces deux cas par cœur.</div>
+            <div class="key-insight"><strong>Astuce exam :</strong> on ne te demandera jamais un $X_k$ quelconque (trop long). On te demande $X_0$ (moyenne) ou $X_{N/2}$ (alternance ÷ N). <strong>N'oublie JAMAIS le $1/N$.</strong></div>
 
             <h4 style="margin-top:1.2em;color:var(--c5)">⑦ DFT d'une porte — formule avec le sinus</h4>
             <ul>
-                <li>$$|X_k| = \left|\frac{\sin\left(\frac{M\pi k}{N}\right)}{\sin\left(\frac{\pi k}{N}\right)}\right|$$</li>
+                <li>$$|X_k| = \frac{1}{N}\left|\frac{\sin\left(\frac{M\pi k}{N}\right)}{\sin\left(\frac{\pi k}{N}\right)}\right|$$</li>
                 <li>$M$ = nombre d'échantillons de la porte, $N$ = taille totale de la DFT, $k$ = indice fréquentiel.</li>
                 <li>Pour trouver $k$ à partir d'une fréquence : $k = f \cdot N / F_e$.</li>
             </ul>
@@ -958,7 +959,7 @@
             <h4>Réflexes d'examen — Fourier & TFD</h4>
             <div class="method-item">
                 <span class="mnemonic">🔤 Mnémo « k = N/2 → alternance »</span><br>
-                À $k = N/2$ (fréquence de Nyquist), $e^{-j2\pi kn/N} = e^{-j\pi n} = (-1)^n$. Donc $X_{N/2} = \sum x_n (-1)^n = x_0 - x_1 + x_2 - x_3 + \ldots$ C'est le « <strong>+−+−</strong> ». Si on te demande $X_{N/2}$, c'est 10 secondes.
+                À $k = N/2$ (fréquence de Nyquist), $e^{-j2\pi kn/N} = e^{-j\pi n} = (-1)^n$. Donc $X_{N/2} = \frac{1}{N}\sum x_n (-1)^n = \frac{x_0 - x_1 + x_2 - x_3 + \ldots}{N}$ C'est le « <strong>+−+− puis ÷N</strong> ». Si on te demande $X_{N/2}$, c'est 10 secondes.
             </div>
             <div class="method-item">
                 <span class="exam-reflex">🎯 cos → 2 raies, exp → 1 raie</span><br>
@@ -981,14 +982,14 @@
         <div class="section-label">📐 Formules</div>
         <div class="formulas-card">
             <div class="formula-grid">
-                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">DFT</span><div class="formula-math">$$X_k = \sum_{n=0}^{N-1} x_n e^{-j2\pi kn/N}$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">DFT (conv. 1/N)</span><div class="formula-math">$$X_k = \frac{1}{N}\sum_{n=0}^{N-1} x_n e^{-j2\pi kn/N}$$</div></div>
                 <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Indice ↔ fréquence</span><div class="formula-math">$$f = k \cdot F_e / N \quad;\quad k = f \cdot N / F_e$$</div></div>
                 <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Pas fréquentiel</span><div class="formula-math">$$\Delta f = F_e / N$$</div></div>
                 <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Zero-padding</span><div class="formula-math">$$N_{total} \geq F_e / \Delta f_{voulu} \;;\; N_{zeros} = N_{total} - N_0$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">DFT porte ($M$ éch.)</span><div class="formula-math">$$|X_k| = \left|\frac{\sin(M\pi k/N)}{\sin(\pi k/N)}\right|$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">DFT porte ($M$ éch.)</span><div class="formula-math">$$|X_k| = \frac{1}{N}\left|\frac{\sin(M\pi k/N)}{\sin(\pi k/N)}\right|$$</div></div>
                 <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Sinc : zéros</span><div class="formula-math">$$\text{espacement} = 1/\tau = F_e/M$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">$X_0$ (somme)</span><div class="formula-math">$$X_0 = \sum_{n=0}^{N-1} x_n$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">$X_{N/2}$ (alternance)</span><div class="formula-math">$$X_{N/2} = \sum_{n=0}^{N-1} (-1)^n x_n$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">$X_0$ (moyenne)</span><div class="formula-math">$$X_0 = \frac{1}{N}\sum_{n=0}^{N-1} x_n$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">$X_{N/2}$ (alternance)</span><div class="formula-math">$$X_{N/2} = \frac{1}{N}\sum_{n=0}^{N-1} (-1)^n x_n$$</div></div>
                 <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Encombrement</span><div class="formula-math">$$\text{seuil} = |X|_{\max}(\text{dB}) - \text{SNR}(\text{dB})$$</div></div>
                 <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Alias DFT</span><div class="formula-math">$$k_{alias} = N - k_0 \;\Leftrightarrow\; f_{alias} = F_e - f_0$$</div></div>
             </div>
@@ -1032,19 +1033,19 @@
 
         <!-- QCM 5-3 -->
         <div class="qcm-card" style="border-left-color:var(--c5)">
-            <h4>Q3 — $X_{N/2}$ (alternance)</h4>
-            <p>$x = [2, -3, 4, 1]$, $N=4$. Que vaut $X_2$ ?</p>
-            <p class="piege">💡 Pour $k=N/2$ : $e^{-j\pi n} = (-1)^n$, on alterne $+,-,+,-$.</p>
+            <h4>Q3 — $X_{N/2}$ (alternance + 1/N)</h4>
+            <p>$x = [2, -3, 4, 1]$, $N=4$. Que vaut $X_2$ ? (Convention $1/N$)</p>
+            <p class="piege">💡 Pour $k=N/2$ : $(-1)^n$ donne $+,-,+,-$. Puis <strong>diviser par $N$</strong> !</p>
             <ul class="qcm-options">
-                <li onclick="selectQCM(this)"><strong>A)</strong> $4$</li>
-                <li onclick="selectQCM(this)"><strong>B)</strong> $8$</li>
-                <li onclick="selectQCM(this)"><strong>C)</strong> $-4$</li>
-                <li onclick="selectQCM(this)"><strong>D)</strong> $0$</li>
+                <li onclick="selectQCM(this)"><strong>A)</strong> $1$</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $2$</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $8$</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $-1{,}75$</li>
             </ul>
             <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
             <div class="qcm-explain">
-                ✅ <strong>B</strong> — $X_2 = 2(+1) + (-3)(-1) + 4(+1) + 1(-1) = 2+3+4-1 = 8$.<br>
-                🪤 <strong>A</strong> : $\sum x_n$ (c'est $X_0$). <strong>D</strong> : erreur de signe.
+                ✅ <strong>B</strong> — Alternance : $2-(-3)+4-1 = 8$. Puis $X_2 = 8/4 = 2$.<br>
+                🪤 <strong>C</strong> : oubli du $1/N$ (piège classique !). <strong>A</strong> : $\sum x_n / N$ (c'est $X_0$, pas $X_2$).
             </div>
         </div>
 
@@ -1152,18 +1153,18 @@
 
         <!-- QCM 5-10 -->
         <div class="qcm-card" style="border-left-color:var(--c5)">
-            <h4>Q10 — $X_0$ d'un signal</h4>
-            <p>$x = [5, -2, 3, -1, 0, 7]$. Que vaut $X_0$ ?</p>
+            <h4>Q10 — $X_0$ d'un signal (convention 1/N)</h4>
+            <p>$x = [5, -2, 3, -1, 0, 7]$, $N = 6$. Que vaut $X_0$ ?</p>
             <ul class="qcm-options">
                 <li onclick="selectQCM(this)"><strong>A)</strong> $0$</li>
                 <li onclick="selectQCM(this)"><strong>B)</strong> $12$</li>
                 <li onclick="selectQCM(this)"><strong>C)</strong> $2$</li>
                 <li onclick="selectQCM(this)"><strong>D)</strong> $18$</li>
             </ul>
-            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <button class="qcm-validate" onclick="checkQCM(this,'C')">Valider</button>
             <div class="qcm-explain">
-                ✅ <strong>B</strong> — $X_0 = \sum x_n = 5 + (-2) + 3 + (-1) + 0 + 7 = 12$. C'est toujours la somme brute.<br>
-                🪤 <strong>C</strong> : moyenne (il faudrait diviser par $N=6$, mais $X_0$ c'est la somme, pas la moyenne). <strong>D</strong> : somme des valeurs absolues.
+                ✅ <strong>C</strong> — $X_0 = \frac{1}{N}\sum x_n = \frac{5+(-2)+3+(-1)+0+7}{6} = \frac{12}{6} = 2$. C'est la <strong>moyenne</strong> (composante continue).<br>
+                🪤 <strong>B</strong> : oubli du $1/N$ → on obtient 12 (la somme brute). Piège n°1 de la DFT ! <strong>D</strong> : somme des valeurs absolues.
             </div>
         </div>
 
