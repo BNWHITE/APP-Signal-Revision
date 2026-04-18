@@ -40,7 +40,7 @@
             <p class="hero-sub">7 blocs progressifs. <strong>QCM d'entraînement avec pièges</strong> : les questions ne seront pas les mêmes, mais les concepts oui. Comprends le fond → tu gères toutes les variantes.</p>
             <div class="hero-stats">
                 <div class="stat"><span class="stat-num">7</span><span class="stat-label">Blocs</span></div>
-                <div class="stat"><span class="stat-num">70+</span><span class="stat-label">QCM</span></div>
+                <div class="stat"><span class="stat-num">40+</span><span class="stat-label">QCM</span></div>
                 <div class="stat"><span class="stat-num">⚠️</span><span class="stat-label">Pts négatifs</span></div>
             </div>
             <a href="#bloc1" class="cta-btn">Commencer →</a>
@@ -841,16 +841,76 @@
 
         <div class="section-label">📖 Comprendre</div>
         <div class="cours-card" style="border-left-color:var(--c5)">
-            <h3>🎯 L'idée en 30 secondes</h3>
-            <p>Fourier dit que <strong>tout signal = somme de sinusoïdes</strong>. La TF décompose le signal en ses « ingrédients fréquentiels ».</p>
+            <h3>🎯 L'essentiel en profondeur — 9 points clés</h3>
+
+            <h4 style="margin-top:1.2em;color:var(--c5)">① Spectre d'un cosinus / sinus (TF continue)</h4>
             <ul>
-                <li><strong>Cosinus pur</strong> → 2 raies (à $+f_0$ et $-f_0$). <strong>Exponentielle complexe</strong> $e^{j2\pi f_0 t}$ → 1 seule raie à $+f_0$.</li>
-                <li><strong>TFD (DFT)</strong> : $N$ échantillons → $N$ coefficients. Fréquence de l'indice $k$ : $f = k \cdot F_e/N$.</li>
-                <li><strong>$|X_k|$</strong> = amplitude, <strong>$|X_k|^2$</strong> = puissance (DSP). Signal réel → spectre symétrique, on lit $[0, F_e/2]$.</li>
-                <li><strong>Porte de durée $\tau$</strong> → sinus cardinal, zéros espacés de $1/\tau$.</li>
+                <li>$\cos(2\pi f_0 t)$ → <strong>2 raies</strong> en $+f_0$ et $-f_0$, d'amplitude $A/2$ chacune, <strong>phase nulle</strong> (les deux en phase).</li>
+                <li>$\sin(2\pi f_0 t)$ → <strong>2 raies</strong> en $+f_0$ et $-f_0$, d'amplitude $A/2$ chacune, <strong>phase antisymétrique</strong> ($+\pi/2$ et $-\pi/2$).</li>
+                <li>⚠️ <strong>Sur le module seul</strong> : impossible de distinguer $\sin$ et $\cos$ ! Les deux ont exactement le même $|X(f)|$. D'où le $\theta$ libre dans les exercices de reconstruction.</li>
             </ul>
-            <div class="analogy">🎵 Analogie : un <strong>accord de musique</strong> (Do-Mi-Sol) sonne comme un seul son. L'analyseur spectral montre 3 pics séparés. Fourier = l'oreille absolue du mathématicien.</div>
-            <div class="key-insight"><strong>Zero-padding :</strong> ajouter des zéros = diminuer $\Delta f = F_e/N$ = « zoomer » sur le spectre. N'ajoute pas d'info mais interpole.</div>
+            <div class="key-insight"><strong>Retiens :</strong> cos = symétrie paire (phase 0). sin = antisymétrie impaire (phase ±π/2). Module identique → seule la phase les différencie.</div>
+
+            <h4 style="margin-top:1.2em;color:var(--c5)">② DFT vs TF continue — la différence fondamentale</h4>
+            <ul>
+                <li><strong>TF continue</strong> : axe $f$ de $-\infty$ à $+\infty$. Un cosinus donne 2 raies en $\pm f_0$.</li>
+                <li><strong>DFT</strong> : indices $k$ de $0$ à $N-1$ uniquement. Pas de fréquences négatives !</li>
+                <li>La raie à $-f_0$ est <strong>repliée</strong> (aliasée) à l'indice $k = N - k_0$ (soit la fréquence $F_e - f_0$).</li>
+                <li>Donc un cosinus en DFT → 2 raies : à $k_0 = f_0 N / F_e$ et à $N - k_0$.</li>
+            </ul>
+            <div class="analogy">🔄 En TF continue, la raie est à $-f_0$. En DFT, elle est « repliée à droite » à $F_e - f_0$. C'est le même phénomène que l'aliasing de Shannon, mais dans le domaine fréquentiel.</div>
+
+            <h4 style="margin-top:1.2em;color:var(--c5)">③ Encombrement spectral (bande passante à −X dB)</h4>
+            <ul>
+                <li><strong>Méthode</strong> : on part du niveau max du spectre, on soustrait le SNR requis → seuil en dB.</li>
+                <li>La bande passante $B$ = ensemble des fréquences dont le niveau est <strong>au-dessus de ce seuil</strong>.</li>
+                <li><em>Exemple</em> : pic max à $+20$ dB, SNR demandé = $30$ dB → seuil = $20 - 30 = -10$ dB → on lit $B$ sur le graphe au-dessus de $-10$ dB.</li>
+            </ul>
+            <div class="key-insight"><strong>Piège exam :</strong> le seuil n'est PAS « −SNR dB ». C'est « niveau max − SNR ». Si le pic est à +15 dB et SNR = 20 dB, le seuil est à −5 dB, pas à −20 dB.</div>
+
+            <h4 style="margin-top:1.2em;color:var(--c5)">④ Porte rectangulaire → sinus cardinal (sinc)</h4>
+            <ul>
+                <li>Signal porte de $M$ échantillons (durée $\tau = M/F_e$) → spectre = <strong>sinus cardinal</strong>.</li>
+                <li>Les <strong>zéros</strong> du sinc sont espacés de $F_e/M = 1/\tau$ en fréquence.</li>
+                <li>Lobe principal : largeur $2/\tau$. Plus la porte est courte → spectre plus large (dualité temps-fréquence).</li>
+            </ul>
+
+            <h4 style="margin-top:1.2em;color:var(--c5)">⑤ Lecture d'un spectre DFT — méthode systématique</h4>
+            <ul>
+                <li><strong>$F_e$</strong> = étendue totale de l'axe fréquentiel (de $0$ à $F_e$, ou symétrique autour de $F_e/2$).</li>
+                <li><strong>$f_0 = k \cdot F_e / N$</strong> pour convertir un indice en fréquence.</li>
+                <li><strong>Compter les pics</strong> : 2 pics symétriques = 1 sinusoïde. 4 pics = 2 sinusoïdes. Pic en $k=0$ = composante continue.</li>
+                <li>Un pic « à droite » (proche de $F_e$) est l'alias de la fréquence négative : sa vraie fréquence est $F_e - f_{pic}$.</li>
+            </ul>
+
+            <h4 style="margin-top:1.2em;color:var(--c5)">⑥ Calcul direct d'un coefficient $X_k$</h4>
+            <ul>
+                <li>Formule : $X_k = \sum_{n=0}^{N-1} x_n \cdot e^{-j\frac{2\pi}{N}kn}$</li>
+                <li><strong>Cas $k = 0$</strong> : $X_0 = \sum x_n$ (somme brute de tous les échantillons).</li>
+                <li><strong>Cas $k = N/2$</strong> : $e^{-j\pi n} = (-1)^n$ → $X_{N/2} = x_0 - x_1 + x_2 - x_3 + \ldots$ (alternance $+,-,+,-$).</li>
+            </ul>
+            <div class="key-insight"><strong>Astuce exam :</strong> on ne te demandera jamais un $X_k$ quelconque (trop long). On te demande $X_0$ (somme) ou $X_{N/2}$ (alternance). Apprends ces deux cas par cœur.</div>
+
+            <h4 style="margin-top:1.2em;color:var(--c5)">⑦ DFT d'une porte — formule avec le sinus</h4>
+            <ul>
+                <li>$$|X_k| = \left|\frac{\sin\left(\frac{M\pi k}{N}\right)}{\sin\left(\frac{\pi k}{N}\right)}\right|$$</li>
+                <li>$M$ = nombre d'échantillons de la porte, $N$ = taille totale de la DFT, $k$ = indice fréquentiel.</li>
+                <li>Pour trouver $k$ à partir d'une fréquence : $k = f \cdot N / F_e$.</li>
+            </ul>
+
+            <h4 style="margin-top:1.2em;color:var(--c5)">⑧ Indice → fréquence (et inversement)</h4>
+            <ul>
+                <li>$$f = \frac{k \cdot F_e}{N} \qquad \Longleftrightarrow \qquad k = \frac{f \cdot N}{F_e}$$</li>
+                <li>$\Delta f = F_e / N$ = résolution fréquentielle = écart entre deux bins consécutifs.</li>
+            </ul>
+
+            <h4 style="margin-top:1.2em;color:var(--c5)">⑨ Zero-padding — augmenter la résolution</h4>
+            <ul>
+                <li>On complète le signal de $N_0$ échantillons avec des zéros pour atteindre $N_{total}$.</li>
+                <li>$$\Delta f = \frac{F_e}{N_{total}} \leq \text{résolution souhaitée} \implies N_{total} \geq \frac{F_e}{\Delta f_{voulu}}$$</li>
+                <li>Nombre de zéros à ajouter : $N_{zeros} = N_{total} - N_0$.</li>
+                <li>⚠️ Le zero-padding <strong>interpole</strong> le spectre (plus joli) mais n'ajoute <strong>aucune information</strong> nouvelle.</li>
+            </ul>
         </div>
 
         <div class="section-label">🎨 Visualiser</div>
@@ -922,9 +982,15 @@
         <div class="formulas-card">
             <div class="formula-grid">
                 <div class="formula-item"><span class="formula-label" style="color:var(--c5)">DFT</span><div class="formula-math">$$X_k = \sum_{n=0}^{N-1} x_n e^{-j2\pi kn/N}$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Fréquence pic k</span><div class="formula-math">$$f = k \cdot F_e / N$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Indice ↔ fréquence</span><div class="formula-math">$$f = k \cdot F_e / N \quad;\quad k = f \cdot N / F_e$$</div></div>
                 <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Pas fréquentiel</span><div class="formula-math">$$\Delta f = F_e / N$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Zero-padding</span><div class="formula-math">$$N_{total} \geq F_e / \Delta f_{voulu}$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Zero-padding</span><div class="formula-math">$$N_{total} \geq F_e / \Delta f_{voulu} \;;\; N_{zeros} = N_{total} - N_0$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">DFT porte ($M$ éch.)</span><div class="formula-math">$$|X_k| = \left|\frac{\sin(M\pi k/N)}{\sin(\pi k/N)}\right|$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Sinc : zéros</span><div class="formula-math">$$\text{espacement} = 1/\tau = F_e/M$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">$X_0$ (somme)</span><div class="formula-math">$$X_0 = \sum_{n=0}^{N-1} x_n$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">$X_{N/2}$ (alternance)</span><div class="formula-math">$$X_{N/2} = \sum_{n=0}^{N-1} (-1)^n x_n$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Encombrement</span><div class="formula-math">$$\text{seuil} = |X|_{\max}(\text{dB}) - \text{SNR}(\text{dB})$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c5)">Alias DFT</span><div class="formula-math">$$k_{alias} = N - k_0 \;\Leftrightarrow\; f_{alias} = F_e - f_0$$</div></div>
             </div>
         </div>
 
@@ -1016,13 +1082,102 @@
             </div>
         </div>
 
+        <!-- QCM 5-6 -->
+        <div class="qcm-card" style="border-left-color:var(--c5)">
+            <h4>Q6 — DFT vs TF continue</h4>
+            <p>En TF continue, $\cos(2\pi f_0 t)$ donne 2 raies à $\pm f_0$. En DFT ($N$ points), ces 2 raies apparaissent aux indices :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $k_0$ et $-k_0$</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $k_0$ et $N - k_0$</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $k_0$ uniquement</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $k_0$ et $N/2$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — En DFT, pas de fréquences négatives. La raie à $-f_0$ est repliée à l'indice $N - k_0$ (fréquence $F_e - f_0$).<br>
+                🪤 <strong>A</strong> : les indices DFT vont de $0$ à $N-1$, pas d'indice négatif ! <strong>C</strong> : oubli de la symétrie.
+            </div>
+        </div>
+
+        <!-- QCM 5-7 -->
+        <div class="qcm-card" style="border-left-color:var(--c5)">
+            <h4>Q7 — Encombrement spectral</h4>
+            <p>Spectre d'un signal : pic principal à $+18$ dB. On exige un SNR de $25$ dB. Quel est le seuil pour mesurer la bande passante ?</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $-25$ dB</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $-7$ dB</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $+7$ dB</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $-18$ dB</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — Seuil $= |X|_{\max} - \text{SNR} = 18 - 25 = -7$ dB. On lit la bande au-dessus de $-7$ dB.<br>
+                🪤 <strong>A</strong> : on prend $-\text{SNR}$ directement (faux si le pic n'est pas à 0 dB). <strong>D</strong> : on confond pic et seuil.
+            </div>
+        </div>
+
+        <!-- QCM 5-8 -->
+        <div class="qcm-card" style="border-left-color:var(--c5)">
+            <h4>Q8 — Distinguer sin et cos sur le spectre</h4>
+            <p>On observe $|X(f)|$ d'un signal. On voit 2 raies symétriques à $\pm f_0$. Peut-on dire si le signal est un cosinus ou un sinus ?</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> Oui, c'est forcément un cosinus</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> Oui, c'est forcément un sinus</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> Non, le module est identique pour les deux</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> Oui, on regarde laquelle des 2 raies est plus haute</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'C')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>C</strong> — $|\cos|$ et $|\sin|$ ont exactement le même spectre en module. Seule la <strong>phase</strong> les différencie ($0$ pour cos, $\pm\pi/2$ pour sin).<br>
+                🪤 C'est pour ça qu'en reconstruction, le $\theta$ reste « libre » quand on n'a que le module.
+            </div>
+        </div>
+
+        <!-- QCM 5-9 -->
+        <div class="qcm-card" style="border-left-color:var(--c5)">
+            <h4>Q9 — Compter les sinusoïdes</h4>
+            <p>Un spectre DFT ($N = 512$) montre 6 pics non nuls (3 dans $[0, F_e/2]$, 3 symétriques). Combien de sinusoïdes composent le signal ?</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> 6</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> 3</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> 2</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> 12</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — Chaque sinusoïde réelle produit <strong>2 raies symétriques</strong>. 6 pics / 2 = 3 sinusoïdes.<br>
+                🪤 <strong>A</strong> : on compte chaque raie comme une sinusoïde (erreur classique). Toujours diviser par 2 !
+            </div>
+        </div>
+
+        <!-- QCM 5-10 -->
+        <div class="qcm-card" style="border-left-color:var(--c5)">
+            <h4>Q10 — $X_0$ d'un signal</h4>
+            <p>$x = [5, -2, 3, -1, 0, 7]$. Que vaut $X_0$ ?</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $0$</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $12$</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $2$</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $18$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $X_0 = \sum x_n = 5 + (-2) + 3 + (-1) + 0 + 7 = 12$. C'est toujours la somme brute.<br>
+                🪤 <strong>C</strong> : moyenne (il faudrait diviser par $N=6$, mais $X_0$ c'est la somme, pas la moyenne). <strong>D</strong> : somme des valeurs absolues.
+            </div>
+        </div>
+
         <div class="section-label">⚠️ Pièges</div>
         <div class="vf-card">
             <h3>Clique pour révéler</h3>
-            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">La TFD d'un signal discret donne des coefficients discrets complexes</div><div class="vf-answer faux">❌ FAUX — La TF d'un signal discret (TFTD) est continue. C'est la DFT qui donne N coefficients discrets.</div></div>
-            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Le module de la TFD d'un signal réel s'interprète sur $[0, F_e[$</div><div class="vf-answer faux">❌ FAUX — Sur $[0, F_e/2]$ seulement (symétrie).</div></div>
-            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">$X_k$ représente directement la puissance</div><div class="vf-answer faux">❌ FAUX — $X_k$ est complexe. C'est $|X_k|^2$ la puissance.</div></div>
-            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Le zero-padding améliore la résolution de la TFD</div><div class="vf-answer vrai">✅ VRAI — $\Delta f = F_e/N$ diminue quand N augmente.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">La TFD d'un signal discret donne des coefficients discrets complexes</div><div class="vf-answer faux">❌ FAUX — La TF d'un signal discret (TFTD) est continue et périodique. C'est la DFT qui donne exactement $N$ coefficients discrets.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Le module du spectre permet de distinguer sin et cos</div><div class="vf-answer faux">❌ FAUX — $|\cos|$ et $|\sin|$ ont exactement le même module. Seule la <strong>phase</strong> les différencie (0 vs ±π/2).</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">En DFT, un cosinus donne 2 raies à $+f_0$ et $-f_0$</div><div class="vf-answer faux">❌ FAUX — C'est vrai en TF continue. En DFT (indices 0 à N−1), les raies sont à $k_0 = f_0 N/F_e$ et $N - k_0$ (pas de fréquences négatives).</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Le module de la TFD d'un signal réel s'interprète sur $[0, F_e[$</div><div class="vf-answer faux">❌ FAUX — Sur $[0, F_e/2]$ seulement (symétrie hermitienne). La moitié droite est le miroir.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">$X_k$ représente directement la puissance à la fréquence $k\Delta f$</div><div class="vf-answer faux">❌ FAUX — $X_k$ est un nombre <strong>complexe</strong> (amplitude + phase). La puissance c'est $|X_k|^2$.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Le zero-padding ajoute de l'information au signal</div><div class="vf-answer faux">❌ FAUX — Il <strong>interpole</strong> le spectre (courbe plus lisse, meilleure résolution visuelle) mais n'apporte aucune information nouvelle. L'information vient uniquement des $N_0$ échantillons réels.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Pour l'encombrement spectral, le seuil est toujours à $-\text{SNR}$ dB</div><div class="vf-answer faux">❌ FAUX — Le seuil = niveau max du pic − SNR. Si le pic est à +20 dB et SNR = 30 dB, le seuil est à −10 dB, pas −30 dB.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">6 pics sur un spectre DFT = 6 sinusoïdes</div><div class="vf-answer faux">❌ FAUX — Chaque sinusoïde réelle donne 2 pics symétriques. 6 pics = <strong>3 sinusoïdes</strong>. Toujours diviser par 2.</div></div>
         </div>
     </section>
 
