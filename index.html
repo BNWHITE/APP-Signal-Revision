@@ -40,7 +40,7 @@
             <p class="hero-sub">7 blocs progressifs. <strong>QCM d'entraînement avec pièges</strong> : les questions ne seront pas les mêmes, mais les concepts oui. Comprends le fond → tu gères toutes les variantes.</p>
             <div class="hero-stats">
                 <div class="stat"><span class="stat-num">7</span><span class="stat-label">Blocs</span></div>
-                <div class="stat"><span class="stat-num">40+</span><span class="stat-label">QCM</span></div>
+                <div class="stat"><span class="stat-num">60+</span><span class="stat-label">QCM</span></div>
                 <div class="stat"><span class="stat-num">⚠️</span><span class="stat-label">Pts négatifs</span></div>
             </div>
             <a href="#bloc1" class="cta-btn">Commencer →</a>
@@ -322,15 +322,70 @@
 
         <div class="section-label">📖 Comprendre</div>
         <div class="cours-card" style="border-left-color:var(--c2)">
-            <h3>🎯 L'idée en 30 secondes</h3>
-            <p><strong>Échantillonner</strong> = prendre des « photos » du signal à intervalles réguliers $T = 1/F_e$.</p>
+            <h3>🎯 Concept ① — Numérisation = 2 étapes</h3>
+            <p><strong>Numériser ≠ Échantillonner !</strong> La numérisation comprend <strong>deux étapes distinctes</strong> :</p>
             <ul>
-                <li><strong>Shannon</strong> : pour capturer fidèlement un signal dont la fréquence max est $f_{max}$, il faut $F_e > 2f_{max}$ (au moins 2 photos par oscillation).</li>
-                <li><strong>Aliasing (repliement)</strong> : si $F_e < 2f_0$, la haute fréquence se « déguise » en basse fréquence : $f_{alias} = F_e - f_0$. C'est irréversible !</li>
-                <li><strong>Attention</strong> : le 1er échantillon est $n=0$, pas $n=1$ ! Donc le 1025ème = $n = 1024$.</li>
+                <li>① <strong>Échantillonnage</strong> : signal continu → signal discret en temps (on prélève $x(nT_e)$ à intervalles $T_e = 1/F_e$)</li>
+                <li>② <strong>Quantification</strong> : amplitude continue → amplitude discrète (arrondi sur $2^b$ niveaux)</li>
             </ul>
-            <div class="analogy">🎬 Analogie : dans un film, les roues de voiture semblent tourner à l'envers quand la vitesse de rotation dépasse la moitié du framerate. C'est exactement l'aliasing !</div>
-            <div class="key-insight"><strong>Numériser ≠ Échantillonner !</strong> Numériser = échantillonnage + quantification. L'échantillonnage seul est réversible si Shannon OK.</div>
+            <div class="key-insight">⚠️ L'échantillonnage seul est <strong>réversible</strong> (si Shannon OK). La quantification est <strong>irréversible</strong> (perte d'info = bruit $q^2/12$).</div>
+        </div>
+
+        <div class="cours-card" style="border-left-color:var(--c2)">
+            <h3>🎯 Concept ② — Shannon : la règle d'or</h3>
+            <p>Pour capturer fidèlement un signal de fréquence max $f_{max}$ :</p>
+            $$\boxed{F_e > 2f_{max}}$$
+            <ul>
+                <li><strong>Inégalité stricte</strong> : $F_e = 2f_{max}$ ne suffit PAS (on échantillonne aux zéros du cos).</li>
+                <li><strong>Exemple</strong> : signal dans $[0, 21{,}5]$ kHz → il faut $F_e > 2 \times 21{,}5 = 43$ kHz. $F_e = 11$ kHz ? Violation massive !</li>
+                <li><strong>En pratique</strong> : on prend une marge. CD audio : $f_{max} = 20$ kHz → $F_e = 44{,}1$ kHz > 40 kHz ✓</li>
+            </ul>
+            <div class="analogy">🎬 Analogie film : roue de voiture = 10 tours/s. Si caméra = 24 fps > 20 → mouvement correct. Si caméra = 12 fps < 20 → la roue semble tourner à l'envers = <strong>aliasing</strong>.</div>
+        </div>
+
+        <div class="cours-card" style="border-left-color:var(--c2)">
+            <h3>🎯 Concept ③ — Repliement spectral (ALIASING)</h3>
+            <p>Si $f_0 > F_e/2$ (Shannon violé), la fréquence $f_0$ se « déguise » en une basse fréquence fantôme :</p>
+            $$\boxed{f_{alias} = |F_e - f_0|}$$
+            <ul>
+                <li><strong>Exemple clé</strong> : $f_0 = 4000$ Hz, $F_e = 5000$ Hz. On a $f_0 > F_e/2 = 2500$ Hz → <strong>aliasing !</strong></li>
+                <li>$f_{alias} = |5000 - 4000| = 1000$ Hz. Le signal reconstruit vibre à 1000 Hz, pas 4000 Hz !</li>
+                <li>Le signal reconstruit est $x'(t) = B\sin(2\pi \cdot 1000 \cdot t + \theta)$ — une <strong>fausse basse fréquence</strong>.</li>
+                <li><strong>C'est IRRÉVERSIBLE</strong> : une fois replié, impossible de retrouver $f_0$.</li>
+            </ul>
+            <div class="key-insight">🪞 <strong>Miroir à $F_e/2$</strong> : imagine un miroir à la fréquence $F_e/2$. Toute fréquence au-delà se « replie » symétriquement en dessous. $f_0 = 4000$, miroir à 2500 → distance au miroir = 1500 → replié à $2500 - 1500 = 1000$ Hz. Ou plus simple : $f_{alias} = F_e - f_0 = 5000 - 4000 = 1000$ Hz.</div>
+        </div>
+
+        <div class="cours-card" style="border-left-color:var(--c2)">
+            <h3>🎯 Concept ④ — Chaîne de numérisation complète</h3>
+            <p>Une chaîne de numérisation <strong>optimale</strong> comporte 3 éléments dans cet ordre :</p>
+            <ol>
+                <li><strong>Filtre anti-repliement (anti-aliasing)</strong> : passe-bas analogique, $f_c = F_e/2$, AVANT l'échantillonneur. Il supprime les fréquences $> F_e/2$ pour éviter le repliement.</li>
+                <li><strong>Échantillonneur (CAN)</strong> : prélève $x(nT_e)$ à la cadence $F_e$.</li>
+                <li><strong>Quantificateur</strong> : arrondit sur $2^b$ niveaux (souvent intégré au CAN).</li>
+            </ol>
+            <div class="key-insight">⚠️ <strong>Sans filtre anti-repliement</strong>, même si $F_e > 2f_{max\_utile}$, du bruit haute fréquence peut se replier dans la bande utile ! L'absence de ce filtre rend la chaîne <strong>non optimale</strong> — piège d'exam classique.</div>
+        </div>
+
+        <div class="cours-card" style="border-left-color:var(--c2)">
+            <h3>🎯 Concept ⑤ — Reconstruction & Interpolation</h3>
+            <p>Après échantillonnage (Shannon respecté), on reconstruit le signal continu par <strong>interpolation</strong>.</p>
+            <ul>
+                <li><strong>Reconstruction idéale</strong> : filtre passe-bas idéal de fréquence de coupure $f_c = F_e/2 = 1/(2T_e)$.</li>
+                <li>⚠️ <strong>Piège</strong> : $f_c = F_e/2 = \frac{1}{2T}$, PAS $\frac{1}{T}$ ! L'erreur est de confondre $F_e = 1/T$ avec $F_e/2$.</li>
+                <li><strong>En pratique</strong> : le filtre passe-bas idéal n'existe pas (sinc infinie). On utilise des approximations : interpolation linéaire, spline, sinc tronquée...</li>
+                <li>L'interpolation linéaire = relier les points par des droites. Simple mais imparfait. Plus on a d'échantillons autour de $t$, meilleure est l'estimation.</li>
+            </ul>
+        </div>
+
+        <div class="cours-card" style="border-left-color:var(--c2)">
+            <h3>🎯 Concept ⑥ — Conversions T ↔ Fe et indices</h3>
+            <ul>
+                <li>$T_e = 1/F_e$ et $F_e = 1/T_e$. Si $T_e = 125\,\mu$s → $F_e = 1/(125 \times 10^{-6}) = 8000$ Hz.</li>
+                <li>Le 1er échantillon est $n=0$, pas $n=1$. Le $N$-ème échantillon a l'indice $n = N-1$.</li>
+                <li><strong>Durée du signal</strong> : $T_{total} = N \cdot T_e = N/F_e$.</li>
+                <li><strong>Vérification de Shannon depuis $T_e$</strong> : $T_e = 125\,\mu$s → $F_e = 8$ kHz → $f_{max} < F_e/2 = 4$ kHz. Signal utile jusqu'à 3951 Hz → 3951 < 4000 ✓ (mais juste !).</li>
+            </ul>
         </div>
 
         <div class="section-label">🎨 Visualiser</div>
@@ -366,26 +421,35 @@
 
         <div class="section-label">🧠 Méthodes de Prof</div>
         <div class="method-card">
-            <h4>Réflexes d'examen — Échantillonnage</h4>
+            <h4>Réflexes d'examen — Échantillonnage & Numérisation</h4>
             <div class="method-item">
-                <span class="mnemonic">🔤 Mnémo « Shannon = Deux fois »</span><br>
-                Entends « Shannon » → écris <strong>$F_e > 2f_{max}$</strong> immédiatement. Le 2 est <strong>strict</strong> : $F_e = 2f_{max}$ ne suffit PAS (le signal serait échantillonné aux zéros du cosinus).
+                <span class="mnemonic">🔤 Mnémo « Shannon = Deux fois strict »</span><br>
+                Entends « Shannon » → écris <strong>$F_e > 2f_{max}$</strong>. Le 2 est <strong>strict</strong> : $F_e = 2f_{max}$ ne suffit PAS. Et attention : c'est $f_{max}$ du spectre, pas la fondamentale !
             </div>
             <div class="method-item">
-                <span class="exam-reflex">🎯 Piège n=0</span><br>
-                On numérote les échantillons à partir de $n=0$, pas $n=1$. Donc $N$ échantillons → indices $0$ à $N-1$. <strong>Le dernier échantillon est $x((N-1)T_e)$</strong>, pas $x(NT_e)$.
+                <span class="exam-reflex">🎯 Repliement : la méthode en 3 étapes</span><br>
+                ① Vérifie : $f_0 > F_e/2$ ? Si oui → aliasing. ② Calcule : $f_{alias} = F_e - f_0$. ③ Conclus : le signal reconstruit vibre à $f_{alias}$, pas $f_0$.<br>
+                <strong>Exemple type exam</strong> : $f_0 = 4000$ Hz, $F_e = 5000$ Hz. $4000 > 2500$ ✓ → $f_{alias} = 5000 - 4000 = 1000$ Hz.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Chaîne optimale = FILTRE + CAN</span><br>
+                On te dit « le groupe a conçu un système d'acquisition et échantillonne à $F_e$ ». La question piège : <strong>où est le filtre anti-repliement ?</strong> Sans filtre anti-aliasing (passe-bas, $f_c = F_e/2$) AVANT le CAN, la chaîne n'est PAS optimale, même si Shannon est respecté pour le signal utile.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Conversion $T_e \leftrightarrow F_e$</span><br>
+                $T_e = 125\,\mu$s → $F_e = 1/(125 \times 10^{-6}) = 8$ kHz. Puis $F_e/2 = 4$ kHz = fréquence max admissible. <strong>Ne confonds JAMAIS</strong> $F_e$ et $F_e/2$ dans un calcul !
             </div>
             <div class="method-item">
                 <span class="dim-check">📏 Vérif dimensionnelle</span><br>
-                $F_e$ en Hz, $f_0$ en Hz → $N_{per} = F_e/f_0$ est sans dimension ✓. Durée = $N/F_e$ → échantillons / (éch/s) = secondes ✓. Toujours vérifier que le résultat a la bonne unité.
+                $F_e$ en Hz, $f_0$ en Hz → $f_{alias}$ en Hz ✓. Durée = $N/F_e$ → échantillons / (éch/s) = secondes ✓. Si tu trouves des kHz pour une durée, il y a une erreur.
             </div>
             <div class="method-item">
-                <span class="exam-reflex">🎯 Aliasing : la formule miroir</span><br>
-                Si $f_0 > F_e/2$ → la fréquence perçue est $f_{alias} = |F_e - f_0|$. Méthode : replie la fréquence comme un <strong>miroir à $F_e/2$</strong>. Exemple : $f_0=900$Hz, $F_e=1000$Hz → alias = $|1000-900|=100$Hz.
+                <span class="physics">🔬 Reconstruction : $f_c = F_e/2$, pas $1/T$ !</span><br>
+                Le filtre de reconstruction idéal a $f_c = F_e/2 = 1/(2T_e)$. Le piège classique : confondre $1/T_e = F_e$ avec $F_e/2$. En exam, si on te propose $1/T$ → c'est le piège ! La bonne réponse est toujours $F_e/2$.
             </div>
             <div class="method-item">
-                <span class="physics">🔬 Intuition physique</span><br>
-                Pourquoi faut-il $>2f_{max}$ ? Imagine un cosinus : il faut au minimum capturer un max ET un min par période pour reconstruire le signal. 2 points = le strict minimum théorique.
+                <span class="physics">🔬 Interpolation : idéale vs pratique</span><br>
+                La formule de Shannon (sinc) donne une reconstruction <strong>parfaite</strong> mais nécessite une infinité d'échantillons → irréalisable. En pratique : interpolation linéaire (relie les points), cubique, ou spline. Ce sont des <strong>approximations</strong>. Question exam : « La formule de reconstruction parfaite est-elle réalisable ? » → <strong>NON</strong>.
             </div>
         </div>
 
@@ -393,11 +457,13 @@
         <div class="formulas-card">
             <div class="formula-grid">
                 <div class="formula-item"><span class="formula-label" style="color:var(--c2)">Shannon</span><div class="formula-math">$$F_e > 2 f_{max}$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c2)">Aliasing</span><div class="formula-math">$$f_{alias} = F_e - f_0$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c2)">Aliasing</span><div class="formula-math">$$f_{alias} = |F_e - f_0|$$</div></div>
                 <div class="formula-item"><span class="formula-label" style="color:var(--c2)">Éch/période</span><div class="formula-math">$$N_{per} = F_e / f_0$$</div></div>
                 <div class="formula-item"><span class="formula-label" style="color:var(--c2)">Durée</span><div class="formula-math">$$\text{Durée} = N / F_e$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c2)">Échantillon n</span><div class="formula-math">$$x(nT) = x(n/F_e)$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c2)">Fenêtre K</span><div class="formula-math">$$K = (F_e \cdot T_{fen} - 1)/2$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c2)">Conversion</span><div class="formula-math">$$T_e = 1/F_e \;\Leftrightarrow\; F_e = 1/T_e$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c2)">Anti-aliasing</span><div class="formula-math">$$f_{c,\text{filtre}} = F_e/2$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c2)">Reconstruction</span><div class="formula-math">$$f_{c,\text{reconst}} = F_e/2 = \frac{1}{2T_e}$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c2)">Débit</span><div class="formula-math">$$D = F_e \times b \text{ (bits/s)}$$</div></div>
             </div>
         </div>
 
@@ -463,15 +529,90 @@
             <div class="qcm-explain">✅ <strong>C</strong> — $f_c = F_e/2$. Attention : D = $1/T_e = F_e$, pas $F_e/2$ ! C'est un piège fréquent. B confond aussi $F_e$ et $F_e/2$.</div>
         </div>
 
+        <!-- QCM 2-6 : repliement calcul exact (type quiz Q5) -->
+        <div class="qcm-card" id="q2-6">
+            <h4>Q6. $x(t) = A\sin(2\pi \cdot 4000 \cdot t)$, échantillonné à $F_e = 5000$ Hz. Le signal reconstruit vibre à :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $4000$ Hz</li>
+                <li onclick="selectQCM(this)">B) $1000$ Hz</li>
+                <li onclick="selectQCM(this)">C) $3000$ Hz</li>
+                <li onclick="selectQCM(this)">D) $500$ Hz</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'B')">Valider</button>
+            <div class="qcm-explain">✅ <strong>B</strong> — $f_0 = 4000 > F_e/2 = 2500$ → aliasing ! $f_{alias} = F_e - f_0 = 5000 - 4000 = 1000$ Hz.<br>
+                🪤 <strong>A</strong> : oubli du repliement. <strong>C</strong> : calcule $f_0 - F_e/2$ au lieu de $F_e - f_0$. <strong>D</strong> : confond avec $F_e/2 - f_{alias}$.<br>
+                💡 <strong>C'est INDISPENSABLE</strong> de comprendre ce mécanisme. Dessine le spectre replié pour visualiser !</div>
+        </div>
+
+        <!-- QCM 2-7 : chaîne de numérisation complète (type quiz Q4) -->
+        <div class="qcm-card" id="q2-7">
+            <h4>Q7. Un micro capte un signal audio (bande utile 0–3951 Hz). Le CAN lit tous les $125\,\mu$s. La chaîne est-elle optimale ?</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) Oui : Shannon respecté ($F_e = 8$ kHz $> 2 \times 3951$)</li>
+                <li onclick="selectQCM(this)">B) Non : Shannon n'est pas respecté</li>
+                <li onclick="selectQCM(this)">C) Non : il manque un filtre anti-repliement ($f_c = F_e/2$) avant le CAN</li>
+                <li onclick="selectQCM(this)">D) Non : il faudrait $F_e > 4f_{max}$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'C')">Valider</button>
+            <div class="qcm-explain">✅ <strong>C</strong> — $T_e = 125\,\mu$s → $F_e = 8$ kHz → $F_e/2 = 4$ kHz > 3951 Hz → Shannon OK. Mais sans filtre anti-aliasing analogique avant le CAN, du bruit HF peut se replier. La chaîne est donc <strong>non optimale</strong>.<br>
+                🪤 <strong>A</strong> : oublie le filtre. <strong>B</strong> : Shannon est bien respecté. <strong>D</strong> : Shannon demande $>2f_{max}$, pas $>4f_{max}$.</div>
+        </div>
+
+        <!-- QCM 2-8 : reconstruction (type quiz Q12) -->
+        <div class="qcm-card" id="q2-8">
+            <h4>Q8. Signal échantillonné à $F_e = 1/T$. Le filtre de reconstruction parfaite a pour fréquence de coupure :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $1/T = F_e$</li>
+                <li onclick="selectQCM(this)">B) $1/(2T) = F_e/2$</li>
+                <li onclick="selectQCM(this)">C) $2/T = 2F_e$</li>
+                <li onclick="selectQCM(this)">D) $f_{max}$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'B')">Valider</button>
+            <div class="qcm-explain">✅ <strong>B</strong> — $f_c = F_e/2 = 1/(2T)$. C'est un passe-bas idéal.<br>
+                🪤 <strong>A</strong> : piège classique ! $1/T = F_e$, pas $F_e/2$. Le facteur 2 est crucial.</div>
+        </div>
+
+        <!-- QCM 2-9 : interpolation (type quiz Q13) -->
+        <div class="qcm-card" id="q2-9">
+            <h4>Q9. La formule d'interpolation de Shannon (reconstruction parfaite par sinus cardinal) est :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) Réalisable en pratique avec un DSP</li>
+                <li onclick="selectQCM(this)">B) Non réalisable car elle nécessite une infinité d'échantillons</li>
+                <li onclick="selectQCM(this)">C) Exacte uniquement pour les signaux périodiques</li>
+                <li onclick="selectQCM(this)">D) Identique à l'interpolation linéaire</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'B')">Valider</button>
+            <div class="qcm-explain">✅ <strong>B</strong> — La sinc est à support infini : il faudrait une infinité d'échantillons pour chaque point reconstruit. En pratique, on utilise des approximations (interpolation linéaire, spline, sinc tronquée).<br>
+                🪤 <strong>A</strong> : un DSP utilise un nombre fini d'échantillons. <strong>D</strong> : l'interpolation linéaire est une approximation grossière.</div>
+        </div>
+
+        <!-- QCM 2-10 : débit et numérisation complète (type quiz Q11) -->
+        <div class="qcm-card" id="q2-10">
+            <h4>Q10. Signal numérisé à $F_e = 20$ kHz, codé sur 16 bits. Le débit binaire est :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $320$ kbits/s</li>
+                <li onclick="selectQCM(this)">B) $320$ ko/s</li>
+                <li onclick="selectQCM(this)">C) $160$ kbits/s</li>
+                <li onclick="selectQCM(this)">D) $640$ kbits/s</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'A')">Valider</button>
+            <div class="qcm-explain">✅ <strong>A</strong> — $D = F_e \times b = 20000 \times 16 = 320\,000$ bits/s $= 320$ kbits/s.<br>
+                🪤 <strong>B</strong> : confusion bits et octets (÷8). <strong>C</strong> : oubli du facteur $b$ ou $F_e/2$ au lieu de $F_e$.</div>
+        </div>
+
         <div class="section-label">⚠️ Pièges & Vrai/Faux</div>
         <div class="vf-card">
             <h3>Clique pour révéler</h3>
             <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Numériser = prélever des échantillons à intervalles réguliers</div><div class="vf-answer faux">❌ FAUX — Ça c'est l'échantillonnage seul. Numériser = échantillonnage + <strong>quantification</strong>.</div></div>
-            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">L'échantillonnage ne perd pas d'information si Shannon est respecté</div><div class="vf-answer vrai">✅ VRAI — Reconstruction parfaite possible avec filtre passe-bas idéal.</div></div>
-            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">La reconstruction parfaite utilise un filtre de coupure $1/T$</div><div class="vf-answer faux">❌ FAUX — C'est $F_e/2 = 1/(2T)$, pas $1/T$.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">L'échantillonnage ne perd pas d'information si Shannon est respecté</div><div class="vf-answer vrai">✅ VRAI — Reconstruction parfaite possible avec filtre passe-bas idéal à $F_e/2$.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">La reconstruction parfaite utilise un filtre de coupure $1/T$</div><div class="vf-answer faux">❌ FAUX — C'est $F_e/2 = 1/(2T)$, pas $1/T = F_e$. Le facteur 2 est crucial !</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">$f_0 = 4000$ Hz, $F_e = 5000$ Hz → le signal reconstruit est à 4000 Hz</div><div class="vf-answer faux">❌ FAUX — $f_0 > F_e/2 = 2500$ → aliasing ! $f_{alias} = F_e - f_0 = 1000$ Hz.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Un système qui échantillonne correctement mais sans filtre anti-aliasing est optimal</div><div class="vf-answer faux">❌ FAUX — Il FAUT un filtre anti-repliement (passe-bas, $f_c = F_e/2$) AVANT le CAN pour bloquer le bruit HF.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">La formule d'interpolation parfaite (sinc) est réalisable en pratique</div><div class="vf-answer faux">❌ FAUX — La sinc est à support infini. En pratique on approxime (linéaire, spline, sinc tronquée).</div></div>
             <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Il faut 7 bits pour coder 128 niveaux</div><div class="vf-answer vrai">✅ VRAI — $2^7 = 128$.</div></div>
             <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Supprimer 1 bit diminue le pas de quantification d'un facteur 2</div><div class="vf-answer faux">❌ FAUX — Ça <strong>double</strong> le pas (moins de niveaux = marches plus grandes).</div></div>
-            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Le bruit de quantification a une puissance $q^2/6$</div><div class="vf-answer faux">❌ FAUX — C'est $q^2/12$ !</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Le bruit de quantification a une puissance $q^2/6$</div><div class="vf-answer faux">❌ FAUX — C'est $q^2/12$ ! Le 12 vient de la variance d'une loi uniforme sur $[-q/2, q/2]$.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Le débit binaire $D = F_e \times b$ s'exprime en bits/s</div><div class="vf-answer vrai">✅ VRAI — $D = F_e \times b$. Exemple : 20 kHz × 16 bits = 320 kbits/s.</div></div>
         </div>
     </section>
 
@@ -1197,16 +1338,69 @@
 
         <div class="section-label">📖 Comprendre</div>
         <div class="cours-card" style="border-left-color:var(--c6)">
-            <h3>🎯 L'idée en 30 secondes</h3>
+            <h3>🎯 Concept ① — Quantification : l'arrondi irréversible</h3>
             <p>Après l'échantillonnage, on <strong>arrondit</strong> chaque valeur sur $2^b$ niveaux. C'est la quantification — et c'est <strong>irréversible</strong>.</p>
             <ul>
-                <li><strong>$b$ bits → $2^b$ niveaux</strong>. 8 bits = 256, 16 bits = 65 536.</li>
-                <li><strong>Pas $q = 2A/2^b$</strong> = écart entre 2 niveaux. Plus petit = plus précis.</li>
-                <li><strong>Bruit $= q^2/12$</strong>. L'erreur d'arrondi, modélisée en bruit uniforme.</li>
-                <li><strong>SNR ≈ 6b dB</strong>. +1 bit = +6 dB. C'est la formule la plus testée !</li>
+                <li><strong>$b$ bits → $N = 2^b$ niveaux</strong>. 7 bits = 128, 8 bits = 256, 10 bits = 1024, 16 bits = 65 536.</li>
+                <li><strong>Pas $q = 2A/2^b$</strong> où $[-A, +A]$ est la plage du CAN. Attention : plage = $2A$, pas $A$ !</li>
+                <li><strong>Bruit de quantification $= q^2/12$</strong> (variance d'une uniforme sur $[-q/2, q/2]$). PAS $q^2/6$ !</li>
             </ul>
-            <div class="analogy">🪜 Analogie : escalier (quantifié) vs rampe (analogique). Peu de marches = tu trébuches (bruit élevé). 16 bits = 65 536 marches = quasi-lisse.</div>
+            <div class="key-insight">⚠️ Retiens : $b = \log_2(N)$. Pour 128 niveaux : $\log_2(128) = 7$ bits.</div>
         </div>
+
+        <div class="cours-card" style="border-left-color:var(--c6)">
+            <h3>🎯 Concept ② — SNR et la règle des 6 dB/bit</h3>
+            <p>Pour un signal sinusoïdal pleine échelle :</p>
+            $$\boxed{\text{SNR}_{dB} \approx 6{,}02b + 1{,}76}$$
+            <ul>
+                <li><strong>Approximation rapide</strong> : SNR $\approx 6b$ dB. Donc 10 bits → ~60 dB, 16 bits → ~96 dB.</li>
+                <li><strong>Formule exacte</strong> : $6{,}02 \times 10 + 1{,}76 = 61{,}96 \approx 62$ dB pour 10 bits.</li>
+                <li><strong>+1 bit = +6 dB</strong>. Inversement : <strong>−1 bit = −6 dB</strong>.</li>
+            </ul>
+        </div>
+
+        <div class="cours-card" style="border-left-color:var(--c6)">
+            <h3>🎯 Concept ③ — Combien de bits ajouter pour un SNR cible ?</h3>
+            <p>Tu as $b$ bits et un SNR actuel. Tu veux atteindre SNR' > cible. <strong>Méthode</strong> :</p>
+            $$\Delta \text{SNR} = \text{SNR}_{cible} - \text{SNR}_{actuel} \quad;\quad \Delta b = \lceil \Delta\text{SNR} / 6 \rceil$$
+            <ul>
+                <li><strong>Exemple exam</strong> : $b = 10$ bits, SNR = 45 dB, on veut SNR' > 60 dB.</li>
+                <li>$\Delta$SNR = $60 - 45 = 15$ dB. $15/6 = 2{,}5$ → arrondi supérieur = <strong>3 bits minimum</strong>.</li>
+                <li>Vérif : $b' = 13$ bits → SNR $\approx 6 \times 13 + 1{,}76 = 80$ dB > 60 ✓</li>
+            </ul>
+            <div class="key-insight">💡 Chaque bit ajouté = +6 dB. Pour gagner 15 dB, il faut au minimum $\lceil 15/6 \rceil = 3$ bits.</div>
+        </div>
+
+        <div class="cours-card" style="border-left-color:var(--c6)">
+            <h3>🎯 Concept ④ — Effet de supprimer/ajouter 1 bit</h3>
+            <ul>
+                <li><strong>Supprimer 1 bit</strong> : $N' = 2^{b-1} = N/2$ → 2× moins de niveaux → le pas $q$ est <strong>multiplié par 2</strong> (DOUBLE).</li>
+                <li>⚠️ Piège exam : « supprimer 1 bit <em>diminue</em> le pas d'un facteur 2 » → <strong>FAUX</strong>, ça le DOUBLE !</li>
+                <li><strong>Ajouter 1 bit</strong> : $N' = 2N$ → 2× plus de niveaux → $q' = q/2$ (divisé par 2) → SNR + 6 dB.</li>
+            </ul>
+        </div>
+
+        <div class="cours-card" style="border-left-color:var(--c6)">
+            <h3>🎯 Concept ⑤ — Pleine échelle et amplification</h3>
+            <p>Le CAN est conçu pour $[-A, +A]$. Si ton signal n'utilise que $[-A/2, +A/2]$ :</p>
+            <ul>
+                <li>Tu n'utilises que <strong>la moitié des niveaux</strong> → comme si tu perdais 1 bit → <strong>−6 dB de SNR</strong>.</li>
+                <li><strong>Solution</strong> : amplifier le signal d'un facteur 2 pour occuper toute la plage $[-A, +A]$.</li>
+                <li>Gain : +6 dB de SNR (tu récupères le bit « perdu »).</li>
+            </ul>
+            <div class="key-insight">🎯 Règle d'or : <strong>toujours utiliser la pleine échelle du CAN</strong>. Signal trop faible = gaspillage de bits = SNR dégradé.</div>
+        </div>
+
+        <div class="cours-card" style="border-left-color:var(--c6)">
+            <h3>🎯 Concept ⑥ — Débit binaire et stockage</h3>
+            <ul>
+                <li><strong>Débit</strong> : $D = F_e \times b$ (mono). En stéréo : $D = F_e \times b \times 2$.</li>
+                <li><strong>Stockage</strong> : $C = D \times T_{durée} / 8$ (en octets). Divise par $10^6$ → Mo.</li>
+                <li><strong>Exemple CD</strong> : $44100 \times 16 \times 2 = 1{,}411$ Mbits/s. En 3 min : $\approx 31{,}8$ Mo.</li>
+            </ul>
+        </div>
+
+        <div class="analogy">🪜 Analogie : escalier (quantifié) vs rampe (analogique). Peu de marches = tu trébuches (bruit élevé). 16 bits = 65 536 marches = quasi-lisse.</div>
 
         <div class="section-label">🎨 Visualiser</div>
         <div class="illustration">
@@ -1239,35 +1433,51 @@
             <h4>Réflexes d'examen — Quantification & CAN</h4>
             <div class="method-item">
                 <span class="mnemonic">🔤 Mnémo « 6 dB par bit »</span><br>
-                SNR $\approx 6b$ dB. Donc 8 bits → ~48 dB, 16 bits → ~96 dB, 24 bits → ~144 dB. <strong>Calcul mental instantané</strong>. En exam, si on te demande « combien de bits pour un SNR de 60 dB ? » → $60/6 = 10$ bits.
+                SNR $\approx 6b$ dB. 8 bits → ~48 dB, 10 bits → ~62 dB, 16 bits → ~96 dB. <strong>Calcul mental instantané</strong>.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Méthode : « combien de bits ajouter ? »</span><br>
+                ① Calcule $\Delta$SNR = SNR$_{cible}$ − SNR$_{actuel}$. ② Divise par 6. ③ Arrondi supérieur.<br>
+                <strong>Exemple</strong> : SNR = 45 dB, cible > 60 dB → $\Delta = 15$ dB → $15/6 = 2{,}5$ → <strong>3 bits minimum</strong>.<br>
+                Vérif : $b' = 13$ → $6 \times 13 + 1{,}76 = 80$ dB > 60 ✓.
             </div>
             <div class="method-item">
                 <span class="exam-reflex">🎯 Piège : $q^2/12$ pas $q^2/6$ !</span><br>
-                La puissance du bruit de quantification est $q^2/12$, pas $q^2/6$. Le 12 vient de la variance d'une loi uniforme sur $[-q/2, +q/2]$ : $\text{Var} = (q)^2/12$. Erreur ultra-classique en exam.
+                Puissance bruit = $q^2/12$. Le 12 vient de la variance d'une loi uniforme $[-q/2, +q/2]$ : $\text{Var} = (q)^2/12$. Le 6 est le piège.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Supprimer 1 bit → q DOUBLE</span><br>
+                $b' = b-1$ → $N' = N/2$ → $q' = 2A/N' = 2q$. Le pas est <strong>multiplié par 2</strong>, pas divisé ! Piège de formulation classique.
+            </div>
+            <div class="method-item">
+                <span class="exam-reflex">🎯 Signal trop faible → amplifier !</span><br>
+                CAN conçu pour $[-A, +A]$. Signal dans $[-A/2, +A/2]$ → seulement $N/2$ niveaux utilisés → comme perdre 1 bit → −6 dB. <strong>Amplifier ×2 = récupérer +6 dB</strong>.
             </div>
             <div class="method-item">
                 <span class="dim-check">📏 Vérif capacité stockage</span><br>
-                $C = F_e \times b \times ch \times T / 8$. Vérifie : Hz × bits × canaux × s = bits. Divise par 8 → octets. Divise par $10^6$ → Mo. <strong>1 min de CD</strong> : $44100 \times 16 \times 2 \times 60 / 8 \approx 10{,}6$ Mo. Si tu trouves 10 Go → tu t'es trompé d'un facteur 1000.
+                $C = F_e \times b \times ch \times T / 8$ (octets). <strong>1 min de CD</strong> : $44100 \times 16 \times 2 \times 60 / 8 \approx 10{,}6$ Mo.
             </div>
             <div class="method-item">
                 <span class="exam-reflex">🎯 Plage vs Amplitude</span><br>
-                Si le signal va de $-A$ à $+A$, la plage = $2A$. Donc $q = 2A/2^b$, pas $A/2^b$. L'erreur sur le facteur 2 dans la plage est un piège récurrent.
+                Signal $[-A, +A]$ → plage $= 2A$. $q = 2A/2^b$, pas $A/2^b$. Le facteur 2 est un piège récurrent.
             </div>
             <div class="method-item">
                 <span class="physics">🔬 Pourquoi 12 ?</span><br>
-                L'erreur de quantification est modélisée comme un bruit uniforme sur $[-q/2, q/2]$. La variance d'une uniforme sur $[a,b]$ est $(b-a)^2/12$. Ici $b-a = q$, donc variance = $q^2/12$. Ce 12 revient aussi en probabilités et en mécanique statistique.
+                Variance d'une uniforme sur $[a,b]$ = $(b-a)^2/12$. Ici $b-a = q$ → $q^2/12$. Ce 12 est universel en probabilités.
             </div>
         </div>
 
         <div class="section-label">📐 Formules</div>
         <div class="formulas-card">
             <div class="formula-grid">
-                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">Niveaux</span><div class="formula-math">$$N = 2^b$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">Pas</span><div class="formula-math">$$q = 2A / 2^b$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">Niveaux</span><div class="formula-math">$$N = 2^b \;\;;\;\; b = \log_2(N)$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">Pas</span><div class="formula-math">$$q = \frac{2A}{2^b} = \frac{\text{plage}}{N}$$</div></div>
                 <div class="formula-item"><span class="formula-label" style="color:var(--c6)">Bruit</span><div class="formula-math">$$P_{bruit} = q^2/12$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">SNR</span><div class="formula-math">$$\approx 6{,}02b + 1{,}76 \text{ dB}$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">Débit</span><div class="formula-math">$$D = F_e \times b$$</div></div>
-                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">Stockage</span><div class="formula-math">$$C = F_e \cdot b \cdot ch \cdot T / 8$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">SNR (exact)</span><div class="formula-math">$$\text{SNR} = 6{,}02b + 1{,}76 \text{ dB}$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">Bits pour SNR</span><div class="formula-math">$$\Delta b = \lceil \Delta\text{SNR}/6 \rceil$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">Débit</span><div class="formula-math">$$D = F_e \times b \text{ (bits/s)}$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">Stockage</span><div class="formula-math">$$C = F_e \cdot b \cdot ch \cdot T / 8 \text{ (oct)}$$</div></div>
+                <div class="formula-item"><span class="formula-label" style="color:var(--c6)">Amplif.</span><div class="formula-math">$$\text{signal } [-A/2,A/2] \xrightarrow{\times 2} +6\text{ dB}$$</div></div>
             </div>
         </div>
 
@@ -1356,6 +1566,105 @@
                 ✅ <strong>A</strong> — Le SNR de quantification dépend de $b$, pas de $F_e$. $\text{SNR} = 6{,}02 \times 12 + 1{,}76 \approx 74$ dB.<br>
                 🪤 <strong>B</strong> : confusion avec bruit thermique. La décimation ne change pas $b$.
             </div>
+        </div>
+
+        <!-- QCM 6-6 : bits pour SNR cible (type quiz Q10) -->
+        <div class="qcm-card" style="border-left-color:var(--c6)">
+            <h4>Q6 — Bits à ajouter pour un SNR cible</h4>
+            <p>Signal numérisé sur $b = 10$ bits, SNR = 45 dB. On veut SNR' > 60 dB. Il faut ajouter au moins :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> 2 bits</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> 3 bits</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> 4 bits</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> 5 bits</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $\Delta$SNR = $60 - 45 = 15$ dB. Chaque bit = +6 dB. $15/6 = 2{,}5$ → arrondi sup = <strong>3 bits</strong>.<br>
+                Vérif : $b' = 13$ → $6 \times 13 + 1{,}76 = 80$ dB > 60 ✓. Avec 2 bits : $6 \times 12 + 1{,}76 = 74$ dB > 60 aussi, mais $45 + 2 \times 6 = 57 < 60$ (le SNR initial n'est pas optimal).<br>
+                🪤 <strong>A</strong> : $2 \times 6 = 12$ dB, insuffisant pour combler 15 dB.
+            </div>
+        </div>
+
+        <!-- QCM 6-7 : amplification pleine échelle (type quiz Q9) -->
+        <div class="qcm-card" style="border-left-color:var(--c6)">
+            <h4>Q7 — Amplification et SNR</h4>
+            <p>CAN conçu pour $[-A, +A]$. On numérise $y(t) \in [-A/2, +A/2]$. Amplifier $y$ d'un facteur 2 :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> N'a aucun effet sur le SNR</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> Améliore le SNR de 3 dB</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> Améliore le SNR de 6 dB</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> Dégrade le SNR car on amplifie aussi le bruit</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'C')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>C</strong> — Sans ampli, le signal n'utilise que $N/2$ niveaux → comme si $b' = b - 1$ → perte de 6 dB. Amplifier ×2 = utiliser tous les $N$ niveaux = <strong>+6 dB</strong>.<br>
+                🪤 <strong>D</strong> : le bruit de quantification ne dépend que de $q$, pas de l'amplitude du signal. L'ampli est AVANT le CAN.
+            </div>
+        </div>
+
+        <!-- QCM 6-8 : supprimer 1 bit (type quiz Q7) -->
+        <div class="qcm-card" style="border-left-color:var(--c6)">
+            <h4>Q8 — Effet de supprimer 1 bit</h4>
+            <p>Supprimer 1 bit de codage ($b' = b - 1$) a pour effet sur le pas $q$ :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $q$ est divisé par 2</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $q$ est multiplié par 2</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $q$ reste identique</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $q$ est divisé par 4</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $N' = 2^{b-1} = N/2$. Donc $q' = 2A/N' = 2 \times (2A/N) = 2q$. Le pas <strong>double</strong>.<br>
+                🪤 <strong>A</strong> : piège de formulation ! « Diminuer » le nombre de bits ne « diminue » pas le pas — c'est l'inverse !
+            </div>
+        </div>
+
+        <!-- QCM 6-9 : débit binaire (type quiz Q11) -->
+        <div class="qcm-card" style="border-left-color:var(--c6)">
+            <h4>Q9 — Débit binaire</h4>
+            <p>$F_e = 44{,}1$ kHz, $b = 16$ bits, stéréo (2 canaux). Le débit est :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $\approx 706$ kbits/s</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $\approx 1{,}411$ Mbits/s</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $\approx 1{,}411$ Mo/s</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $\approx 176$ ko/s</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $D = 44100 \times 16 \times 2 = 1\,411\,200$ bits/s $= 1{,}411$ Mbits/s.<br>
+                🪤 <strong>A</strong> : oubli stéréo (÷2). <strong>C</strong> : confusion bits/octets. <strong>D</strong> : $D/8 = 176$ ko/s (c'est le débit en octets, pas en bits).
+            </div>
+        </div>
+
+        <!-- QCM 6-10 : nombre de bits (type quiz Q6) -->
+        <div class="qcm-card" style="border-left-color:var(--c6)">
+            <h4>Q10 — Nombre de bits pour $N$ niveaux</h4>
+            <p>Il faut combien de bits pour coder 128 niveaux de quantification ?</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> 6</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> 7</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> 8</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $128$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $b = \log_2(128) = 7$. Car $2^7 = 128$.<br>
+                🪤 <strong>A</strong> : $2^6 = 64$, pas assez. <strong>C</strong> : $2^8 = 256$, trop.
+            </div>
+        </div>
+
+        <div class="section-label">⚠️ Pièges & Vrai/Faux</div>
+        <div class="vf-card">
+            <h3>Clique pour révéler</h3>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Le bruit de quantification vaut $q^2/6$</div><div class="vf-answer faux">❌ FAUX — C'est $q^2/12$ ! Le 6 est le piège classique.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Supprimer 1 bit diminue le pas de quantification d'un facteur 2</div><div class="vf-answer faux">❌ FAUX — Ça <strong>double</strong> le pas ! Moins de niveaux = marches plus grandes.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">$b = 10$ bits, SNR = 45 dB. Pour atteindre 60 dB il faut ajouter au moins 3 bits</div><div class="vf-answer vrai">✅ VRAI — $\Delta$SNR = 15 dB. $15/6 = 2{,}5$ → arrondi sup = 3 bits.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Amplifier ×2 un signal trop faible avant le CAN améliore le SNR de 6 dB</div><div class="vf-answer vrai">✅ VRAI — On passe de $N/2$ à $N$ niveaux utilisés = +1 bit effectif = +6 dB.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Le débit binaire d'un CD audio (44,1 kHz, 16 bits, stéréo) est 320 kbits/s</div><div class="vf-answer faux">❌ FAUX — $D = 44100 \times 16 \times 2 = 1{,}411$ Mbits/s. 320 kbits/s = 20 kHz × 16 bits mono.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">Il faut 7 bits pour coder 128 niveaux</div><div class="vf-answer vrai">✅ VRAI — $2^7 = 128$.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">$q = A/2^b$ pour un signal $[-A, +A]$</div><div class="vf-answer faux">❌ FAUX — La plage est $2A$, donc $q = 2A/2^b$. Oubli du facteur 2 sur la plage.</div></div>
+            <div class="vf-item"><div class="vf-q" onclick="this.parentElement.classList.toggle('reveal')">+1 bit = +6 dB de SNR</div><div class="vf-answer vrai">✅ VRAI — $6{,}02 \times 1 \approx 6$ dB par bit supplémentaire.</div></div>
         </div>
     </section>
 
