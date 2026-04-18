@@ -125,6 +125,34 @@ main{max-width:860px;margin:0 auto;padding:0 24px 80px}
 .method-card .method-item .physics{display:inline-block;background:#f3e8ff;border:1px solid #c4b5fd;color:#5b21b6;padding:2px 8px;border-radius:6px;font-weight:600;font-size:.85rem;margin:2px 0}
 .piege{background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-sm);padding:9px 13px;margin-top:8px;font-size:.82rem;color:#991b1b}
 
+/* QCM CARDS */
+.qcm-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 22px;margin-bottom:14px;box-shadow:var(--shadow)}
+.qcm-card h4{font-size:.92rem;font-weight:700;margin-bottom:12px;color:var(--text)}
+.qcm-options{list-style:none;padding:0;margin:0 0 10px}
+.qcm-options li{padding:10px 14px;margin:5px 0;border-radius:var(--radius-sm);border:1px solid var(--border);cursor:pointer;font-size:.85rem;transition:all .2s;user-select:none;-webkit-user-select:none}
+.qcm-options li:hover{background:var(--surface2);border-color:var(--border2)}
+.qcm-options li.selected{border-color:#6366f1;background:#eef0ff;font-weight:600}
+.qcm-options li.correct{border-color:#10b981;background:#ecfdf5;color:#065f46;font-weight:600}
+.qcm-options li.wrong{border-color:#ef4444;background:#fef2f2;color:#991b1b;text-decoration:line-through}
+.qcm-explain{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;font-size:.82rem;line-height:1.6;background:#f0f4ff;border-radius:var(--radius-sm);padding:0 14px;margin-top:6px}
+.qcm-card.answered .qcm-explain{max-height:500px;padding:12px 14px}
+.qcm-validate{display:inline-block;margin-top:8px;padding:8px 18px;background:#6366f1;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:.82rem;cursor:pointer;transition:background .2s}
+.qcm-validate:hover{background:#4f46e5}
+.qcm-validate:disabled{background:#a5b4fc;cursor:not-allowed}
+.qcm-score-bar{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin:14px 0;display:flex;justify-content:space-between;align-items:center;font-size:.85rem}
+.qcm-score-bar .score-good{color:#10b981;font-weight:700}
+.qcm-score-bar .score-bad{color:#ef4444;font-weight:700}
+.qcm-score-bar .score-skip{color:var(--text3);font-weight:600}
+
+/* STRATEGY SECTION */
+.strategy-section{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #f59e0b;border-radius:16px;padding:2rem;margin:1.5rem auto;max-width:900px}
+.strategy-section h2{color:#92400e;margin:0 0 1rem;font-size:1.3rem}
+.strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.strategy-card{background:#fff;border:1px solid #fcd34d;border-radius:10px;padding:14px;font-size:.85rem}
+.strategy-card h4{margin:0 0 6px;font-size:.9rem;color:#92400e}
+.strategy-card p{margin:0;color:var(--text2);line-height:1.5}
+.strategy-card .rule{display:block;font-weight:700;color:#dc2626;font-size:.9rem;margin-top:6px}
+
 /* V/F */
 .vf-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 22px;margin-bottom:14px;box-shadow:var(--shadow)}
 .vf-card h3{font-size:.92rem;font-weight:700;margin-bottom:12px}

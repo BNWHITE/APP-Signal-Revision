@@ -35,13 +35,13 @@
 
     <header class="hero">
         <div class="hero-content">
-            <span class="badge">ISEP 2025-2026 — Groupe G2B — Examen Lundi 20 Avril</span>
-            <h1>APP Signal<br><span class="gradient-text">Révision Complète</span></h1>
-            <p class="hero-sub">7 blocs progressifs. Chaque bloc : <strong>Comprendre → Visualiser → Formules → S'entraîner → Pièges</strong>. Tu lis tout ça, t'as 20.</p>
+            <span class="badge">ISEP 2025-2026 — QCM à points négatifs — Examen Lundi 20 Avril</span>
+            <h1>APP Signal<br><span class="gradient-text">Prépa QCM Complète</span></h1>
+            <p class="hero-sub">7 blocs progressifs. <strong>QCM d'entraînement avec pièges</strong> : les questions ne seront pas les mêmes, mais les concepts oui. Comprends le fond → tu gères toutes les variantes.</p>
             <div class="hero-stats">
                 <div class="stat"><span class="stat-num">7</span><span class="stat-label">Blocs</span></div>
-                <div class="stat"><span class="stat-num">60+</span><span class="stat-label">Questions</span></div>
-                <div class="stat"><span class="stat-num">30+</span><span class="stat-label">Illustrations</span></div>
+                <div class="stat"><span class="stat-num">70+</span><span class="stat-label">QCM</span></div>
+                <div class="stat"><span class="stat-num">⚠️</span><span class="stat-label">Pts négatifs</span></div>
             </div>
             <a href="#bloc1" class="cta-btn">Commencer →</a>
         </div>
@@ -58,6 +58,43 @@
         <div class="flow-step"><span class="num" style="background:var(--c4)">4</span> S'entraîner</div>
         <span class="flow-arrow">→</span>
         <div class="flow-step"><span class="num" style="background:var(--c6)">5</span> Pièges</div>
+    </div>
+
+    <!-- STRATÉGIE QCM -->
+    <div class="strategy-section">
+        <h2>🎯 Stratégie QCM à Points Négatifs — Règles d'Or</h2>
+        <div class="strategy-grid">
+            <div class="strategy-card">
+                <h4>🧮 Le calcul des points</h4>
+                <p>Bonne réponse = <strong>+1 pt</strong>. Mauvaise réponse = <strong>−0,5 pt</strong> (typiquement). Pas de réponse = <strong>0 pt</strong>.</p>
+                <span class="rule">→ Ne réponds que si tu élimines ≥2 choix sur 4</span>
+            </div>
+            <div class="strategy-card">
+                <h4>⏱️ Gestion du temps</h4>
+                <p><strong>3 passes</strong> : 1) Les questions faciles (30s max). 2) Les calculs moyens. 3) Les questions piège. Ne reste JAMAIS bloqué.</p>
+                <span class="rule">→ 1ère passe = récolte les points sûrs</span>
+            </div>
+            <div class="strategy-card">
+                <h4>🚫 Quand s'abstenir</h4>
+                <p>Si tu hésites entre 2 réponses = réponds (espérance > 0). Si tu n'as aucune idée et 4 choix = <strong>abstiens-toi</strong> (espérance < 0).</p>
+                <span class="rule">→ 50% de chance minimum pour répondre</span>
+            </div>
+            <div class="strategy-card">
+                <h4>🔍 Élimination</h4>
+                <p>Avant de calculer : élimine les absurdités. Unité fausse ? Ordre de grandeur aberrant ? Signe impossible ? → Élimine.</p>
+                <span class="rule">→ Vérifie les dimensions AVANT de cocher</span>
+            </div>
+            <div class="strategy-card">
+                <h4>🎭 Les pièges classiques</h4>
+                <p>Le prof mettra des distracteurs proches : $q^2/6$ au lieu de $q^2/12$, $A^2$ au lieu de $A^2/2$, Fe au lieu de Fe/2. Ce sont des <strong>variantes du cours</strong>.</p>
+                <span class="rule">→ Connais les erreurs fréquentes = tu les repères</span>
+            </div>
+            <div class="strategy-card">
+                <h4>✅ Vérification express</h4>
+                <p>Après calcul : <strong>vérifie l'unité</strong>, <strong>l'ordre de grandeur</strong>, <strong>le signe</strong>. Si un des 3 est faux, ta réponse est fausse.</p>
+                <span class="rule">→ 5 secondes de vérif = -0,5 pt évité</span>
+            </div>
+        </div>
     </div>
 
     <main>
@@ -190,48 +227,67 @@
             </div>
         </div>
 
-        <!-- EXERCICES -->
-        <div class="section-label">✏️ S'entraîner</div>
+        <!-- QCM ENTRAÎNEMENT -->
+        <div class="section-label">✏️ QCM Entraînement — Points négatifs !</div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c1-bg);color:var(--c1);border:1px solid var(--c1-bd)">Test 1 Q2</span>
-                <h4>Valeur efficace de $x(t) = 2{,}5\sin(2\pi \cdot 13\text{k} \cdot t + \frac{3\pi}{5})$</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>Pas de composante continue ($A_0 = 0$), amplitude $A = 2{,}5$.</p>
-                $$X_{eff} = \frac{A}{\sqrt{2}} = \frac{2{,}5}{1{,}414} \approx 1{,}77\text{ V}$$
-                <div class="answer-box">✅ Réponse : <strong>1,77 V</strong></div>
-                <div class="piege">⚠️ La fréquence 13 kHz et la phase $3\pi/5$ ne changent rien ! Et l'unité est V (pas W).</div>
-            </div></div>
+        <div class="qcm-card" id="q1-1">
+            <h4>Q1. Soit $x(t) = 3{,}5\cos(2\pi \cdot 440 t + \pi/3)$. Sa puissance vaut :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $3{,}5^2 = 12{,}25$ W</li>
+                <li onclick="selectQCM(this)">B) $3{,}5^2 / 2 = 6{,}125$ W</li>
+                <li onclick="selectQCM(this)">C) $3{,}5 / \sqrt{2} = 2{,}47$ W</li>
+                <li onclick="selectQCM(this)">D) $3{,}5^2 / 4 = 3{,}06$ W</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'B')">Valider</button>
+            <div class="qcm-explain">✅ <strong>B</strong> — $P = A^2/2$ car $A_0 = 0$, $A = 3{,}5$. Le piège A oublie le /2 (erreur classique). C donne l'efficace en V, pas la puissance. D divise par 4 sans raison. La fréquence 440 Hz et la phase $\pi/3$ n'interviennent PAS.</div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c1-bg);color:var(--c1);border:1px solid var(--c1-bd)">Test 1 Q3</span>
-                <h4>Valeur moyenne de $x(t) = -2{,}3 + 1{,}2\cos(2\pi \cdot 22\text{k} \cdot t - \frac{3\pi}{2})$</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>La partie cosinus s'annule sur une période. Seul $A_0$ reste :</p>
-                $$\bar{x} = A_0 = -2{,}3 \text{ V}$$
-                <div class="answer-box">✅ Réponse : <strong>−2,3 V</strong></div>
-                <div class="piege">⚠️ L'unité est V (Volt), PAS W (Watt) !</div>
-            </div></div>
+        <div class="qcm-card" id="q1-2">
+            <h4>Q2. Pour $x(t) = -1{,}8 + 4\sin(2\pi \cdot 1000t)$, la valeur moyenne vaut :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $4$ V</li>
+                <li onclick="selectQCM(this)">B) $0$ V (le sinus s'annule)</li>
+                <li onclick="selectQCM(this)">C) $-1{,}8$ V</li>
+                <li onclick="selectQCM(this)">D) $-1{,}8 + 4/2 = 0{,}2$ V</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'C')">Valider</button>
+            <div class="qcm-explain">✅ <strong>C</strong> — La moyenne = $A_0 = -1{,}8$ V. Le sinus a une moyenne nulle sur une période. Le piège D ajoute $A/2$ (confusion avec la puissance). Le piège B oublie la constante.</div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c1-bg);color:var(--c1);border:1px solid var(--c1-bd)">Test 1 Q1</span>
-                <h4>Puissance d'un créneau +2V / −1V avec rapport cyclique 2/5</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>+2V pendant $r_1 = 2/5$ du temps, −1V pendant $r_2 = 3/5$ :</p>
-                $$P = \frac{2}{5} \times 2^2 + \frac{3}{5} \times (-1)^2 = 1{,}6 + 0{,}6 = 2{,}2\text{ W}$$
-                <div class="answer-box">✅ Réponse : <strong>2,2 W</strong></div>
-            </div></div>
+        <div class="qcm-card" id="q1-3">
+            <h4>Q3. Un créneau vaut +3V pendant 40% du temps et −2V sinon. Sa puissance est :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $0{,}4 \times 3 + 0{,}6 \times 2 = 2{,}4$ W</li>
+                <li onclick="selectQCM(this)">B) $0{,}4 \times 9 + 0{,}6 \times 4 = 6{,}0$ W</li>
+                <li onclick="selectQCM(this)">C) $(3+2)^2/2 = 12{,}5$ W</li>
+                <li onclick="selectQCM(this)">D) $0{,}4 \times 9 - 0{,}6 \times 4 = 1{,}2$ W</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'B')">Valider</button>
+            <div class="qcm-explain">✅ <strong>B</strong> — $P = r_1 V_1^2 + r_2 V_2^2 = 0{,}4 \times 9 + 0{,}6 \times 4 = 6{,}0$ W. A oublie de mettre au carré. C invente une formule. D met un $-$ au lieu de $+$ (le carré rend tout positif !).</div>
+        </div>
+
+        <div class="qcm-card" id="q1-4">
+            <h4>Q4. La valeur efficace d'un signal de puissance $P = 8$ W est :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $8$ V</li>
+                <li onclick="selectQCM(this)">B) $8/\sqrt{2} \approx 5{,}66$ V</li>
+                <li onclick="selectQCM(this)">C) $\sqrt{8} \approx 2{,}83$ V</li>
+                <li onclick="selectQCM(this)">D) $8^2 = 64$ V</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'C')">Valider</button>
+            <div class="qcm-explain">✅ <strong>C</strong> — $X_{eff} = \sqrt{P} = \sqrt{8} \approx 2{,}83$ V. A confond P et Xeff. B applique $\div\sqrt{2}$ sans raison. D fait $P^2$, absurde dimensionnellement ($V^2$ au carré = $V^4$ ?!).</div>
+        </div>
+
+        <div class="qcm-card" id="q1-5">
+            <h4>Q5. Pour $x(t) = 2 + 3\cos(\omega t)$, quelle affirmation est FAUSSE ?</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) La puissance vaut $4 + 4{,}5 = 8{,}5$ W</li>
+                <li onclick="selectQCM(this)">B) La valeur moyenne est $2$ V</li>
+                <li onclick="selectQCM(this)">C) La puissance dépend de la fréquence $\omega$</li>
+                <li onclick="selectQCM(this)">D) La valeur efficace vaut $\sqrt{8{,}5} \approx 2{,}92$ V</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'C')">Valider</button>
+            <div class="qcm-explain">✅ <strong>C est FAUSSE</strong> — La puissance $P = A_0^2 + A^2/2 = 4 + 4{,}5 = 8{,}5$ W. Elle ne dépend NI de la fréquence NI de la phase. C'est un piège très fréquent en QCM : on ajoute $\omega$ dans les choix pour induire en erreur.</div>
         </div>
 
         <!-- PIEGES V/F -->
@@ -345,93 +401,66 @@
             </div>
         </div>
 
-        <div class="section-label">✏️ S'entraîner</div>
+        <div class="section-label">✏️ QCM Entraînement — Points négatifs !</div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c2-bg);color:var(--c2);border:1px solid var(--c2-bd)">T1 Q4</span>
-                <h4>1025ème échantillon de $0{,}2\cos(2\pi \cdot 3{,}2\text{M} \cdot t)$, $F_e = 1{,}5$ GHz</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>$n = 1024$ (1er = n°0). Argument : $2\pi f_0 n / F_e = 2\pi \times 3{,}2\text{M} \times 1024 / 1{,}5\text{G} = 2\pi \times 2{,}1845$</p>
-                <p>Partie fractionnaire : $0{,}1845$ → $x = 0{,}2\cos(2\pi \times 0{,}1845) \approx 0{,}08$</p>
-                <div class="answer-box">✅ <strong>0,08</strong></div>
-            </div></div>
+        <div class="qcm-card" id="q2-1">
+            <h4>Q1. Un signal a une fréquence max de 3,5 kHz. La fréquence d'échantillonnage minimale est :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $3{,}5$ kHz</li>
+                <li onclick="selectQCM(this)">B) $7$ kHz</li>
+                <li onclick="selectQCM(this)">C) $> 7$ kHz (strictement)</li>
+                <li onclick="selectQCM(this)">D) $14$ kHz</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'C')">Valider</button>
+            <div class="qcm-explain">✅ <strong>C</strong> — Shannon : $F_e > 2 f_{max} = 7$ kHz. L'inégalité est <strong>stricte</strong>. B donne $= 7$ kHz (piège classique). D double inutilement.</div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c2-bg);color:var(--c2);border:1px solid var(--c2-bd)">T1 Q5</span>
-                <h4>Échantillons/période : $f_0=880$ Hz, $F_e=16$ kHz</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                $$N = F_e/f_0 = 16000/880 = 18{,}18 \approx 18$$
-                <div class="answer-box">✅ <strong>18</strong></div>
-            </div></div>
+        <div class="qcm-card" id="q2-2">
+            <h4>Q2. On échantillonne un cosinus à $f_0 = 900$ Hz avec $F_e = 1000$ Hz. Le signal reconstruit a pour fréquence :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $900$ Hz</li>
+                <li onclick="selectQCM(this)">B) $100$ Hz</li>
+                <li onclick="selectQCM(this)">C) $500$ Hz</li>
+                <li onclick="selectQCM(this)">D) $1000$ Hz</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'B')">Valider</button>
+            <div class="qcm-explain">✅ <strong>B</strong> — $900 > F_e/2 = 500$ → aliasing ! $f_{alias} = F_e - f_0 = 1000 - 900 = 100$ Hz. A oublie l'aliasing. C confond avec $F_e/2$.</div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c2-bg);color:var(--c2);border:1px solid var(--c2-bd)">T1 Q6</span>
-                <h4>Durée fichier wav : 3 969 106 échantillons, $F_e = 44{,}1$ kHz</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                $$\text{Durée} = 3\,969\,106 / 44\,100 = 90\text{ s}$$
-                <div class="answer-box">✅ <strong>90 s</strong></div>
-            </div></div>
+        <div class="qcm-card" id="q2-3">
+            <h4>Q3. On dispose de $N = 50\,000$ échantillons à $F_e = 10$ kHz. La durée du signal est :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $0{,}5$ s</li>
+                <li onclick="selectQCM(this)">B) $5$ s</li>
+                <li onclick="selectQCM(this)">C) $50$ s</li>
+                <li onclick="selectQCM(this)">D) $500$ ms</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'B')">Valider</button>
+            <div class="qcm-explain">✅ <strong>B</strong> — $\text{Durée} = N/F_e = 50000/10000 = 5$ s. A et D confondent des facteurs 10. C multiplie au lieu de diviser.</div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c2-bg);color:var(--c2);border:1px solid var(--c2-bd)">T1 Q7</span>
-                <h4>$K$ pour fenêtre 0,35 s avec $F_e = 50$ kHz</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                $$2K+1 = F_e \times 0{,}35 = 17500 \implies K = 8749$$
-                <div class="answer-box">✅ <strong>K = 8749</strong></div>
-            </div></div>
+        <div class="qcm-card" id="q2-4">
+            <h4>Q4. « Numériser un signal » signifie :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) L'échantillonner uniquement</li>
+                <li onclick="selectQCM(this)">B) Le quantifier uniquement</li>
+                <li onclick="selectQCM(this)">C) L'échantillonner ET le quantifier</li>
+                <li onclick="selectQCM(this)">D) L'amplifier puis le filtrer</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'C')">Valider</button>
+            <div class="qcm-explain">✅ <strong>C</strong> — Numériser = échantillonnage (temps discret) + quantification (amplitude discrète). C'est un piège ULTRA classique. A est incomplet.</div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c2-bg);color:var(--c2);border:1px solid var(--c2-bd)">T3 Q5</span>
-                <h4>Aliasing : $f_0 = 4000$ Hz, $F_e = 5000$ Hz → signal reconstruit ?</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>$f_0 = 4000 > F_e/2 = 2500$ → Shannon violé → aliasing !</p>
-                $$f_{alias} = F_e - f_0 = 5000 - 4000 = 1000\text{ Hz}$$
-                <div class="answer-box">✅ Le signal reconstruit est à <strong>1000 Hz</strong></div>
-            </div></div>
-        </div>
-
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c2-bg);color:var(--c2);border:1px solid var(--c2-bd)">T3</span>
-                <h4>$f_0 = 8000$ Hz, $T = 0{,}1$ ms → signal reconstruit ?</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>$F_e = 1/T = 10\,000$ Hz. $f_0 = 8000 > 5000$ → aliasing !</p>
-                $$f_r = 10000 - 8000 = 2000\text{ Hz}$$
-                <div class="answer-box">✅ <strong>2000 Hz</strong></div>
-            </div></div>
-        </div>
-
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c2-bg);color:var(--c2);border:1px solid var(--c2-bd)">T3</span>
-                <h4>Relu à $F'_e = 4000$ Hz (original $F_e = 8000$), $f_0 = 880$ Hz</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>$f_0 = 880 < F'_e/2 = 2000$ → pas de repliement → signal intact.</p>
-                <div class="answer-box">✅ <strong>$f_1 = 880$ Hz</strong></div>
-            </div></div>
+        <div class="qcm-card" id="q2-5">
+            <h4>Q5. Le filtre de reconstruction idéal après échantillonnage a pour fréquence de coupure :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $f_{max}$</li>
+                <li onclick="selectQCM(this)">B) $F_e$</li>
+                <li onclick="selectQCM(this)">C) $F_e/2$</li>
+                <li onclick="selectQCM(this)">D) $1/T_e$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'C')">Valider</button>
+            <div class="qcm-explain">✅ <strong>C</strong> — $f_c = F_e/2$. Attention : D = $1/T_e = F_e$, pas $F_e/2$ ! C'est un piège fréquent. B confond aussi $F_e$ et $F_e/2$.</div>
         </div>
 
         <div class="section-label">⚠️ Pièges & Vrai/Faux</div>
@@ -538,55 +567,66 @@
             </div>
         </div>
 
-        <div class="section-label">✏️ S'entraîner</div>
+        <div class="section-label">✏️ QCM Entraînement — Points négatifs !</div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c3-bg);color:var(--c3);border:1px solid var(--c3-bd)">T1 Q10</span>
-                <h4>$P = 0{,}7$ W → en dBm ?</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                $$P_{dBm} = 10\log_{10}(700) = 10 \times 2{,}845 = 28{,}45\text{ dBm}$$
-                <div class="answer-box">✅ <strong>28,45 dBm</strong></div>
-            </div></div>
+        <div class="qcm-card" id="q3-1">
+            <h4>Q1. $0$ dBm correspond à :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $0$ W</li>
+                <li onclick="selectQCM(this)">B) $1$ W</li>
+                <li onclick="selectQCM(this)">C) $1$ mW</li>
+                <li onclick="selectQCM(this)">D) $0{,}1$ W</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'C')">Valider</button>
+            <div class="qcm-explain">✅ <strong>C</strong> — Par définition : 0 dBm = $10\log_{10}(P/1\text{mW}) = 0$ → $P = 1$ mW. A est un piège « 0 dBm = 0 W ». B confond mW et W.</div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c3-bg);color:var(--c3);border:1px solid var(--c3-bd)">T1 Q11</span>
-                <h4>$P = -14$ dBm → en µW ?</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                $$P = 10^{-14/10} \times 10^{-3} = 10^{-1{,}4} \times 10^{-3} = 39{,}8\,\mu\text{W}$$
-                <div class="answer-box">✅ <strong>39,8 µW</strong></div>
-            </div></div>
+        <div class="qcm-card" id="q3-2">
+            <h4>Q2. Un amplificateur a un gain de $+13$ dB. En linéaire, cela correspond à un facteur :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) ×13</li>
+                <li onclick="selectQCM(this)">B) ×20</li>
+                <li onclick="selectQCM(this)">C) ×26</li>
+                <li onclick="selectQCM(this)">D) ×130</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'B')">Valider</button>
+            <div class="qcm-explain">✅ <strong>B</strong> — $+13 = +10 + 3$ dB = $\times 10 \times 2 = \times 20$. La règle 3-10-20. A confond dB et facteur. C fait $13 \times 2$.</div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c3-bg);color:var(--c3);border:1px solid var(--c3-bd)">T1 Q9</span>
-                <h4>Câble 12 m, atténuation 0,19 dB/m, $P_a = -31$ dBm → TV en µW ?</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>Atténuation : $12 \times 0{,}19 = 2{,}28$ dB</p>
-                $$P_{TV} = -31 - 2{,}28 = -33{,}28\text{ dBm} \implies P = 0{,}47\,\mu\text{W}$$
-                <div class="answer-box">✅ <strong>0,47 µW</strong></div>
-            </div></div>
+        <div class="qcm-card" id="q3-3">
+            <h4>Q3. Un signal entre dans un câble de 15 m ($\alpha = 0{,}2$ dB/m) à $P_{in} = 20$ dBm. La puissance en sortie est :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $20 - 15 = 5$ dBm</li>
+                <li onclick="selectQCM(this)">B) $20 - 3 = 17$ dBm</li>
+                <li onclick="selectQCM(this)">C) $20 + 3 = 23$ dBm</li>
+                <li onclick="selectQCM(this)">D) $20 - 0{,}2 \times 15 = 17$ dBm</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'D')">Valider</button>
+            <div class="qcm-explain">✅ <strong>D</strong> — Atténuation = $\alpha \times L = 0{,}2 \times 15 = 3$ dB. $P_{out} = 20 - 3 = 17$ dBm. B donne le bon résultat mais sans justification — D montre la bonne méthode. A oublie de multiplier $\alpha$ par $L$.</div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c3-bg);color:var(--c3);border:1px solid var(--c3-bd)">T1 Q8</span>
-                <h4>Seuil : bruit $7\times10^{-4}$ W, SNR = 20 dB → seuil A en dBm ?</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>Bruit = $10\log_{10}(0{,}7) = -1{,}55$ dBm. Seuil à mi-chemin : $-1{,}55 + 10 = 8{,}5$ dBm.</p>
-                <div class="answer-box">✅ <strong>8,5 dBm</strong></div>
-            </div></div>
+        <div class="qcm-card" id="q3-4">
+            <h4>Q4. Un gain s'exprime en :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) dBm (c'est un rapport de puissances)</li>
+                <li onclick="selectQCM(this)">B) dB (c'est un rapport sans dimension)</li>
+                <li onclick="selectQCM(this)">C) Watt (puissance absolue)</li>
+                <li onclick="selectQCM(this)">D) dBm ou dB, c'est pareil</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'B')">Valider</button>
+            <div class="qcm-explain">✅ <strong>B</strong> — dB = rapport (gain/atténuation). dBm = puissance absolue (référence 1 mW). D est le piège le plus fréquent : confondre dB et dBm.</div>
+        </div>
+
+        <div class="qcm-card" id="q3-5">
+            <h4>Q5. $30$ dBm correspond à :</h4>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)">A) $30$ mW</li>
+                <li onclick="selectQCM(this)">B) $1$ W</li>
+                <li onclick="selectQCM(this)">C) $3$ W</li>
+                <li onclick="selectQCM(this)">D) $0{,}03$ W</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this, 'B')">Valider</button>
+            <div class="qcm-explain">✅ <strong>B</strong> — $30 = +10+10+10$ → $\times 10 \times 10 \times 10 = \times 1000$ mW = $1$ W. A confond dBm et mW (piège fatal). C invente. Calcul mental : 0 dBm=1 mW, +30 dB=×1000 → 1 W.</div>
         </div>
 
         <div class="section-label">⚠️ Pièges & Vrai/Faux</div>
@@ -690,80 +730,92 @@
             </div>
         </div>
 
-        <div class="section-label">✏️ S'entraîner</div>
+        <div class="section-label">✏️ QCM Corrélation</div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c4-bg);color:var(--c4);border:1px solid var(--c4-bd)">T1 Q12</span>
-                <h4>$C_{xx}(2T)$ pour $x = [1, 4, -1, 2]$</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 4-1 -->
+        <div class="qcm-card" style="border-left-color:var(--c4)">
+            <h4>Q1 — Calcul d'autocorrélation</h4>
+            <p>Soit $x = [3, -1, 2, 5]$. Que vaut $C_{xx}(T)$ ?</p>
+            <p class="piege">⚠️ Attention au décalage : on multiplie $x_n \times x_{n+1}$, pas $x_n \times x_{n-1}$.</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $3 \times (-1) + (-1) \times 2 + 2 \times 5 = 5$</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $3 \times 2 + (-1) \times 5 = 1$</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $3 \times (-1) + (-1) \times 2 + 2 \times 5 + 5 \times 0 = 5$</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $3 \times 3 + (-1)\times(-1) + 2\times 2 + 5\times 5 = 39$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'A')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>A</strong> — $C_{xx}(T) = \sum x_n \cdot x_{n+1} = 3(-1)+(-1)(2)+2(5) = -3-2+10 = 5$.<br>
+                🪤 <strong>B</strong> : décalage de 2 (c'est $C_{xx}(2T)$). <strong>D</strong> : c'est $C_{xx}(0)$ = énergie !
             </div>
-            <div class="q-body"><div class="q-solution">
-                <table class="calc-table"><tr><th>$n$</th><th>$x_n$</th><th>$x_{n+2}$</th><th>Produit</th></tr><tr><td>0</td><td>1</td><td>−1</td><td>−1</td></tr><tr><td>1</td><td>4</td><td>2</td><td>8</td></tr></table>
-                $$C_{xx}(2T) = -1 + 8 = 7$$
-                <div class="answer-box">✅ <strong>7</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c4-bg);color:var(--c4);border:1px solid var(--c4-bd)">T1 Q13</span>
-                <h4>Max autocorrélation : $f_0=2500$ Hz, $F_e=100$ kHz</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 4-2 -->
+        <div class="qcm-card" style="border-left-color:var(--c4)">
+            <h4>Q2 — Position du max d'autocorrélation</h4>
+            <p>Signal sinusoïdal $f_0 = 800$ Hz, échantillonné à $F_e = 48$ kHz. Le premier max de $|C_{xx}(kT)|$ (hors $k=0$) est à :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $k = 60$</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $k = 48$</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $k = 80$</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $k = 30$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'A')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>A</strong> — $k = F_e / f_0 = 48000/800 = 60$. Le max revient à chaque période du signal.<br>
+                🪤 <strong>D</strong> : c'est $F_e/(2f_0)$, erreur fréquente (confusion avec Shannon).
             </div>
-            <div class="q-body"><div class="q-solution">
-                $$k = F_e/f_0 = 100000/2500 = 40$$
-                <div class="answer-box">✅ <strong>k = 40</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c4-bg);color:var(--c4);border:1px solid var(--c4-bd)">T1 Q14</span>
-                <h4>$C_{xy}(-T)$ : $x=[1,5,7,2]$, $y=[0,-1,-5,-7,-2]$</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 4-3 -->
+        <div class="qcm-card" style="border-left-color:var(--c4)">
+            <h4>Q3 — Intercorrélation max (déphasage)</h4>
+            <p>Deux sinusoïdes de même fréquence $f_0 = 500$ Hz, déphasées de $\theta = \pi/3$, $F_e = 20$ kHz. Le premier max de $C_{xy}$ est à :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $k = 33$</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $k = 7$</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $k = 40$</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $k = 34$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'D')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>D</strong> — $k = \frac{2\pi - \pi/3}{2\pi} \times \frac{F_e}{f_0} = \frac{5}{6} \times 40 = 33{,}3 \to \boxed{34}$ (arrondi supérieur car entier).<br>
+                🪤 <strong>A</strong> : arrondi inférieur. <strong>B</strong> : c'est $\frac{\theta}{2\pi}\times\frac{F_e}{f_0}$ (oubli du $2\pi - \theta$). <strong>C</strong> : c'est $F_e/f_0$ (autocorr, pas intercorr).
             </div>
-            <div class="q-body"><div class="q-solution">
-                <table class="calc-table"><tr><th>$n$</th><th>$x_n$</th><th>$y_{n-1}$</th><th>Produit</th></tr><tr><td>0</td><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>5</td><td>0</td><td>0</td></tr><tr><td>2</td><td>7</td><td>−1</td><td>−7</td></tr><tr><td>3</td><td>2</td><td>−5</td><td>−10</td></tr></table>
-                $$C_{xy}(-T) = 0 + 0 - 7 - 10 = -17$$
-                <div class="answer-box">✅ <strong>−17</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c4-bg);color:var(--c4);border:1px solid var(--c4-bd)">T1 Q15</span>
-                <h4>Max intercorr : $f_0=250$ Hz, $\theta=\pi/4$, $F_e=16$ kHz</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 4-4 -->
+        <div class="qcm-card" style="border-left-color:var(--c4)">
+            <h4>Q4 — Amplitude max de l'intercorrélation</h4>
+            <p>$x(t) = 3\cos(2\pi f_0 t)$ et $y(t) = 7\cos(2\pi f_0 t + \varphi)$. Quelle est la valeur max de $C_{xy}$ ?</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $21$</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $10{,}5$</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $5$</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $10$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $C_{xy,\max} = \frac{A_x \cdot A_y}{2} = \frac{3 \times 7}{2} = 10{,}5$.<br>
+                🪤 <strong>A</strong> : oubli de diviser par 2 (piège classique !). <strong>D</strong> : $(A_x+A_y)/2$, faux.
             </div>
-            <div class="q-body"><div class="q-solution">
-                $$k = \frac{2\pi - \pi/4}{2\pi} \times \frac{16000}{250} = \frac{7}{8} \times 64 = 56$$
-                <div class="answer-box">✅ <strong>k = 56</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c4-bg);color:var(--c4);border:1px solid var(--c4-bd)">T1 Q16</span>
-                <h4>Max corrélation normalisée : $A_x=2{,}5$, $A_y=5{,}3$</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 4-5 -->
+        <div class="qcm-card" style="border-left-color:var(--c4)">
+            <h4>Q5 — $C_{xy}(0)$ avec déphasage</h4>
+            <p>$x = 4\cos(\omega t)$, $y = 6\cos(\omega t - \pi/4)$. Que vaut $C_{xy}(0)$ ?</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $12$</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $12\cos(\pi/4) \approx 8{,}49$</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $6\sqrt{2} \approx 8{,}49$</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $12\sin(\pi/4) \approx 8{,}49$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $C_{xy}(0) = \frac{A_x A_y}{2}\cos(\theta) = \frac{4\times 6}{2}\cos(\pi/4) = 12 \times \frac{\sqrt{2}}{2} \approx 8{,}49$.<br>
+                🪤 <strong>A</strong> : oubli du $\cos(\theta)$. <strong>C</strong> : valeur juste mais formule pas identifiée. <strong>D</strong> : $\sin$ au lieu de $\cos$.
             </div>
-            <div class="q-body"><div class="q-solution">
-                $$C_{xy,max} = \frac{2{,}5 \times 5{,}3}{2} = 6{,}625$$
-                <div class="answer-box">✅ <strong>6,625</strong></div>
-            </div></div>
-        </div>
-
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c4-bg);color:var(--c4);border:1px solid var(--c4-bd)">T1 Q17</span>
-                <h4>$C_{xy}(0)$ : $A_x=2$, $A_y=5$, $\theta=-\pi/6$</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                $$C_{xy}(0) = \frac{2 \times 5}{2}\cos(-\pi/6) = 5 \times \frac{\sqrt{3}}{2} = 4{,}33$$
-                <div class="answer-box">✅ <strong>4,33</strong></div>
-            </div></div>
         </div>
 
         <div class="section-label">⚠️ Pièges</div>
@@ -876,105 +928,92 @@
             </div>
         </div>
 
-        <div class="section-label">✏️ S'entraîner</div>
+        <div class="section-label">✏️ QCM Fourier & TFD</div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c5-bg);color:var(--c5);border:1px solid var(--c5-bd)">T2</span>
-                <h4>Pic à $k=845$, $N=2048$, $F_e=36$ kHz → fréquence ?</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 5-1 -->
+        <div class="qcm-card" style="border-left-color:var(--c5)">
+            <h4>Q1 — Fréquence d'un pic TFD</h4>
+            <p>Pic au bin $k = 120$, $N = 4096$, $F_e = 44{,}1$ kHz. Quelle fréquence ?</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $\approx 1291$ Hz</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $\approx 2582$ Hz</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $\approx 10{,}76$ Hz</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $\approx 5280$ Hz</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'A')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>A</strong> — $f = k \cdot F_e / N = 120 \times 44100/4096 \approx 1291$ Hz.<br>
+                🪤 <strong>B</strong> : $k \cdot F_e / (N/2)$ (division par $N/2$ au lieu de $N$). <strong>C</strong> : $F_e/(k \cdot N)$.
             </div>
-            <div class="q-body"><div class="q-solution">
-                $$f = 845 \times 36000/2048 \approx 14{,}85\text{ kHz}$$
-                <div class="answer-box">✅ <strong>14,85 kHz</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c5-bg);color:var(--c5);border:1px solid var(--c5-bd)">T2</span>
-                <h4>Zero-padding pour $\Delta f \leq 2$ Hz : $F_e=16$ kHz, $N_0=1000$</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 5-2 -->
+        <div class="qcm-card" style="border-left-color:var(--c5)">
+            <h4>Q2 — Zero-padding</h4>
+            <p>$F_e = 10$ kHz, $N_0 = 500$ échantillons. On veut $\Delta f \leq 1$ Hz. Combien de zéros ajouter ?</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> 500</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> 9500</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> 10000</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> 4500</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $N \geq F_e/\Delta f = 10000/1 = 10000$. Zéros $= 10000 - 500 = 9500$.<br>
+                🪤 <strong>C</strong> : c'est $N_{total}$, pas le nombre de zéros. <strong>D</strong> : $F_e/(2\Delta f) - N_0$ (erreur Shannon).
             </div>
-            <div class="q-body"><div class="q-solution">
-                $$N_{total} \geq 16000/2 = 8000 \implies \text{zéros} = 8000 - 1000 = 7000$$
-                <div class="answer-box">✅ <strong>7000 zéros</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c5-bg);color:var(--c5);border:1px solid var(--c5-bd)">T2</span>
-                <h4>$X_2$ pour $x = [1, 5, -1, 2]$, $N=4$</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 5-3 -->
+        <div class="qcm-card" style="border-left-color:var(--c5)">
+            <h4>Q3 — $X_{N/2}$ (alternance)</h4>
+            <p>$x = [2, -3, 4, 1]$, $N=4$. Que vaut $X_2$ ?</p>
+            <p class="piege">💡 Pour $k=N/2$ : $e^{-j\pi n} = (-1)^n$, on alterne $+,-,+,-$.</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $4$</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $8$</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $-4$</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $0$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $X_2 = 2(+1) + (-3)(-1) + 4(+1) + 1(-1) = 2+3+4-1 = 8$.<br>
+                🪤 <strong>A</strong> : $\sum x_n$ (c'est $X_0$). <strong>D</strong> : erreur de signe.
             </div>
-            <div class="q-body"><div class="q-solution">
-                <p>$k=2$ : $e^{-j\pi n} = (-1)^n$ → on alterne $+,-,+,-$</p>
-                $$X_2 = 1(+1) + 5(-1) + (-1)(+1) + 2(-1) = 1-5-1-2 = -7$$
-                <div class="answer-box">✅ <strong>$X_2 = -7$</strong></div>
-                <div class="piege">💡 Pour $k = N/2$ : toujours alterner +,−,+,−</div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c5-bg);color:var(--c5);border:1px solid var(--c5-bd)">T2</span>
-                <h4>Porte $\tau=20\,\mu$s, $F_e=1$ MHz, $N=1000$ → $|X_k|$ à $f=29$ kHz</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 5-4 -->
+        <div class="qcm-card" style="border-left-color:var(--c5)">
+            <h4>Q4 — Spectre d'un cosinus</h4>
+            <p>Le spectre (module) d'un signal $\cos(2\pi f_0 t)$ échantillonné présente :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> 1 raie à $f_0$</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> 2 raies à $\pm f_0$</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> 2 raies à $f_0$ et $F_e - f_0$</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> Une infinité de raies harmoniques</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'C')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>C</strong> — En DFT (indices $0$ à $N-1$), le cosinus donne 2 raies : à $k = f_0 N/F_e$ et $k = N - f_0 N/F_e$ (soit $F_e - f_0$).<br>
+                🪤 <strong>B</strong> : vrai en TF continue, mais en DFT les indices sont positifs. <strong>A</strong> : oubli de la symétrie.
             </div>
-            <div class="q-body"><div class="q-solution">
-                <p>$N_\tau = 20$, $k = 29$</p>
-                $$|X_k| = \left|\frac{\sin(\pi \cdot 29 \cdot 20/1000)}{\sin(\pi \cdot 29/1000)}\right| = \frac{0{,}969}{0{,}091} \approx 10{,}66$$
-                <div class="answer-box">✅ <strong>≈ 10,66</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c5-bg);color:var(--c5);border:1px solid var(--c5-bd)">T2</span>
-                <h4>Zéros du spectre espacés de ~625 Hz → $\tau$ ?</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 5-5 -->
+        <div class="qcm-card" style="border-left-color:var(--c5)">
+            <h4>Q5 — Zéros du sinc (porte)</h4>
+            <p>Signal porte de durée $\tau = 0{,}5$ ms. Les zéros du spectre (sinc) sont espacés de :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $500$ Hz</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $2000$ Hz</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $1000$ Hz</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $250$ Hz</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — Zéros espacés de $1/\tau = 1/0{,}0005 = 2000$ Hz.<br>
+                🪤 <strong>A</strong> : $\tau \times 1000$ (erreur d'unité). <strong>C</strong> : $1/(2\tau)$.
             </div>
-            <div class="q-body"><div class="q-solution">
-                $$\tau = 1/625 = 1{,}6\text{ ms}$$
-                <div class="answer-box">✅ <strong>1,6 ms</strong></div>
-            </div></div>
-        </div>
-
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c5-bg);color:var(--c5);border:1px solid var(--c5-bd)">T2</span>
-                <h4>Associer signaux ↔ spectres (A, B, C, D)</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <table class="calc-table"><tr><th>Spectre</th><th>Signature</th><th>Signal</th></tr><tr><td>2 raies ±f₀</td><td>Cosinus</td><td><strong>A</strong></td></tr><tr><td>1 raie +f₀</td><td>Exponentielle</td><td><strong>D</strong></td></tr><tr><td>Harmoniques</td><td>Périodique non sinus</td><td><strong>C</strong></td></tr><tr><td>Dirac en f=0</td><td>Constante</td><td><strong>B</strong></td></tr></table>
-                <div class="answer-box">✅ <strong>1A 2D 3C 4B</strong></div>
-            </div></div>
-        </div>
-
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c5-bg);color:var(--c5);border:1px solid var(--c5-bd)">T3</span>
-                <h4>Spectre échantillonné → trouver $F_e$ et $f_1$</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>Spectre périodique de $F_e$. On repère la période → $F_e = 2000$ Hz, raie → $f_1 = 500$ Hz.</p>
-                <div class="answer-box">✅ <strong>$F_e = 2000$ Hz, $f_1 = 500$ Hz</strong></div>
-            </div></div>
-        </div>
-
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c5-bg);color:var(--c5);border:1px solid var(--c5-bd)">T3</span>
-                <h4>Reconstruction : $f_1=40$ kHz, $f_2=70$ kHz, $T=0{,}01$ ms</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>$F_e = 100$ kHz, $f_c = 50$ kHz. $f_1 = 40 < 50$ → OK. $f_2 = 70 > 50$ → alias : $100-70 = 30$ kHz.</p>
-                <div class="answer-box">✅ <strong>$f_{r1} = 30$ kHz, $f_{r2} = 40$ kHz</strong></div>
-            </div></div>
         </div>
 
         <div class="section-label">⚠️ Pièges</div>
@@ -1076,55 +1115,91 @@
             </div>
         </div>
 
-        <div class="section-label">✏️ S'entraîner</div>
+        <div class="section-label">✏️ QCM Quantification</div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c6-bg);color:var(--c6);border:1px solid var(--c6-bd)">T3</span>
-                <h4>Débit : $F_e = 20$ kHz, $b=16$ bits</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 6-1 -->
+        <div class="qcm-card" style="border-left-color:var(--c6)">
+            <h4>Q1 — Puissance du bruit de quantification</h4>
+            <p>Le pas de quantification est $q = 0{,}02$ V. La puissance du bruit vaut :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $q^2/6 = 6{,}67 \times 10^{-5}$ V²</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $q^2/12 = 3{,}33 \times 10^{-5}$ V²</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $q/12 = 1{,}67 \times 10^{-3}$ V</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $q^2/4 = 10^{-4}$ V²</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $P_{bruit} = q^2/12$. C'est la formule exacte.<br>
+                🪤 <strong>A</strong> : $q^2/6$ — piège classique ! C'est la variance sur $[-q/2, q/2]$ mais divisé par 2 en trop.
             </div>
-            <div class="q-body"><div class="q-solution">
-                $$D = 20000 \times 16 = 320\text{ kbits/s}$$
-                <div class="answer-box">✅ <strong>320 kbits/s</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c6-bg);color:var(--c6);border:1px solid var(--c6-bd)">T3</span>
-                <h4>Capacité : mono, 16 kHz, 10 bits, 27 min</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 6-2 -->
+        <div class="qcm-card" style="border-left-color:var(--c6)">
+            <h4>Q2 — SNR en fonction de $b$</h4>
+            <p>Avec $b = 10$ bits, le SNR théorique d'un signal sinusoïdal pleine échelle vaut environ :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $\approx 60$ dB</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $\approx 62$ dB</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $\approx 72$ dB</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $\approx 48$ dB</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $\text{SNR} \approx 6{,}02b + 1{,}76 = 6{,}02 \times 10 + 1{,}76 = 61{,}96 \approx 62$ dB.<br>
+                🪤 <strong>A</strong> : $6 \times b$ (oubli du 0,02 et du 1,76). <strong>D</strong> : $6 \times 8$ (mauvais $b$).
             </div>
-            <div class="q-body"><div class="q-solution">
-                $$C = \frac{16000 \times 10 \times 1 \times 1620}{8} = 32{,}4 \times 10^6 \text{ o} = 32\,400\text{ ko}$$
-                <div class="answer-box">✅ <strong>32 400 ko</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c6-bg);color:var(--c6);border:1px solid var(--c6-bd)">T3</span>
-                <h4>Stéréo, $T=62{,}5\,\mu$s, 1h, 180 Mo → $b$ ?</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 6-3 -->
+        <div class="qcm-card" style="border-left-color:var(--c6)">
+            <h4>Q3 — Stockage audio</h4>
+            <p>Enregistrement stéréo, $F_e = 44{,}1$ kHz, $b = 16$ bits, durée 3 min. Taille :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $\approx 15{,}9$ Mo</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $\approx 31{,}8$ Mo</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $\approx 63{,}5$ Mo</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $\approx 7{,}9$ Mo</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $C = \frac{44100 \times 16 \times 2 \times 180}{8} = 31{,}75 \times 10^6$ octets $\approx 31{,}8$ Mo.<br>
+                🪤 <strong>A</strong> : oubli stéréo (÷2). <strong>C</strong> : confusion octets/bits.
             </div>
-            <div class="q-body"><div class="q-solution">
-                <p>$F_e = 16$ kHz, 2 canaux. $180 \times 10^6 \times 8 = 1{,}44 \times 10^9$ bits.</p>
-                $$b = \frac{1{,}44 \times 10^9}{16000 \times 2 \times 3600} \approx 12{,}5 \rightarrow b = 12$$
-                <div class="answer-box">✅ <strong>12 bits</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c6-bg);color:var(--c6);border:1px solid var(--c6-bd)">T3</span>
-                <h4>Optimisation : $B=9{,}5$ kHz, SNR=30 dB, $F_e=100$ kHz, $b=16$</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 6-4 -->
+        <div class="qcm-card" style="border-left-color:var(--c6)">
+            <h4>Q4 — Plage et pas</h4>
+            <p>Signal entre $-3$ V et $+3$ V, quantifié sur 8 bits. Le pas $q$ vaut :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $3/256 \approx 11{,}7$ mV</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $6/256 \approx 23{,}4$ mV</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $6/255 \approx 23{,}5$ mV</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $3/128 \approx 23{,}4$ mV</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — Plage $= 2A = 6$ V, $N = 2^8 = 256$, $q = 6/256 \approx 23{,}4$ mV.<br>
+                🪤 <strong>A</strong> : plage $= A$ au lieu de $2A$ (piège !). <strong>D</strong> : même valeur mais mauvaise formule.
             </div>
-            <div class="q-body"><div class="q-solution">
-                <p>Shannon : $F_e/k > 19$ kHz → $k_{max} = 5$. SNR : $6b > 30$ → $b \geq 6$.</p>
-                <div class="answer-box">✅ <strong>$k=5$, $b=8$</strong> (SNR = 48 dB ✓)</div>
-            </div></div>
+        </div>
+
+        <!-- QCM 6-5 -->
+        <div class="qcm-card" style="border-left-color:var(--c6)">
+            <h4>Q5 — Décimation et SNR</h4>
+            <p>On décime par $k = 4$ un signal échantillonné à 80 kHz avec $b = 12$ bits. Le SNR :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> Reste identique ($\approx 74$ dB)</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> Diminue car $F_e$ diminue</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> Augmente car on moyenne</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> Dépend de la fréquence du signal</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'A')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>A</strong> — Le SNR de quantification dépend de $b$, pas de $F_e$. $\text{SNR} = 6{,}02 \times 12 + 1{,}76 \approx 74$ dB.<br>
+                🪤 <strong>B</strong> : confusion avec bruit thermique. La décimation ne change pas $b$.
+            </div>
         </div>
     </section>
 
@@ -1215,91 +1290,91 @@
             </div>
         </div>
 
-        <div class="section-label">✏️ S'entraîner</div>
+        <div class="section-label">✏️ QCM Filtres FIR</div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c7-bg);color:var(--c7);border:1px solid var(--c7-bd)">T4</span>
-                <h4>$f_c$ anti-repliement : décimation ×5, $T=22\,\mu$s</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 7-1 -->
+        <div class="qcm-card" style="border-left-color:var(--c7)">
+            <h4>Q1 — Identifier un filtre passe-bas</h4>
+            <p>$h = [0{,}25,\; 0{,}5,\; 0{,}25]$. On calcule $H(0)$ et $H(F_e/2)$ :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $H(0)=1$, $H(F_e/2)=0$ → passe-bas</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $H(0)=0$, $H(F_e/2)=1$ → passe-haut</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $H(0)=1$, $H(F_e/2)=1$ → passe-tout</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $H(0)=0{,}5$, $H(F_e/2)=0{,}5$ → passe-bande</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'A')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>A</strong> — $H(0) = \sum h_i = 0{,}25+0{,}5+0{,}25 = 1$. $H(F_e/2) = 0{,}25-0{,}5+0{,}25 = 0$. Laisse passer le DC, bloque $F_e/2$ → passe-bas.<br>
+                🪤 Méthode express : $H(0) = \sum h_i$, $H(F_e/2) = \sum (-1)^i h_i$.
             </div>
-            <div class="q-body"><div class="q-solution">
-                $$F_e = 1/T = 45{,}45\text{ kHz},\quad f_c = F_e/(2 \times 5) = 4{,}545\text{ kHz}$$
-                <div class="answer-box">✅ <strong>4,545 kHz</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c7-bg);color:var(--c7);border:1px solid var(--c7-bd)">T4</span>
-                <h4>$y(5)$ pour $y(n) = 0{,}2\sum_{k=0}^4 x(n-k)$, $x=[1,1,1,0,0,\ldots]$</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 7-2 -->
+        <div class="qcm-card" style="border-left-color:var(--c7)">
+            <h4>Q2 — Longueur de convolution</h4>
+            <p>Signal de $N = 200$ échantillons convolué avec un filtre de $M = 15$ coefficients. La sortie a :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> 200 échantillons</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> 214 échantillons</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> 215 échantillons</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> 185 échantillons</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — Longueur $= N + M - 1 = 200 + 15 - 1 = 214$.<br>
+                🪤 <strong>A</strong> : même taille (faux). <strong>C</strong> : $N+M$ (oubli du $-1$). <strong>D</strong> : $N-M$ (confusion).
             </div>
-            <div class="q-body"><div class="q-solution">
-                $$y(5) = 0{,}2[x(5)+x(4)+x(3)+x(2)+x(1)] = 0{,}2[0+0+0+1+1] = 0{,}4$$
-                <div class="answer-box">✅ <strong>0,4</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c7-bg);color:var(--c7);border:1px solid var(--c7-bd)">T4</span>
-                <h4>$|H(1000)|$ : $y_n = 0{,}1x_n + 0{,}8x_{n-1} + 0{,}1x_{n-2}$, $F_e=5$ kHz</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 7-3 -->
+        <div class="qcm-card" style="border-left-color:var(--c7)">
+            <h4>Q3 — Anti-repliement avant décimation</h4>
+            <p>$F_e = 60$ kHz, décimation par $k = 3$. La fréquence de coupure du filtre anti-repliement doit être :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $30$ kHz</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $20$ kHz</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $10$ kHz</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $15$ kHz</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'C')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>C</strong> — $f_c = F_e/(2k) = 60000/(2 \times 3) = 10$ kHz.<br>
+                🪤 <strong>A</strong> : $F_e/2$ (pas de décimation). <strong>B</strong> : $F_e/k$ (oubli du facteur 2). <strong>D</strong> : $F_e/(2 \times 2)$ (mauvais $k$).
             </div>
-            <div class="q-body"><div class="q-solution">
-                <p>$fT = 0{,}2$, $2\pi fT = 72°$. Re = $0{,}1 + 0{,}8\cos72° + 0{,}1\cos144° = 0{,}266$. Im = $-0{,}820$.</p>
-                $$|H| = \sqrt{0{,}266^2 + 0{,}820^2} \approx 0{,}86$$
-                <div class="answer-box">✅ <strong>≈ 0,86</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c7-bg);color:var(--c7);border:1px solid var(--c7-bd)">T4</span>
-                <h4>Type : $y(n) = x(n) - 2x(n-1) + x(n-2)$</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 7-4 -->
+        <div class="qcm-card" style="border-left-color:var(--c7)">
+            <h4>Q4 — Filtre passe-haut</h4>
+            <p>$y(n) = x(n) - 2x(n-1) + x(n-2)$. Ce filtre est de type :</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> Passe-bas</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> Passe-haut</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> Passe-bande</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> Coupe-bande</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'B')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>B</strong> — $H(0) = 1-2+1 = 0$ (bloque DC). $H(F_e/2) = 1+2+1 = 4$ (max). Bloque le bas, laisse le haut → passe-haut.<br>
+                🪤 Test express : si $H(0) = 0$ et $H(F_e/2) \neq 0$ → passe-haut.
             </div>
-            <div class="q-body"><div class="q-solution">
-                <p>$|H(0)| = |1-2+1| = 0$ (bloque DC). $|H(F_e/2)| = |1+2+1| = 4$ (max).</p>
-                <div class="answer-box">✅ <strong>Passe-haut</strong></div>
-            </div></div>
         </div>
 
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c7-bg);color:var(--c7);border:1px solid var(--c7-bd)">T4</span>
-                <h4>Creux à ~500 Hz ($F_e = 1$ kHz) → type ?</h4>
-                <span class="q-toggle">▼</span>
+        <!-- QCM 7-5 -->
+        <div class="qcm-card" style="border-left-color:var(--c7)">
+            <h4>Q5 — Convolution manuelle</h4>
+            <p>$x = [1, 0, 2]$, $h = [3, -1]$. Que vaut $y(1)$ ?</p>
+            <ul class="qcm-options">
+                <li onclick="selectQCM(this)"><strong>A)</strong> $-1$</li>
+                <li onclick="selectQCM(this)"><strong>B)</strong> $3$</li>
+                <li onclick="selectQCM(this)"><strong>C)</strong> $5$</li>
+                <li onclick="selectQCM(this)"><strong>D)</strong> $-2$</li>
+            </ul>
+            <button class="qcm-validate" onclick="checkQCM(this,'A')">Valider</button>
+            <div class="qcm-explain">
+                ✅ <strong>A</strong> — $y(1) = h_0 \cdot x(1) + h_1 \cdot x(0) = 3 \times 0 + (-1) \times 1 = -1$.<br>
+                🪤 <strong>B</strong> : $h_0 \cdot x(0)$ (c'est $y(0)$). <strong>C</strong> : $h_0 \cdot x(2) + h_1 \cdot x(1)$ (c'est $y(2)$).
             </div>
-            <div class="q-body"><div class="q-solution">
-                <p>Gain ≈ 1 partout sauf creux profond vers $F_e/2$.</p>
-                <div class="answer-box">✅ <strong>Coupe-bande (notch)</strong></div>
-            </div></div>
-        </div>
-
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c7-bg);color:var(--c7);border:1px solid var(--c7-bd)">T4</span>
-                <h4>Gabarit filtre — note LA5 (1760 Hz), SNR = 30 dB</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>LA5 ± 2% : [1724, 1796] Hz. SOL# max = 1695 Hz. Si♭ min = 1828 Hz.</p>
-                <div class="answer-box">✅ <strong>Passe-bande, f_stop=[1695, 1827], f_pass=[1724, 1796], A_min=−30 dB</strong></div>
-            </div></div>
-        </div>
-
-        <div class="question-card">
-            <div class="q-header" onclick="this.parentElement.classList.toggle('open')">
-                <span class="q-tag" style="background:var(--c7-bg);color:var(--c7);border:1px solid var(--c7-bd)">T4</span>
-                <h4>Tuner radio : $F_I = 50$ MHz, bande ±800 kHz, SNR = 30 dB</h4>
-                <span class="q-toggle">▼</span>
-            </div>
-            <div class="q-body"><div class="q-solution">
-                <p>Shannon sur 89 MHz → $F_e = 200$ MHz. Bande : [49.2, 50.8] MHz. Stops : [49, 51].</p>
-                <div class="answer-box">✅ <strong>$F_e=200$ MHz, BP [49.2 ; 50.8], −30 dB</strong></div>
-            </div></div>
         </div>
     </section>
 
@@ -1341,6 +1416,28 @@
             const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
             document.getElementById('progressBar').style.width = pct + '%';
         });
+
+        function selectQCM(li) {
+            li.parentElement.querySelectorAll('li').forEach(l => l.classList.remove('selected'));
+            li.classList.add('selected');
+        }
+
+        function checkQCM(btn, answer) {
+            const card = btn.closest('.qcm-card');
+            if (card.classList.contains('answered')) return;
+            const selected = card.querySelector('li.selected');
+            if (!selected) return alert('Choisis une réponse !');
+            const letter = selected.textContent.trim().charAt(0);
+            if (letter === answer) {
+                selected.classList.add('correct');
+            } else {
+                selected.classList.add('wrong');
+                card.querySelectorAll('li').forEach(li => {
+                    if (li.textContent.trim().charAt(0) === answer) li.classList.add('correct');
+                });
+            }
+            card.classList.add('answered');
+        }
     </script>
 </body>
 </html>
