@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP Signal — Examen II (Entraînement)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+    <style>
+        .exam-hero{padding:120px 24px 50px;text-align:center;background:linear-gradient(180deg,#dbeafe 0%,var(--bg) 100%)}
+        .exam-hero h1{font-size:clamp(2rem,4.5vw,3rem);font-weight:900;letter-spacing:-1.5px;margin-bottom:12px}
+        .exam-hero p{color:var(--text2);max-width:620px;margin:0 auto 20px;font-size:.92rem;line-height:1.7}
+        .exam-rules{max-width:700px;margin:0 auto 28px;background:#fef2f2;border:2px solid #fca5a5;border-radius:var(--radius);padding:18px 22px;text-align:left;font-size:.84rem;color:#991b1b;line-height:1.7}
+        .exam-rules strong{color:#dc2626}
+        .exam-info{display:flex;justify-content:center;gap:28px;margin:20px 0 28px;flex-wrap:wrap}
+        .exam-info .stat{text-align:center}
+        .exam-info .stat-num{display:block;font-size:1.5rem;font-weight:800;color:var(--c3)}
+        .exam-info .stat-label{font-size:.75rem;color:var(--text3);font-weight:500}
+        .q-section{margin-bottom:56px;padding-top:24px}
+        .q-section-title{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+        .q-section-title h2{font-size:1.3rem;font-weight:800;letter-spacing:-.5px}
+        .q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;box-shadow:var(--shadow);transition:border-color .2s}
+        .q-card:hover{border-color:var(--border2)}
+        .q-num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:var(--c1);color:#fff;font-weight:800;font-size:.82rem;flex-shrink:0}
+        .q-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+        .q-title{font-weight:700;font-size:.9rem}
+        .q-body-wrap{padding:20px 22px}
+        .q-text{font-size:.9rem;line-height:1.75;color:var(--text);margin-bottom:14px}
+        .q-text strong{color:var(--c1)}
+        .q-options{list-style:none;padding:0;margin:0 0 12px}
+        .q-options li{padding:11px 16px;margin:5px 0;border-radius:var(--radius-sm);border:1px solid var(--border);font-size:.85rem;cursor:pointer;transition:all .2s;-webkit-user-select:none;user-select:none;background:var(--surface2)}
+        .q-options li:hover{background:var(--bg);border-color:var(--border2)}
+        .q-options li.selected{border-color:var(--c1);background:var(--c1-bg);font-weight:600}
+        .q-options li.correct-reveal{border-color:var(--green);background:#ecfdf5;color:#065f46;font-weight:600}
+        .q-options li.wrong-reveal{border-color:var(--red);background:#fef2f2;color:#991b1b;text-decoration:line-through}
+        .q-validate{display:inline-block;padding:9px 20px;background:var(--c1);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:.82rem;cursor:pointer;margin-top:4px;transition:background .2s}
+        .q-validate:hover{background:#4f46e5}
+        .q-validate:disabled{background:#a5b4fc;cursor:not-allowed}
+        .q-explain{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s,margin .3s;font-size:.84rem;line-height:1.7;background:#f0f4ff;border-radius:var(--radius-sm);padding:0 16px;margin-top:0}
+        .q-card.answered .q-explain{max-height:600px;padding:14px 16px;margin-top:10px}
+        .q-explain .answer-line{font-weight:700;color:#047857;margin-bottom:6px}
+        .q-explain .detail{color:var(--text2)}
+        .score-bar{position:sticky;bottom:0;background:rgba(255,255,255,.95);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:12px 24px;display:flex;justify-content:center;gap:24px;align-items:center;font-size:.85rem;z-index:100}
+        .score-bar .s-good{color:var(--green);font-weight:700}
+        .score-bar .s-bad{color:var(--red);font-weight:700}
+        .score-bar .s-skip{color:var(--text3);font-weight:600}
+        .score-bar .s-total{color:var(--c1);font-weight:800;font-size:1rem}
+        .theme-tag{display:inline-block;padding:3px 10px;border-radius:6px;font-size:.72rem;font-weight:700;margin-left:8px;vertical-align:middle}
+        .nav-exams{display:flex;justify-content:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+        .nav-exams a{padding:8px 18px;border-radius:8px;font-size:.82rem;font-weight:700;text-decoration:none;border:1px solid var(--border);color:var(--text2);transition:all .2s}
+        .nav-exams a:hover,.nav-exams a.active{background:var(--c1);color:#fff;border-color:var(--c1)}
+        @media(max-width:600px){.exam-hero{padding:100px 16px 40px}.q-body-wrap{padding:14px 16px}.exam-info{gap:16px}}
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">📡 APP Signal</a>
+            <div class="nav-links">
+                <a href="#numerisation">🔢 Numérisation</a>
+                <a href="#spectral">📊 Spectral</a>
+                <a href="#filtrage">🔧 Filtres</a>
+                <a href="examen.html">📝 Examen I</a>
+                <a href="index.html">← Révisions</a>
+            </div>
+            <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+        </div>
+    </nav>
+
+    <header class="exam-hero">
+        <span class="badge" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">🔥 EXAMEN II — Entraînement supplémentaire — Style ISEP</span>
+        <h1>Examen II<br><span class="gradient-text">Traitement du Signal</span></h1>
+        <p>Épreuve d'entraînement originale basée sur le format et la difficulté du vrai examen ISEP. Même style de QCM, mêmes pièges, nouvelles valeurs numériques.</p>
+
+        <div class="exam-rules">
+            <strong>⚠️ CONDITIONS D'EXAMEN :</strong><br>
+            • Calculatrice scientifique autorisée uniquement<br>
+            • Pénalités graduées pour les réponses fausses<br>
+            • Toutes les questions n'ont <strong>pas le même poids</strong><br>
+            • Chronomètre toi : objectif &lt; 1h30
+        </div>
+
+        <div class="exam-info">
+            <div class="stat"><span class="stat-num">17</span><span class="stat-label">Questions</span></div>
+            <div class="stat"><span class="stat-num">⚠️</span><span class="stat-label">Pts négatifs</span></div>
+            <div class="stat"><span class="stat-num" id="scoreDisplay">0/17</span><span class="stat-label">Score</span></div>
+        </div>
+
+        <div class="nav-exams">
+            <a href="examen.html">📝 Examen I (Réel Déc. 2025)</a>
+            <a href="examen2.html" class="active">🔥 Examen II (Entraînement)</a>
+        </div>
+
+        <br>
+        <a href="#q1" class="cta-btn" style="display:inline-block;padding:13px 28px;background:var(--c1);color:#fff;text-decoration:none;font-weight:700;border-radius:12px">Commencer l'examen →</a>
+    </header>
+
+    <main style="max-width:860px;margin:0 auto;padding:0 24px 100px">
+
+    <!-- ============ SECTION 1 — NUMÉRISATION ============ -->
+    <section id="numerisation" class="q-section">
+        <div class="q-section-title">
+            <h2>🔢 Échantillonnage, Quantification &amp; Numérisation</h2>
+            <span class="theme-tag" style="background:var(--c2-bg);color:var(--c2);border:1px solid var(--c2-bd)">Q1–Q8</span>
+        </div>
+
+        <!-- Q1 -->
+        <div class="q-card" id="q1" data-correct="B">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">1</span><span class="q-title">Fréquence d'échantillonnage — signal audio</span></div>
+                <div class="q-text">Un signal audio a un spectre qui s'étend de <strong>20 Hz à 4400 Hz</strong>. On souhaite l'échantillonner sans repliement. Quelle est la fréquence d'échantillonnage minimale parmi les choix suivants ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. $F_e = 4\,400$ Hz</li>
+                    <li data-val="B" onclick="selectOption(this)">B. $F_e = 11\,025$ Hz</li>
+                    <li data-val="C" onclick="selectOption(this)">C. $F_e = 8\,000$ Hz</li>
+                    <li data-val="D" onclick="selectOption(this)">D. $F_e = 44\,100$ Hz</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse B — 11 025 Hz</div>
+                    <div class="detail">Shannon : $F_e \geq 2 \times F_{max} = 2 \times 4400 = 8800$ Hz. <br>A (4400) ❌ viole Shannon. C (8000) ❌ < 8800. <br>B (11 025) ✅ est la plus petite valeur $\geq 8800$. D marche mais inutilement élevé.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-card" id="q2" data-correct="C">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">2</span><span class="q-title">Débit binaire</span></div>
+                <div class="q-text">Un signal est échantillonné à $F_e = 22\,050$ Hz et quantifié sur <strong>12 bits</strong>. Quel est le débit binaire ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. 22.05 kbit/s</li>
+                    <li data-val="B" onclick="selectOption(this)">B. 176.4 kbit/s</li>
+                    <li data-val="C" onclick="selectOption(this)">C. 264.6 kbit/s</li>
+                    <li data-val="D" onclick="selectOption(this)">D. 529.2 kbit/s</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse C — 264.6 kbit/s</div>
+                    <div class="detail">$D = F_e \times b = 22\,050 \times 12 = 264\,600$ bit/s $= \boxed{264.6\text{ kbit/s}}$.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-card" id="q3" data-correct="B">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">3</span><span class="q-title">Capacité de stockage</span></div>
+                <div class="q-text">On enregistre un signal stéréo ($\times 2$ canaux) à $F_e = 44\,100$ Hz, quantifié sur <strong>16 bits</strong>. Quelle est la taille d'un enregistrement de <strong>3 minutes</strong> ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. 15.9 Mo</li>
+                    <li data-val="B" onclick="selectOption(this)">B. 31.8 Mo</li>
+                    <li data-val="C" onclick="selectOption(this)">C. 63.5 Mo</li>
+                    <li data-val="D" onclick="selectOption(this)">D. 7.9 Mo</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse B — 31.8 Mo</div>
+                    <div class="detail">$V = 2 \times F_e \times b \times T / 8 = 2 \times 44100 \times 16 \times 180 / 8 = 31\,752\,000$ octets $\approx \boxed{31.8\text{ Mo}}$. <br>Piège : ne pas oublier le facteur <b>×2</b> pour la stéréo !</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-card" id="q4" data-correct="D">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">4</span><span class="q-title">Repliement spectral</span></div>
+                <div class="q-text">Soit un signal échantillonné $x(nT) = A\cos(2\pi f_0 nT)$ avec $f_0 = 13$ KHz et $T = 0.1$ ms. On reconstruit le signal analogique avec un filtre passe-bas idéal $f_c = F_e/2$. Quelle est la fréquence $f_r$ du signal reconstruit ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. 13 000 Hz</li>
+                    <li data-val="B" onclick="selectOption(this)">B. 2 000 Hz</li>
+                    <li data-val="C" onclick="selectOption(this)">C. 7 000 Hz</li>
+                    <li data-val="D" onclick="selectOption(this)">D. 3 000 Hz</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse D — 3 000 Hz</div>
+                    <div class="detail">$F_e = 1/T = 10\,000$ Hz. $f_c = 5\,000$ Hz. <br>$f_0 = 13$ KHz $> F_e/2$ → <b>repliement !</b> <br>$f_r = |f_0 - F_e| = |13\,000 - 10\,000| = 3\,000$ Hz. <br>On vérifie : $3000 < 5000$ ✅ → passe le filtre.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="q-card" id="q5" data-correct="A">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">5</span><span class="q-title">Pas de quantification</span></div>
+                <div class="q-text">Un CAN convertit un signal dans l'intervalle $[-5V, +5V]$ sur <strong>10 bits</strong>. Quel est le pas de quantification $q$ ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. $q \approx 9.77$ mV</li>
+                    <li data-val="B" onclick="selectOption(this)">B. $q \approx 4.88$ mV</li>
+                    <li data-val="C" onclick="selectOption(this)">C. $q \approx 19.5$ mV</li>
+                    <li data-val="D" onclick="selectOption(this)">D. $q \approx 39.1$ mV</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse A — 9.77 mV</div>
+                    <div class="detail">$q = \Delta V / 2^n = (5 - (-5)) / 2^{10} = 10/1024 = 0.009766$ V $\approx \boxed{9.77\text{ mV}}$. <br>Piège B : utiliser $5V$ au lieu de $10V$ pour la plage.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="q-card" id="q6" data-correct="C">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">6</span><span class="q-title">SNR de quantification</span></div>
+                <div class="q-text">Un signal sinusoïdal pleine échelle est quantifié sur <strong>12 bits</strong>. Quel est le SNR théorique de quantification ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. 50 dB</li>
+                    <li data-val="B" onclick="selectOption(this)">B. 62 dB</li>
+                    <li data-val="C" onclick="selectOption(this)">C. 74 dB</li>
+                    <li data-val="D" onclick="selectOption(this)">D. 86 dB</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse C — 74 dB</div>
+                    <div class="detail">Formule pour un signal sinusoïdal pleine échelle : <br>$SNR = 6.02n + 1.76 = 6.02 \times 12 + 1.76 = 72.24 + 1.76 = \boxed{74\text{ dB}}$.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="q-card" id="q7" data-correct="B">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">7</span><span class="q-title">Variation du SNR</span></div>
+                <div class="q-text">On passe d'une quantification sur <strong>12 bits à 8 bits</strong>. Comment évolue le SNR ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. Gain de 24 dB</li>
+                    <li data-val="B" onclick="selectOption(this)">B. Perte de 24 dB</li>
+                    <li data-val="C" onclick="selectOption(this)">C. Perte de 12 dB</li>
+                    <li data-val="D" onclick="selectOption(this)">D. Gain de 12 dB</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse B — Perte de 24 dB</div>
+                    <div class="detail">On perd 4 bits : $\Delta SNR = -4 \times 6.02 \approx \boxed{-24\text{ dB}}$. <br>Attention au sens ! 12 → 8 = on <b>diminue</b> → <b>perte</b>.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="q-card" id="q8" data-correct="A">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">8</span><span class="q-title">Sous-échantillonnage</span></div>
+                <div class="q-text">Un signal audio est échantillonné à $F_e = 48$ KHz. Le contenu utile est dans la bande $[0, 4\text{ KHz}]$. On veut sous-échantillonner par un facteur $M$. Quelle est la valeur maximale entière de $M$ ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. $M = 6$</li>
+                    <li data-val="B" onclick="selectOption(this)">B. $M = 12$</li>
+                    <li data-val="C" onclick="selectOption(this)">C. $M = 5$</li>
+                    <li data-val="D" onclick="selectOption(this)">D. $M = 8$</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse A — $M = 6$</div>
+                    <div class="detail">Après sous-échantillonnage : $F_e' = F_e/M$. Il faut $F_e'/2 \geq f_{max} = 4$ KHz → $F_e' \geq 8$ KHz. <br>$M \leq 48/8 = 6$ → $\boxed{M = 6}$. <br>B (12) donnerait $F_e' = 4$ KHz < $2 \times 4$ = 8 KHz → aliasing.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SECTION 2 — SPECTRAL ============ -->
+    <section id="spectral" class="q-section">
+        <div class="q-section-title">
+            <h2>📊 Analyse Spectrale &amp; Puissance</h2>
+            <span class="theme-tag" style="background:var(--c3-bg);color:var(--c3);border:1px solid var(--c3-bd)">Q9–Q12</span>
+        </div>
+
+        <!-- Q9 -->
+        <div class="q-card" id="q9" data-correct="D">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">9</span><span class="q-title">Puissance d'un signal sinusoïdal</span></div>
+                <div class="q-text">Soit $x(t) = 3\cos(2\pi \times 1000\,t) + 4\sin(2\pi \times 2000\,t)$. Quelle est la puissance moyenne de ce signal ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. $P = 25$ W</li>
+                    <li data-val="B" onclick="selectOption(this)">B. $P = 7$ W</li>
+                    <li data-val="C" onclick="selectOption(this)">C. $P = 5$ W</li>
+                    <li data-val="D" onclick="selectOption(this)">D. $P = 12.5$ W</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse D — 12.5 W</div>
+                    <div class="detail">Deux sinusoïdes de fréquences différentes → puissances s'additionnent. <br>$P = A_1^2/2 + A_2^2/2 = 9/2 + 16/2 = 4.5 + 8 = \boxed{12.5\text{ W}}$. <br>Piège A : $(3+4)^2/2 = 24.5$ ≠ 25 → on n'additionne pas les amplitudes !</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="q-card" id="q10" data-correct="B">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">10</span><span class="q-title">Conversion dBm</span></div>
+                <div class="q-text">Un signal a une puissance de <strong>0.5 mW</strong>. Exprimer cette puissance en dBm :</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. $+3$ dBm</li>
+                    <li data-val="B" onclick="selectOption(this)">B. $-3$ dBm</li>
+                    <li data-val="C" onclick="selectOption(this)">C. $-6$ dBm</li>
+                    <li data-val="D" onclick="selectOption(this)">D. $0$ dBm</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse B — −3 dBm</div>
+                    <div class="detail">$P_{dBm} = 10\log_{10}(P/1\text{mW}) = 10\log_{10}(0.5) = 10 \times (-0.301) = \boxed{-3\text{ dBm}}$. <br>Rappel : 0 dBm = 1 mW, moitié → −3 dB.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="q-card" id="q11" data-correct="C">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">11</span><span class="q-title">Résolution fréquentielle de la TFD</span></div>
+                <div class="q-text">On échantillonne un signal à $F_e = 16$ KHz et on calcule une TFD sur <strong>$N = 512$</strong> points. Quelle est la résolution fréquentielle $\Delta f$ ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. $\Delta f = 16$ Hz</li>
+                    <li data-val="B" onclick="selectOption(this)">B. $\Delta f = 64$ Hz</li>
+                    <li data-val="C" onclick="selectOption(this)">C. $\Delta f = 31.25$ Hz</li>
+                    <li data-val="D" onclick="selectOption(this)">D. $\Delta f = 62.5$ Hz</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse C — 31.25 Hz</div>
+                    <div class="detail">$\Delta f = F_e / N = 16\,000 / 512 = \boxed{31.25\text{ Hz}}$.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="q-card" id="q12" data-correct="A">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">12</span><span class="q-title">Encombrement spectral</span></div>
+                <div class="q-text">Un signal ECG (électrocardiogramme) a son contenu fréquentiel principalement dans la bande <strong>0.5 Hz à 100 Hz</strong>. On choisit $F_e = 500$ Hz. Quel est le rapport de sur-échantillonnage ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. $R = 2.5$</li>
+                    <li data-val="B" onclick="selectOption(this)">B. $R = 5$</li>
+                    <li data-val="C" onclick="selectOption(this)">C. $R = 500$</li>
+                    <li data-val="D" onclick="selectOption(this)">D. $R = 1$</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse A — $R = 2.5$</div>
+                    <div class="detail">$F_{Nyquist} = 2 \times f_{max} = 2 \times 100 = 200$ Hz. <br>$R = F_e / F_{Nyquist} = 500/200 = \boxed{2.5}$.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SECTION 3 — FILTRAGE ============ -->
+    <section id="filtrage" class="q-section">
+        <div class="q-section-title">
+            <h2>🔧 Filtrage Numérique</h2>
+            <span class="theme-tag" style="background:var(--c5-bg);color:var(--c5);border:1px solid var(--c5-bd)">Q13–Q17</span>
+        </div>
+
+        <!-- Q13 -->
+        <div class="q-card" id="q13" data-correct="D">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">13</span><span class="q-title">Type de filtre</span></div>
+                <div class="q-text">Soit le filtre numérique : $y_n = x_n + x_{n-1}$. Quel est le type de ce filtre ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. Passe-haut / Highpass</li>
+                    <li data-val="B" onclick="selectOption(this)">B. Passe-bande / Bandpass</li>
+                    <li data-val="C" onclick="selectOption(this)">C. Coupe-bande / Bandstop</li>
+                    <li data-val="D" onclick="selectOption(this)">D. Passe-bas / Lowpass</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse D — Passe-bas</div>
+                    <div class="detail">$H(z) = 1 + z^{-1}$. <br>En $f=0$ : $H(e^{j0}) = 1 + 1 = 2$ (gain max). <br>En $f = F_e/2$ : $H(e^{j\pi}) = 1 + (-1) = 0$ (zéro). <br>→ Laisse passer DC, bloque les hautes fréquences = <b>passe-bas</b>. <br>C'est le complémentaire de $y_n = x_n - x_{n-1}$ (passe-haut).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q14 -->
+        <div class="q-card" id="q14" data-correct="A">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">14</span><span class="q-title">Réponse d'un filtre FIR</span></div>
+                <div class="q-text">Soit le filtre $y(n) = x(n) - 2x(n-1) + x(n-2)$. On applique le signal d'entrée :<br>$x(0)=2,\; x(1)=1,\; x(n)=0$ pour $n \geq 2$ et $n &lt; 0$. Calculer $y(0)$, $y(1)$, $y(2)$, $y(3)$ :</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. $y(0)=2,\; y(1)=-3,\; y(2)=0,\; y(3)=1$</li>
+                    <li data-val="B" onclick="selectOption(this)">B. $y(0)=2,\; y(1)=-3,\; y(2)=3,\; y(3)=0$</li>
+                    <li data-val="C" onclick="selectOption(this)">C. $y(0)=2,\; y(1)=1,\; y(2)=-1,\; y(3)=0$</li>
+                    <li data-val="D" onclick="selectOption(this)">D. $y(0)=2,\; y(1)=-3,\; y(2)=0,\; y(3)=-1$</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse A</div>
+                    <div class="detail">
+                    $y(0) = x(0) - 2x(-1) + x(-2) = 2 - 0 + 0 = \mathbf{2}$<br>
+                    $y(1) = x(1) - 2x(0) + x(-1) = 1 - 4 + 0 = \mathbf{-3}$<br>
+                    $y(2) = x(2) - 2x(1) + x(0) = 0 - 2 + 2 = \mathbf{0}$<br>
+                    $y(3) = x(3) - 2x(2) + x(1) = 0 - 0 + 1 = \mathbf{1}$<br>
+                    $y(n \geq 4) = 0$.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q15 -->
+        <div class="q-card" id="q15" data-correct="C">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">15</span><span class="q-title">Module de la fonction de transfert</span></div>
+                <div class="q-text">Soit le filtre $y_n = 0.5\,x_n + 0.5\,x_{n-1}$ (moyenne mobile d'ordre 2). $F_e = 8$ KHz. Calculer $|H(f)|$ pour $f = 2000$ Hz :</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. $|H| = 1$</li>
+                    <li data-val="B" onclick="selectOption(this)">B. $|H| = 0.5$</li>
+                    <li data-val="C" onclick="selectOption(this)">C. $|H| \approx 0.707$</li>
+                    <li data-val="D" onclick="selectOption(this)">D. $|H| = 0$</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse C — $|H| \approx 0.707$</div>
+                    <div class="detail">$H(z) = 0.5 + 0.5z^{-1} = 0.5(1 + z^{-1})$. <br>$\omega = 2\pi f/F_e = 2\pi \times 2000/8000 = \pi/2$. <br>$H(e^{j\pi/2}) = 0.5(1 + e^{-j\pi/2}) = 0.5(1 + (-j)) = 0.5(1 - j)$. <br>$|H| = 0.5\sqrt{1^2 + 1^2} = 0.5\sqrt{2} \approx \boxed{0.707}$. <br>C'est le point à −3 dB (fréquence de coupure !).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q16 -->
+        <div class="q-card" id="q16" data-correct="A">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">16</span><span class="q-title">Conception de filtre passe-bande</span></div>
+                <div class="q-text">On veut détecter une fréquence <strong>$f_0 = 440$ Hz</strong> (le LA) dans un signal audio. Les fréquences voisines à rejeter sont <strong>415 Hz</strong> (SOL#) et <strong>466 Hz</strong> (SI♭). Les fréquences peuvent varier de ±1%. Quelles sont les fréquences de la bande passante du filtre ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. $f_{pass1} \approx 436$ Hz, $f_{pass2} \approx 444$ Hz</li>
+                    <li data-val="B" onclick="selectOption(this)">B. $f_{pass1} = 415$ Hz, $f_{pass2} = 466$ Hz</li>
+                    <li data-val="C" onclick="selectOption(this)">C. $f_{pass1} = 430$ Hz, $f_{pass2} = 450$ Hz</li>
+                    <li data-val="D" onclick="selectOption(this)">D. $f_{pass1} = 440$ Hz, $f_{pass2} = 440$ Hz</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse A</div>
+                    <div class="detail">$f_0 = 440$ Hz ±1% → $[440 \times 0.99, 440 \times 1.01] = [435.6, 444.4]$ Hz. <br>$f_{pass1} \approx 436$ Hz, $f_{pass2} \approx 444$ Hz. <br>B inclut les notes voisines (trop large). C arbitraire. D → bande de largeur 0 (impossible).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q17 -->
+        <div class="q-card" id="q17" data-correct="C">
+            <div class="q-body-wrap">
+                <div class="q-header"><span class="q-num">17</span><span class="q-title">Chaîne de décimation</span></div>
+                <div class="q-text">Un signal est échantillonné à $F_e = 32$ KHz avec un contenu utile dans $[0, 2\text{ KHz}]$. On veut décimer par un facteur $M = 4$. Quelle est la bonne chaîne de traitement ?</div>
+                <ul class="q-options">
+                    <li data-val="A" onclick="selectOption(this)">A. Décimer par 4 puis filtrer passe-bas à $f_c = 4$ KHz</li>
+                    <li data-val="B" onclick="selectOption(this)">B. Filtrer passe-bas à $f_c = 8$ KHz puis décimer par 4</li>
+                    <li data-val="C" onclick="selectOption(this)">C. Filtrer passe-bas à $f_c = 4$ KHz puis décimer par 4</li>
+                    <li data-val="D" onclick="selectOption(this)">D. Décimer par 4 directement (pas besoin de filtre)</li>
+                </ul>
+                <button class="q-validate" onclick="validateQuestion(this)">Valider</button>
+                <div class="q-explain">
+                    <div class="answer-line">✅ Réponse C</div>
+                    <div class="detail">Après décimation : $F_e' = 32/4 = 8$ KHz → Nyquist = $4$ KHz. <br>Il faut filtrer <b>AVANT</b> la décimation avec $f_c = F_e'/2 = 4$ KHz pour éviter le repliement. <br>A : filtre après = trop tard, aliasing déjà présent. <br>B : $f_c = 8$ KHz > 4 KHz → aliasing résiduel. <br>D : sans filtre → aliasing total.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- SCORE BAR -->
+    <div class="score-bar" id="scoreBar">
+        <span>📊 Score :</span>
+        <span class="s-good" id="sGood">✅ 0</span>
+        <span class="s-bad" id="sBad">❌ 0</span>
+        <span class="s-skip" id="sSkip">⬜ 17 restantes</span>
+        <span class="s-total" id="sTotal">0/17</span>
+    </div>
+
+    <footer>
+        <p><b>ISEP 2025-2026</b> — Examen II — Entraînement — APP Signal</p>
+        <p style="margin-top:8px">
+            <a href="examen.html" style="color:var(--c1);font-weight:700;text-decoration:none">📝 Examen I (réel)</a> &nbsp;•&nbsp;
+            <a href="index.html" style="color:var(--c1);font-weight:700;text-decoration:none">← Retour aux révisions</a>
+        </p>
+    </footer>
+
+    <script>
+    let good = 0, bad = 0, total = 17;
+
+    function selectOption(li) {
+        const card = li.closest('.q-card');
+        if (card.classList.contains('answered')) return;
+        card.querySelectorAll('.q-options li').forEach(l => l.classList.remove('selected'));
+        li.classList.add('selected');
+    }
+
+    function validateQuestion(btn) {
+        const card = btn.closest('.q-card');
+        if (card.classList.contains('answered')) return;
+        const selected = card.querySelector('.q-options li.selected');
+        if (!selected) { alert('Sélectionne une réponse !'); return; }
+
+        card.classList.add('answered');
+        btn.disabled = true;
+        const correct = card.dataset.correct;
+        const chosen = selected.dataset.val;
+
+        if (chosen === correct) {
+            good++;
+            selected.classList.add('correct-reveal');
+        } else {
+            bad++;
+            selected.classList.add('wrong-reveal');
+            card.querySelectorAll('.q-options li').forEach(li => {
+                if (li.dataset.val === correct) li.classList.add('correct-reveal');
+            });
+        }
+        updateScore();
+    }
+
+    function updateScore() {
+        const answered = good + bad;
+        const remaining = total - answered;
+        document.getElementById('sGood').textContent = '✅ ' + good;
+        document.getElementById('sBad').textContent = '❌ ' + bad;
+        document.getElementById('sSkip').textContent = '⬜ ' + remaining + ' restante' + (remaining > 1 ? 's' : '');
+        document.getElementById('sTotal').textContent = good + '/' + total;
+        document.getElementById('scoreDisplay').textContent = good + '/' + total;
+    }
+
+    // Scroll spy
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+    });
+    // Progress bar
+    window.addEventListener('scroll', () => {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        document.getElementById('progressBar').style.width = (window.scrollY / h * 100) + '%';
+    });
+    </script>
+</body>
+</html>
